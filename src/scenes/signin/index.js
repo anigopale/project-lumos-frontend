@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import { Grid, Form, Segment, Menu, Button } from 'semantic-ui-react';
 
 export default class Signin extends Component {
-  state={ selected: 'login' };
+  state = { login: true };
+
+  selectLogin() {
+    this.setState({ login: true })
+  }
+  selectSignup() {
+    this.setState({ login: false })
+  }
 
   renderForm() {
-    if(this.state.selected === 'login') {
+    if(this.state.login) {
       return (
         <div>
           <Form.Input
@@ -62,17 +69,17 @@ export default class Signin extends Component {
           >
           <Grid.Column style={{ maxWidth: 450 }}>
             <Form size='large'>
-              <Segment basic style={{ minHeight: 400 }}>
-                <Menu fluid widths={2} inverted secondary pointing>
+              <Segment raised style={{ minHeight: 400 }}>
+                <Menu fluid widths={2} secondary pointing>
                   <Menu.Item
-                    onClick={()=>this.setState({ selected: 'login'})}
-                    active={ this.state.selected === 'login'}
+                    onClick={this.selectLogin.bind(this)}
+                    active={this.state.login}
                     >
                     Log in
                   </Menu.Item>
                   <Menu.Item
-                    onClick={()=>this.setState({ selected: 'signup'})}
-                    active={ this.state.selected === 'signup'}
+                    onClick={this.selectSignup.bind(this)}
+                    active={!this.state.login}
                     >
                     Sign up
                   </Menu.Item>

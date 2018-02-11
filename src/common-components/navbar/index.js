@@ -15,10 +15,10 @@ export default class NavBar extends Component {
           </Menu.Item>
           <Menu.Item
             onClick={()=>{}}
+            as={Link}
+            to='/'
             >
-            <Link to='/'>
-              Home
-            </Link>
+            Home
           </Menu.Item>
           <Menu.Item
             >
@@ -27,10 +27,10 @@ export default class NavBar extends Component {
           <Menu.Item
             onClick={()=>{}}
             position='right'
+            as={Link}
+            to='/signin'
             >
-            <Link to='/signin'>
-              Sign in
-            </Link>
+            Sign in
           </Menu.Item>
         </Menu>
       </Segment>

@@ -54,21 +54,35 @@ export default class Signin extends Component {
 
   render() {
     return (
-      <div>
-        <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh' }}>
+      <Segment basic inverted color='teal'>
+        <Grid
+          textAlign='center'
+          verticalAlign='middle'
+          style={{ height: '100vh' }}
+          >
           <Grid.Column style={{ maxWidth: 450 }}>
             <Form size='large'>
               <Segment basic style={{ minHeight: 400 }}>
-                <Menu secondary>
-                  <Menu.Item onClick={()=>this.setState({ selected: 'login'})}>Log in</Menu.Item>
-                  <Menu.Item onClick={()=>this.setState({ selected: 'signup'})}>Sign up</Menu.Item>
+                <Menu fluid widths={2} inverted secondary pointing>
+                  <Menu.Item
+                    onClick={()=>this.setState({ selected: 'login'})}
+                    active={ this.state.selected === 'login'}
+                    >
+                    Log in
+                  </Menu.Item>
+                  <Menu.Item
+                    onClick={()=>this.setState({ selected: 'signup'})}
+                    active={ this.state.selected === 'signup'}
+                    >
+                    Sign up
+                  </Menu.Item>
                 </Menu>
                 {this.renderForm()}
               </Segment>
             </Form>
           </Grid.Column>
         </Grid>
-      </div>
+      </Segment>
     )
   }
 }

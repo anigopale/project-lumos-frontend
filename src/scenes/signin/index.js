@@ -4,12 +4,13 @@ import { Grid, Form, Segment, Menu, Button } from 'semantic-ui-react';
 export default class Signin extends Component {
   state = { login: true };
 
-  selectLogin() {
+  selectLogin = () => {
     this.setState({ login: true })
   }
-  selectSignup() {
+  selectSignup = () => {
     this.setState({ login: false })
   }
+
 
   renderForm() {
     if(this.state.login) {
@@ -72,13 +73,13 @@ export default class Signin extends Component {
               <Segment raised style={{ minHeight: 400 }}>
                 <Menu fluid widths={2} secondary pointing>
                   <Menu.Item
-                    onClick={this.selectLogin.bind(this)}
+                    onClick={this.selectLogin}
                     active={this.state.login}
                     >
                     Log in
                   </Menu.Item>
                   <Menu.Item
-                    onClick={this.selectSignup.bind(this)}
+                    onClick={this.selectSignup}
                     active={!this.state.login}
                     >
                     Sign up

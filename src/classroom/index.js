@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Input, Icon, Segment, Button, Container } from 'semantic-ui-react';
 import { fetchResource } from './actions';
+import Video from './components/video';
 
 class Classroom extends Component {
 
@@ -15,8 +16,10 @@ class Classroom extends Component {
 
   renderBody() {
     if(this.props.resource.id) {
-      if(this.props.resource.type === 'playlist' || this.props.resource.type === 'video') {
-        return <div>video/playlist</div>
+      if(this.props.resource.type === 'video') {
+        return (
+          <Video url={this.props.resource.url} />
+        )
       }
       return (
         <a href={this.props.resource.url}>

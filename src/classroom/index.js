@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Input, Icon, Segment, Button, Container } from 'semantic-ui-react';
 import { fetchResource } from './actions';
-import Video from './components/video';
+import VideoResource from './components/video-resource';
 import Playlist from './components/playlist';
 
 class Classroom extends Component {
@@ -18,7 +18,7 @@ class Classroom extends Component {
   renderBody() {
     if(this.props.resource.id) {
       if(this.props.resource.type === 'video') {
-        return <Video url={this.props.resource.url} />
+        return <VideoResource url={this.props.resource.url} />
       }
       if(this.props.resource.type === 'playlist') {
         return <Playlist url={this.props.resource.url} />

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 import Video from './video';
+import List from './list';
 import { fetchPlaylist } from '../actions';
 
 class Playlist extends Component {
@@ -13,7 +15,11 @@ class Playlist extends Component {
   render() {
     return (
       <div>
-
+        <Route path='/classroom/:resource_id/:page_token' component={List} />
+        <Route
+          path='/classroom/:resource_id/:page_token/:video_id'
+          component={Video}
+          />
       </div>
     )
   }

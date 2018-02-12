@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Grid, Input, Icon, Segment, Button, Container } from 'semantic-ui-react';
 import { fetchResource } from './actions';
 
 class Classroom extends Component {
@@ -11,25 +12,43 @@ class Classroom extends Component {
     this.props.fetchResource(this.props.match.params.resource_id);
   }
 
-  renderClass() {
-    if(!this.props.resource.id) {
-      return <h1>loading</h1>
+
+  renderBody() {
+    if(this.props.resource.id) {
+      if(this.props.resource.type === 'playlist' || this.props.resource.type === 'video') {
+        return <div>video/playlist</div>
+      }
+      return (
+        <a href={this.props.resource.url}>
+          <Button size='massive'>Click here</Button>
+        </a>
+      )
     }
-    return (
-      <div>
-        <h1>{this.props.resource.title}</h1>
-        <h1>{this.props.resource.description}</h1>
-        <a href={this.props.resource.url}>click here</a>
-      </div>
-    )
+    return <h1>Loading...</h1>
   }
 
 
   render() {
     return (
-      <div>
-        {this.renderClass()}
-      </div>
+      <Container>
+        <Grid>
+          <Grid.Column width={12}>
+            <Segment>
+              {this.renderBody()}
+              <h1>{this.props.resource.title}</h1>
+              <p>{this.props.resource.description}</p>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <Segment basic>
+              <Input icon='wikipedia' fluid />
+            </Segment>
+            <Segment basic>
+              <Input icon='wikipedia' fluid />
+            </Segment>
+          </Grid.Column>
+        </Grid>
+      </Container>
     )
   }
 }

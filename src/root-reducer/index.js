@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import resource from '../classroom/reducers/resource-reducer';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  resource
 });
 
 export default rootReducer;

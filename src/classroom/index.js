@@ -21,7 +21,7 @@ class Classroom extends Component {
         return <VideoResource url={this.props.resource.url} />
       }
       if(this.props.resource.type === 'playlist') {
-        return <Playlist url={this.props.resource.url} />
+        return <Playlist url={this.props.resource.url} {...this.props} />
       }
       return (
         <a href={this.props.resource.url}>

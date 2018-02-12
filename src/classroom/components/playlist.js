@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 import Video from './video';
 import List from './list';
 import { fetchPlaylist } from '../actions';
@@ -15,6 +16,9 @@ class Playlist extends Component {
   render() {
     return (
       <div>
+        <Link to={`/classroom/${this.props.match.params.resource_id}/0/0`}>
+          <Button>Start</Button>
+        </Link>
         <Route path='/classroom/:resource_id/:page_token' component={List} />
         <Route
           path='/classroom/:resource_id/:page_token/:video_id'

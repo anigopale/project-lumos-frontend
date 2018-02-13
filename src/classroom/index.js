@@ -17,14 +17,15 @@ class Classroom extends Component {
 
   renderBody() {
     if(this.props.resource.id) {
-      if(this.props.resource.type === 'video') {
-        return <VideoResource url={this.props.resource.url} />
+      if(this.props.resource.video_id) {
+        if(this.props.resource.video_id.includes('list=')) {
+          return <Playlist url={this.props.resource.video_id} {...this.props} />
+        }
+        return <VideoResource url={this.props.resource.video_id} />
       }
-      if(this.props.resource.type === 'playlist') {
-        return <Playlist url={this.props.resource.url} {...this.props} />
-      }
+
       return (
-        <a href={this.props.resource.url}>
+        <a href={this.props.resource.link_url}>
           <Button size='massive'>Click here</Button>
         </a>
       )
@@ -41,7 +42,6 @@ class Classroom extends Component {
             <Segment basic>
               {this.renderBody()}
               <h1>{this.props.resource.title}</h1>
-              <p>{this.props.resource.description}</p>
             </Segment>
           </Grid.Column>
           <Grid.Column width={4}>

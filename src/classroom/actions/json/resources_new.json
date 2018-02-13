@@ -1,0 +1,25 @@
+{
+  "nextPageToken": "token",
+  "items": [
+    {
+    	"id": "resource1",
+      "title": "python tutorial",
+    	"_multi_language": "",
+    	"video_id": "https://www.youtube.com/watch?v=N4mEzFDjqtA"
+    },
+    {
+    	"id": "resource2",
+      "title": "python playlist",
+    	"_multi_language": "",
+    	"video_id": "https://www.youtube.com/watch?v=HBxCHonP6Ro&list=PL6gx4Cwl9DGAcbMi1sH6oAMk4JHw91mC_"
+    },
+    {
+    	"id": "resource3",
+    	"title": "redux",
+    	"_multi_language": "",
+    	"link_url": "https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367",
+    	"external_type": "co",
+    	"paid": false
+    }
+  ]
+}

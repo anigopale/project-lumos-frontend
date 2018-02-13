@@ -18,10 +18,10 @@ class Playlist extends Component {
     return (
       <div>
         <Grid>
-          <Grid.Column width={4}>
+          <Grid.Column width={5}>
             <Route path='/classroom/:resource_id/:playlist_id/:page_token/:video_id' component={List} />
           </Grid.Column>
-          <Grid.Column width={12}>
+          <Grid.Column width={11}>
             <Route
               path='/classroom/:resource_id/:playlist_id/:page_token/:video_id'
               component={Video}

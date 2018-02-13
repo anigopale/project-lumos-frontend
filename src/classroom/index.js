@@ -35,10 +35,10 @@ class Classroom extends Component {
 
   render() {
     return (
-      <Container>
+      <Container fluid>
         <Grid>
           <Grid.Column width={12}>
-            <Segment>
+            <Segment basic>
               {this.renderBody()}
               <h1>{this.props.resource.title}</h1>
               <p>{this.props.resource.description}</p>

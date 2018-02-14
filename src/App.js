@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import Home from './scenes/home';
 import Signin from './scenes/signin';
+import Technical from './scenes/technical';
+import './App.css'
 
 class App extends Component {
   render() {
@@ -9,6 +11,7 @@ class App extends Component {
       <div>
         <HashRouter>
           <Switch>
+            <Route path='/technical' component={Technical} />
             <Route path='/signin' component={Signin} />
             <Route path='/' component={Home} />
           </Switch>

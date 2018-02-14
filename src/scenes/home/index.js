@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Nav from '../../common-components/navbar';
+import { Link } from 'react-router-dom';
 import { Card, Container, Header, Segment, Grid, Button } from 'semantic-ui-react';
 
 export default class Home extends Component {
@@ -46,7 +47,9 @@ export default class Home extends Component {
                   </Card.Description>
                   <Card.Content extra>
                     <div>
-                      <Button floated='right' basic color='teal'>Select</Button>
+                      <Link to ='/technical'>
+                        <Button floated='right' basic color='teal'>Select</Button>
+                      </Link>
                     </div>
                   </Card.Content>
                 </Card.Content>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Segment, Grid, Header, Button, Divider } from 'semantic-ui-react';
+import { Container, Segment, Grid, Header, Button, Divider, Card } from 'semantic-ui-react';
 import NavBar from '../../common-components/navbar';
 
 export default class Technical extends Component {
@@ -15,30 +15,37 @@ export default class Technical extends Component {
             <Divider hidden />
             <Header size='big'>Choose a Category</Header>
             <Divider hidden />
-            <Grid columns={2} stackable>
+            <Grid columns={2} stackable relaxed>
               <Grid.Row>
                 <Grid.Column>
-                  <Segment size='huge' raised>
-                  <Header>Domain</Header>
-                  <p>..meta.. description</p>
-                    <Link to='/technical/domain'>
-                      <Button basic fluid color='teal'>
-                        Select
-                      </Button>
-                    </Link>
-                    </Segment>
+
+                  <Link to='/technical/domain'>
+                    <Card fluid>
+                      <Card.Content>
+                        <Card.Header>
+                          Domain
+                        </Card.Header>
+                        <Card.Description>
+                          Browse courses by domain
+                        </Card.Description>
+                      </Card.Content>
+                    </Card>
+                  </Link>
                 </Grid.Column>
 
                 <Grid.Column>
-                  <Segment size='huge' raised>
-                  <Header>Language</Header>
-                  <p>..meta.. description</p>
-                    <Link to='/technical/language'>
-                      <Button basic fluid color='teal'>
-                        Select
-                      </Button>
-                    </Link>
-                    </Segment>
+                  <Link to='/technical/language'>
+                    <Card fluid>
+                      <Card.Content>
+                        <Card.Header>
+                          Language
+                        </Card.Header>
+                        <Card.Description>
+                          Browse courses by language
+                        </Card.Description>
+                      </Card.Content>
+                    </Card>
+                  </Link>
                 </Grid.Column>
               </Grid.Row>
 

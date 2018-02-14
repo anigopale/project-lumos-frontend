@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Nav from '../../common-components/navbar';
 import { Link } from 'react-router-dom';
-import { Card, Container, Header, Segment, Grid, Button } from 'semantic-ui-react';
+import { Card, Container, Header, Segment, Grid, Button, Divider } from 'semantic-ui-react';
 
 export default class Home extends Component {
   render() {
@@ -12,7 +12,7 @@ export default class Home extends Component {
           <Grid
             textAlign='center'
             verticalAlign='middle'
-            style={{ height: '100vh' }}
+            style={{ height: '35em' }}
             >
             <Grid.Column color='teal'>
               <Segment basic size='massive'>
@@ -29,10 +29,11 @@ export default class Home extends Component {
 
 
         <Container>
+          <Divider hidden />
           <Header as='h1'>
             Choose a path
           </Header>
-
+          <Divider hidden />
           <Grid columns={2} stackable>
             <Grid.Column>
 
@@ -42,7 +43,7 @@ export default class Home extends Component {
                     Technical Skills
                   </Card.Header>
                   <Card.Description>
-                    Description:Z
+                    Description:
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </Card.Description>
                   <Card.Content extra>

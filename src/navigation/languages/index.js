@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchLanguages } from './actions';
 
-export default class Languages extends Component {
+class Languages extends Component {
+  componentDidMount() {
+    this.props.fetchLanguages();
+  }
+
   render() {
     return (
       <div>
@@ -9,3 +15,5 @@ export default class Languages extends Component {
     )
   }
 }
+
+export default connect(null, { fetchLanguages })(Languages);

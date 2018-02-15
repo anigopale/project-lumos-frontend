@@ -5,6 +5,7 @@ import Signin from './scenes/signin';
 import Technical from './scenes/technical';
 import DomainPage from './scenes/domain-page';
 import LanguagePage from './scenes/language-page';
+import CoursesPage from './scenes/courses';
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
       <div>
         <HashRouter>
           <Switch>
+            <Route path='/courses' component={CoursesPage} />
             <Route path='/technical/language' component={LanguagePage} />
             <Route path='/technical/domain' component={DomainPage} />
             <Route path='/technical' component={Technical} />

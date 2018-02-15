@@ -1,5 +1,7 @@
 {
-  "page_token": "1",
+  "page_token": "2",
+  "next_page": "3",
+  "previous_page": "1",
   "items": [
     {
       "id": 1,

@@ -12,7 +12,7 @@ class Domains extends Component {
     return this.props.domains.map((domain) => {
       return (
         <Grid.Column>
-          <Segment textAlign='center' size='massive' color='teal' inverted padded>
+          <Segment textAlign='center' size='massive' color='teal' inverted padded basic>
             {domain.domain_name}
           </Segment>
         </Grid.Column>

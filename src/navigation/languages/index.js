@@ -13,7 +13,16 @@ class Languages extends Component {
     return this.props.languages.map((language) => {
       return (
         <Grid.Column>
-          <Segment textAlign='center' size='massive' color='teal' inverted padded basic>
+          <Segment
+            textAlign='center'
+            size='massive'
+            color='teal'
+            inverted
+            padded
+            basic
+            as={Link}
+            to={`/courses/${language.slug}/0`}
+            >
             {language.language_name}
           </Segment>
         </Grid.Column>

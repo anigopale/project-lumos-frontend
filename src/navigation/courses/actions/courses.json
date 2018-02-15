@@ -1,0 +1,63 @@
+{
+  "page_token": "1",
+  "items": [
+    {
+      "id": 1,
+      "title": "Getting started with python",
+      "description": "we will now get started with python",
+      "slug": "getting-started-with-python",
+      "languages": [
+        {
+          "language_name": "python",
+          "slug": "python"
+        },
+        {
+          "language_name": "JavaScript",
+          "slug": "javascript"
+        }
+      ],
+      "domains": [
+        {
+          "domain_name": "Web Development",
+          "slug": "web-development"
+        },
+        {
+          "domain_name": "Android",
+          "slug": "android"
+        }
+      ],
+      "skill_level": "BG",
+      "video_id": "https://www.youtube.com/watch?v=41qgdwd3zAg&list=PLS1QulWo1RIaJECMeUT4LFwJ-ghgoSH6n"
+    },
+    {
+      "id": 1,
+      "title": "Getting started with python",
+      "description": "we will now get started with python",
+      "slug": "getting-started-with-python",
+      "languages": [
+        {
+          "language_name": "python",
+          "slug": "python"
+        },
+        {
+          "language_name": "JavaScript",
+          "slug": "javascript"
+        }
+      ],
+      "domains": [
+        {
+          "domain_name": "Web Development",
+          "slug": "web-development"
+        },
+        {
+          "domain_name": "Android",
+          "slug": "android"
+        }
+      ],
+      "skill_level": "BG",
+      "link_url": "https://www.tutorialspoint.com/python/index.htm",
+      "external_type": "TU",
+      "paid": false
+    }
+  ]
+}

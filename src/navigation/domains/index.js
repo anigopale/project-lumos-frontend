@@ -12,7 +12,16 @@ class Domains extends Component {
     return this.props.domains.map((domain) => {
       return (
         <Grid.Column>
-          <Segment textAlign='center' size='massive' color='teal' inverted padded basic>
+          <Segment
+            textAlign='center'
+            size='massive'
+            color='teal'
+            inverted
+            padded
+            basic
+            as={Link}
+            to={`/courses/${domain.slug}/0`}
+            >
             {domain.domain_name}
           </Segment>
         </Grid.Column>
@@ -31,7 +40,7 @@ class Domains extends Component {
               Domain
             </Header>
             <Divider />
-            <Grid columns={3} stretched stackable>
+            <Grid columns={3} stretched>
               {this.renderDomains()}
             </Grid>
           </Segment>

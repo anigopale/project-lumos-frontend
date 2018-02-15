@@ -12,7 +12,7 @@ export default class Home extends Component {
           <Grid
             textAlign='center'
             verticalAlign='middle'
-            style={{ height: '35em' }}
+            style={{ height: '30em' }}
             >
             <Grid.Column color='teal'>
               <Segment basic size='massive'>

@@ -32,11 +32,21 @@ class List extends Component {
       return <div></div>
     }
     return this.props.playlist.videos.map(video => {
-      let { resource_id, page_token, playlist_id } = this.props.match.params;
+      let { resource_id, page_token, playlist_id, video_id } = this.props.match.params;
+      if(video.contentDetails.videoId === video_id) {
+        return (
+          <Item as={Link} to={`/classroom/${resource_id}/${playlist_id}/${page_token}/${video.contentDetails.videoId}`}>
+              <Item.Image size='tiny' src={video.snippet.thumbnails.high.url} />
+              <Item.Content verticalAlign='top'>
+                <Header sub style={{ color: 'teal'}}>{video.snippet.title}</Header>
+              </Item.Content>
+            </Item>
+        )
+      }
       return (
           <Item as={Link} to={`/classroom/${resource_id}/${playlist_id}/${page_token}/${video.contentDetails.videoId}`}>
             <Item.Image size='tiny' src={video.snippet.thumbnails.high.url} />
-            <Item.Content verticalAlign='middle'>
+            <Item.Content verticalAlign='top'>
               <Header sub>{video.snippet.title}</Header>
             </Item.Content>
           </Item>
@@ -76,7 +86,7 @@ class List extends Component {
       <div>
         <Segment basic>
           {this.renderPaginationButtons()}
-          <Item.Group divided>
+          <Item.Group divided unstackable>
             {this.renderList()}
           </Item.Group>
         </Segment>

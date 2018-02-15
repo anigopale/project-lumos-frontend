@@ -7,20 +7,20 @@ import List from './list';
 import { fetchPlaylist } from '../actions';
 
 class Playlist extends Component {
-  state = { playlist_id: "" };
+
 
   componentDidMount() {
-    let playlist_id = this.props.url.split('list=')[1];
-    this.setState({ playlist_id });
+
   }
   renderStartButton() {
     let { resource_id } = this.props.match.params;
+    let playlist_id = this.props.resource.video_id.split('list=')[1];
     if(this.props.location.pathname === `/classroom/${resource_id}/`
       || this.props.location.pathname === `/classroom/${resource_id}`) {
       return (
         <div>
           <p>{this.props.resource.description}</p>
-            <Link to={`/classroom/${this.props.match.params.resource_id}/${this.state.playlist_id}/0/0`}>
+            <Link to={`/classroom/${this.props.match.params.resource_id}/${playlist_id}/0/0`}>
               <Button fluid>Start Course</Button>
             </Link>
         </div>
@@ -32,7 +32,7 @@ class Playlist extends Component {
   render() {
     return (
       <div>
-        <Grid stackable celled='internally'>
+        <Grid celled='internally' stackable>
           <Grid.Column width={4}>
             <Route path='/classroom/:resource_id/:playlist_id/:page_token/:video_id' component={List} />
           </Grid.Column>

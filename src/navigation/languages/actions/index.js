@@ -4,8 +4,9 @@ export const FETCH_LANGUAGES = 'fetch-languages';
 
 export function fetchLanguages() {
   return function(dispatch) {
-    languages.items.map((language) => {
-      console.log(language);
+    dispatch({
+      type: FETCH_LANGUAGES,
+      payload: languages.items
     })
   }
 }

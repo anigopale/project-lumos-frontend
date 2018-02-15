@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import domains from '../scenes/domain-page/components/domains/reducers/domain-reducer';
+import domains from '../navigation/domains/reducers/domain-reducer';
+import languages from '../navigation/languages/reducers/language-reducer';
 
 const rootReducer = combineReducers({
-  domains
+  domains,
+  languages
 });
 
 export default rootReducer;

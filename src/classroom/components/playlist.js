@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
-import { Button, Grid, Segment } from 'semantic-ui-react';
+import { Button, Grid, Segment, Input } from 'semantic-ui-react';
 import Video from './video';
 import List from './list';
 import { fetchPlaylist } from '../actions';
@@ -18,9 +18,12 @@ class Playlist extends Component {
     if(this.props.location.pathname === `/classroom/${resource_id}/`
       || this.props.location.pathname === `/classroom/${resource_id}`) {
       return (
-        <Link to={`/classroom/${this.props.match.params.resource_id}/${this.state.playlist_id}/0/0`}>
-          <Button fluid>Start</Button>
-        </Link>
+        <div>
+          <p>{this.props.resource.description}</p>
+            <Link to={`/classroom/${this.props.match.params.resource_id}/${this.state.playlist_id}/0/0`}>
+              <Button fluid>Start Course</Button>
+            </Link>
+        </div>
       )
     }
 
@@ -44,6 +47,12 @@ class Playlist extends Component {
           </Grid.Column>
 
           <Grid.Column width={4}>
+            <Segment basic>
+              <Input icon='wikipedia' fluid />
+            </Segment>
+            <Segment basic>
+              <Input icon='wikipedia' fluid />
+            </Segment>
           </Grid.Column>
         </Grid>
 

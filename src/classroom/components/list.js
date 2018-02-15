@@ -53,6 +53,7 @@ class List extends Component {
             color='teal'
             as={Link}
             to={`/classroom/${this.props.match.params.resource_id}/${this.props.match.params.playlist_id}/${this.props.playlist.previous_page}/${this.props.match.params.video_id}`}
+            disabled={this.props.playlist.previous_page === '0'}
             >
             prev
           </Button>
@@ -61,6 +62,7 @@ class List extends Component {
             color='teal'
             as={Link}
             to={`/classroom/${this.props.match.params.resource_id}/${this.props.match.params.playlist_id}/${this.props.playlist.next_page}/${this.props.match.params.video_id}`}
+            disabled={this.props.playlist.next_page === '0'}
             >
             next
           </Button>

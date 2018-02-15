@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Input, Icon, Segment, Button, Container, Divider } from 'semantic-ui-react';
+import { Segment, Button, Container, Divider } from 'semantic-ui-react';
 import { fetchResource } from './actions';
 import VideoResource from './components/video-resource';
 import Playlist from './components/playlist';

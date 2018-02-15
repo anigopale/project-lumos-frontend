@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Embed, Grid } from 'semantic-ui-react';
+import { Embed, Grid, Input, Segment } from 'semantic-ui-react';
 
 class VideoResource extends Component {
   state = { video_id: "" }
@@ -21,7 +21,14 @@ class VideoResource extends Component {
             />
           <h1>{this.props.resource.title}</h1>
         </Grid.Column>
-        <Grid.Column></Grid.Column>
+        <Grid.Column>
+          <Segment basic>
+            <Input icon='wikipedia' fluid />
+          </Segment>
+          <Segment basic>
+            <Input icon='wikipedia' fluid />
+          </Segment>
+        </Grid.Column>
     </Grid>
     )
   }

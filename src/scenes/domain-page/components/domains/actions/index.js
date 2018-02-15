@@ -1,9 +1,12 @@
 import domains from './domain.json';
 
+export const FETCH_DOMAINS = 'fetch-domains';
+
 export function fetchDomains() {
   return function(dispatch) {
-    domains.items.map(domain => {
-      console.log(domain);
+    dispatch({
+      type: FETCH_DOMAINS,
+      payload: domains.items
     })
   }
 }

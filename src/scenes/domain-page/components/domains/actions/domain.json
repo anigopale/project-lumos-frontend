@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "domain_name": "Web development",
+      "slug": "web-development"
+    },
+    {
+      "id": 2,
+      "domain_name": "Data Science",
+      "slug": "data-science"
+    },
+    {
+      "id": 3,
+      "domain_name": "Cyber security",
+      "slug": "cyber-securiy"
+    },
+    {
+      "id": 4,
+      "domain_name": "App Development",
+      "slug": "app-development"
+    },
+    {
+      "id": 5,
+      "domain_name": "Algorithms and data structures",
+      "slug": "algorithms"
+    },
+    {
+      "id": 6,
+      "domain_name": "Artificial intelligence",
+      "slug": "artificial-intelligence"
+    },
+    {
+      "id": 7,
+      "domain_name": "Databases",
+      "slug": "databases"
+    },
+    {
+      "id": 8,
+      "domain_name": "Software development",
+      "slug": "software-development"
+    }
+  ]
+}

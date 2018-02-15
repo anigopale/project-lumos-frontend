@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Container, Segment } from 'semantic-ui-react';
+import { fetchDomains } from './actions';
 
-export default class Domains extends Component {
+class Domains extends Component {
   componentDidMount() {
-    
+    this.props.fetchDomains();
   }
 
   render() {
@@ -18,3 +20,5 @@ export default class Domains extends Component {
     )
   }
 }
+
+export default connect(null, { fetchDomains })(Domains);

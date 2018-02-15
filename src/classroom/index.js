@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Input, Icon, Segment, Button, Container } from 'semantic-ui-react';
+import { Grid, Input, Icon, Segment, Button, Container, Divider } from 'semantic-ui-react';
 import { fetchResource } from './actions';
 import VideoResource from './components/video-resource';
 import Playlist from './components/playlist';
@@ -21,13 +21,20 @@ class Classroom extends Component {
         if(this.props.resource.video_id.includes('list=')) {
           return <Playlist url={this.props.resource.video_id} {...this.props} />
         }
-        return <VideoResource url={this.props.resource.video_id} />
+        return (
+          <div>
+            <VideoResource url={this.props.resource.video_id} />
+          </div>
+        )
       }
 
       return (
-        <a href={this.props.resource.link_url}>
-          <Button size='massive'>Click here</Button>
-        </a>
+        <div>
+          <a href={this.props.resource.link_url}>
+            <Button size='massive'>Click here</Button>
+          </a>
+          <h1>{this.props.resource.title}</h1>
+        </div>
       )
     }
     return <h1>Loading...</h1>
@@ -37,22 +44,10 @@ class Classroom extends Component {
   render() {
     return (
       <Container fluid>
-        <Grid>
-          <Grid.Column width={12}>
-            <Segment basic>
-              {this.renderBody()}
-              <h1>{this.props.resource.title}</h1>
-            </Segment>
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <Segment basic>
-              <Input icon='wikipedia' fluid />
-            </Segment>
-            <Segment basic>
-              <Input icon='wikipedia' fluid />
-            </Segment>
-          </Grid.Column>
-        </Grid>
+        <Divider hidden />
+          <Segment basic>
+            {this.renderBody()}
+          </Segment>
       </Container>
     )
   }

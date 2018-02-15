@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Button } from 'semantic-ui-react';
+import { Segment, Button, Item, Header, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchPlaylist } from '../actions';
 
@@ -34,12 +34,12 @@ class List extends Component {
     return this.props.playlist.videos.map(video => {
       let { resource_id, page_token, playlist_id } = this.props.match.params;
       return (
-        <Link to={`/classroom/${resource_id}/${playlist_id}/${page_token}/${video.contentDetails.videoId}`}>
-          <Segment>
-            {video.snippet.title}
-          </Segment>
-        </Link>
-
+          <Item as={Link} to={`/classroom/${resource_id}/${playlist_id}/${page_token}/${video.contentDetails.videoId}`}>
+            <Item.Image size='tiny' src={video.snippet.thumbnails.high.url} />
+            <Item.Content verticalAlign='middle'>
+              <Header sub>{video.snippet.title}</Header>
+            </Item.Content>
+          </Item>
       )
     })
   }
@@ -48,16 +48,22 @@ class List extends Component {
     return (
       <div>
         <Button.Group fluid>
-          <Link
+          <Button
+            basic
+            color='teal'
+            as={Link}
             to={`/classroom/${this.props.match.params.resource_id}/${this.props.match.params.playlist_id}/${this.props.playlist.previous_page}/${this.props.match.params.video_id}`}
             >
-            <Button>prev</Button>
-          </Link>
-          <Link
+            prev
+          </Button>
+          <Button
+            basic
+            color='teal'
+            as={Link}
             to={`/classroom/${this.props.match.params.resource_id}/${this.props.match.params.playlist_id}/${this.props.playlist.next_page}/${this.props.match.params.video_id}`}
             >
-            <Button>next</Button>
-          </Link>
+            next
+          </Button>
         </Button.Group>
       </div>
     )
@@ -66,8 +72,12 @@ class List extends Component {
   render() {
       return (
       <div>
-        {this.renderPaginationButtons()}
-        {this.renderList()}
+        <Segment basic>
+          {this.renderPaginationButtons()}
+          <Item.Group divided>
+            {this.renderList()}
+          </Item.Group>
+        </Segment>
       </div>
     )
   }

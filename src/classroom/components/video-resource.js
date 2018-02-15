@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Embed } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Embed, Grid } from 'semantic-ui-react';
 
-export default class VideoResource extends Component {
+class VideoResource extends Component {
   state = { video_id: "" }
   componentDidMount() {
     let video_id = this.props.url.split('v=')[1];
@@ -10,12 +11,24 @@ export default class VideoResource extends Component {
 
   render() {
     return (
-
-      <Embed
-        id={this.state.video_id}
-        placeholder={`https://img.youtube.com/vi/${this.state.video_id}/0.jpg`}
-        source='youtube'
-        />
+      <Grid stackable celled='internally' columns='equal'>
+        <Grid.Column></Grid.Column>
+        <Grid.Column width={8}>
+          <Embed
+            id={this.state.video_id}
+            placeholder={`https://img.youtube.com/vi/${this.state.video_id}/0.jpg`}
+            source='youtube'
+            />
+          <h1>{this.props.resource.title}</h1>
+        </Grid.Column>
+        <Grid.Column></Grid.Column>
+    </Grid>
     )
   }
 }
+
+function mapStateToProps({ resource }) {
+  return { resource };
+}
+
+export default connect(mapStateToProps)(VideoResource);

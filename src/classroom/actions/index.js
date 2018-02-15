@@ -5,9 +5,11 @@ export const FETCH_RESOURCE = 'fetch-resource';
 export const FETCH_PLAYLIST = 'fetch-playlist';
 
 export function fetchResource(resource_id) {
+  console.log(resources_new);
   return function(dispatch) {
     resources_new.items.map(resource => {
-      if(resource.id === resource_id) {
+      console.log("resource", resource);
+      if(resource.id == resource_id) {
         dispatch({
           type: FETCH_RESOURCE,
           payload: resource

@@ -71,7 +71,9 @@ export default class Home extends Component {
                   </Card.Description>
                   <Card.Content extra>
                     <div>
-                      <Button floated='right' basic color='teal'>Select</Button>
+                      <Link to ='/soft-skills'>
+                        <Button floated='right' basic color='teal'>Select</Button>
+                      </Link>
                     </div>
                   </Card.Content>
                 </Card.Content>

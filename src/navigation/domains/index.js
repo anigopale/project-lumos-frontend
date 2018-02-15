@@ -40,7 +40,7 @@ class Domains extends Component {
               Domain
             </Header>
             <Divider />
-            <Grid columns={3} stretched>
+            <Grid columns={3} stretched stackable>
               {this.renderDomains()}
             </Grid>
           </Segment>

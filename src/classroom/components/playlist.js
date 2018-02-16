@@ -13,7 +13,9 @@ class Playlist extends Component {
   componentDidMount() {
     if(localStorage.getItem('bookmark')) {
       let state = JSON.parse(localStorage.getItem('bookmark'));
-      this.setState(state);
+      let playlist_id = this.props.url.split('list=')[1];
+      if(playlist_id === state.playlist_id)
+        this.setState(state);
       this.props.fetchPlaylist(state.playlist_id, state.page_token);
     }
   }
@@ -40,6 +42,7 @@ class Playlist extends Component {
       return (
         <List
           playlist_id={this.state.playlist_id}
+          changePageToken={(token) => {this.setState({ page_token: token })}}
           selectedVideo={(videoData) => {this.setState({ videoData })}}
           />
       )
@@ -47,7 +50,6 @@ class Playlist extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <Grid celled='internally' stackable>
@@ -56,6 +58,21 @@ class Playlist extends Component {
           </Grid.Column>
 
           <Grid.Column width={8}>
+            <Button
+              onClick={() => {
+                localStorage.setItem('bookmark', JSON.stringify(this.state))
+                this.setState({ bookmark: "a" })
+              }}
+              secondary={localStorage.bookmark}
+              >
+              Bookmark
+            </Button>
+            <Button onClick={() => {localStorage.clear()
+                this.setState({ bookmark: "" })
+              }}
+              >
+              Delete Bookmark
+            </Button>
             <Video video={this.state.videoData} />
             <h1>{this.props.resource.title}</h1>
             {this.renderStartButton()}

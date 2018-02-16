@@ -5,9 +5,16 @@ import { Link } from 'react-router-dom';
 import { fetchPlaylist } from '../actions';
 
 class List extends Component {
+  state = { selectedVideo: "" };
 
   handleClick = (page_token) => {
     this.props.fetchPlaylist(this.props.playlist_id, page_token);
+  }
+  onVideoSelect = (video) => {
+    let id = video.contentDetails.videoId;
+    let title = video.snippet.title;
+    this.props.selectedVideo({ id, title });
+    this.setState({ selectedVideo: id });
   }
 
   renderList() {
@@ -15,13 +22,23 @@ class List extends Component {
       return <div></div>
     }
     return this.props.playlist.videos.map(video => {
-      return (
-          <Item onClick={() => {this.props.selectedVideo(video.contentDetails.videoId)}} as='a'>
+      if(video.contentDetails.videoId === this.state.selectedVideo) {
+        return (
+          <Item onClick={() => this.onVideoSelect(video)} as='a'>
             <Item.Image size='tiny' src={video.snippet.thumbnails.high.url} />
             <Item.Content verticalAlign='top'>
-              <Header sub>{video.snippet.title}</Header>
+              <Header sub style={{ color: 'teal' }}>{video.snippet.title}</Header>
             </Item.Content>
           </Item>
+        )
+      }
+      return (
+        <Item onClick={() => this.onVideoSelect(video)} as='a'>
+          <Item.Image size='tiny' src={video.snippet.thumbnails.high.url} />
+          <Item.Content verticalAlign='top'>
+            <Header sub>{video.snippet.title}</Header>
+          </Item.Content>
+        </Item>
       )
     })
   }

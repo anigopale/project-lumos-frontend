@@ -17,25 +17,27 @@ class Classroom extends Component {
 
   renderBody() {
     if(this.props.resource.id) {
-      if(this.props.resource.video_id) {
-        if(this.props.resource.video_id.includes('list=')) {
-          return <Playlist url={this.props.resource.video_id} {...this.props} />
+      if(this.props.resource.id.toString() === this.props.match.params.resource_id) {
+        if(this.props.resource.video_id) {
+          if(this.props.resource.video_id.includes('list=')) {
+            return <Playlist url={this.props.resource.video_id} {...this.props} />
+          }
+          return (
+            <div>
+              <VideoResource url={this.props.resource.video_id} />
+            </div>
+          )
         }
+
         return (
           <div>
-            <VideoResource url={this.props.resource.video_id} />
+            <a href={this.props.resource.link_url}>
+              <Button size='massive'>Click here</Button>
+            </a>
+            <h1>{this.props.resource.title}</h1>
           </div>
         )
       }
-
-      return (
-        <div>
-          <a href={this.props.resource.link_url}>
-            <Button size='massive'>Click here</Button>
-          </a>
-          <h1>{this.props.resource.title}</h1>
-        </div>
-      )
     }
     return <h1>Loading...</h1>
   }

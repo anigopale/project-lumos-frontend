@@ -43,7 +43,7 @@ export function fetchPlaylist(playlist_id, page_token) {
             previous_page: data.prevPageToken,
             next_page: data.nextPageToken,
             current_page: page_token,
-            videos: data.items,
+            videos: data.items
           }
         })
       })

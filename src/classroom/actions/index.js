@@ -5,10 +5,8 @@ export const FETCH_RESOURCE = 'fetch-resource';
 export const FETCH_PLAYLIST = 'fetch-playlist';
 
 export function fetchResource(resource_id) {
-  console.log(resources_new);
   return function(dispatch) {
     resources_new.items.map(resource => {
-      console.log("resource", resource);
       if(resource.id == resource_id) {
         dispatch({
           type: FETCH_RESOURCE,
@@ -21,14 +19,12 @@ export function fetchResource(resource_id) {
 
 export function fetchPlaylist(playlist_id, page_token) {
   if(!page_token) {
-    console.log("not page token", page_token);
     page_token = "";
   }
   return function(dispatch) {
     fetch(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${playlist_id}&part=snippet,contentDetails&key=AIzaSyDJ2uIGO_wec2F040cacRqn08SP0VWbtIg&pageToken=${page_token}`)
     .then(response => {
       response.json().then(data => {
-        console.log(data);
         if(!data.prevPageToken) {
           data.prevPageToken = "0";
         }

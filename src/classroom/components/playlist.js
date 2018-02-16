@@ -10,10 +10,18 @@ class Playlist extends Component {
 
   state = { page_token: "", videoData: {}, playlist_id: "" };
 
+  componentDidMount() {
+    if(localStorage.getItem('bookmark')) {
+      let state = JSON.parse(localStorage.getItem('bookmark'));
+      this.setState(state);
+      this.props.fetchPlaylist(state.playlist_id, state.page_token);
+    }
+  }
+
   handleClick = () => {
     let url = this.props.url.split('list=')[1];
     this.setState({ playlist_id: url })
-    this.props.fetchPlaylist(url);
+    this.props.fetchPlaylist(url, this.state.page_token);
   }
 
   renderStartButton() {
@@ -39,6 +47,7 @@ class Playlist extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
         <Grid celled='internally' stackable>

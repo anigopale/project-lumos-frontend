@@ -8,25 +8,34 @@ import { fetchPlaylist } from '../actions';
 
 class Playlist extends Component {
 
+  state = { page_token: "", video_id: "", playlist_id: "" };
 
-  componentDidMount() {
-
+  handleClick = () => {
+    let url = this.props.url.split('list=')[1];
+    this.setState({ playlist_id: url })
+    this.props.fetchPlaylist(url);
   }
+
   renderStartButton() {
-    let { resource_id } = this.props.match.params;
-    let playlist_id = this.props.resource.video_id.split('list=')[1];
-    if(this.props.location.pathname === `/classroom/${resource_id}/`
-      || this.props.location.pathname === `/classroom/${resource_id}`) {
+    if(!this.state.playlist_id) {
       return (
         <div>
           <p>{this.props.resource.description}</p>
-            <Link to={`/classroom/${this.props.match.params.resource_id}/${playlist_id}/0/0`}>
-              <Button fluid>Start Course</Button>
-            </Link>
+          <Button onClick={this.handleClick} fluid>Start Course</Button>
         </div>
       )
     }
+  }
 
+  renderList() {
+    if(this.state.playlist_id) {
+      return (
+        <List
+          playlist_id={this.state.playlist_id}
+          selectedVideo={(video_id) => {this.setState({ video_id })}}
+          />
+      )
+    }
   }
 
   render() {
@@ -34,14 +43,11 @@ class Playlist extends Component {
       <div>
         <Grid celled='internally' stackable>
           <Grid.Column width={4}>
-            <Route path='/classroom/:resource_id/:playlist_id/:page_token/:video_id' component={List} />
+            {this.renderList()}
           </Grid.Column>
 
           <Grid.Column width={8}>
-            <Route
-              path='/classroom/:resource_id/:playlist_id/:page_token/:video_id'
-              component={Video}
-              />
+            <Video video_id={this.state.video_id} />
             <h1>{this.props.resource.title}</h1>
             {this.renderStartButton()}
           </Grid.Column>
@@ -61,8 +67,5 @@ class Playlist extends Component {
   }
 }
 
-function mapStateToProps({ resource }) {
-  return { resource };
-}
 
-export default connect(mapStateToProps, { fetchPlaylist })(Playlist);
+export default connect(null, { fetchPlaylist })(Playlist);

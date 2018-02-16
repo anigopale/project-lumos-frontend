@@ -19,7 +19,7 @@ class Classroom extends Component {
     if(this.props.resource.id) {
       if(this.props.resource.video_id) {
         if(this.props.resource.video_id.includes('list=')) {
-          return <Playlist {...this.props} />
+          return <Playlist url={this.props.resource.video_id} {...this.props} />
         }
         return (
           <div>

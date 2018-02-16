@@ -6,45 +6,17 @@ import { fetchPlaylist } from '../actions';
 
 class List extends Component {
 
-  componentDidMount() {
-    let { page_token, playlist_id } = this.props.match.params;
-    console.log("list mounted", playlist_id, page_token);
-    if(this.props.playlist.current_page !== page_token){
-      if(page_token !== '0')
-        this.props.fetchPlaylist(playlist_id, page_token);
-      else
-        this.props.fetchPlaylist(playlist_id);
-    }
+  handleClick = (page_token) => {
+    this.props.fetchPlaylist(this.props.playlist_id, page_token);
   }
-
-  componentDidUpdate() {
-    let { page_token, playlist_id } = this.props.match.params;
-    console.log("list mounted", playlist_id, page_token);
-    if(this.props.playlist.current_page !== page_token){
-      if(page_token !== '0')
-        this.props.fetchPlaylist(playlist_id, page_token);
-    }
-  }
-
 
   renderList() {
     if(!this.props.playlist.videos) {
       return <div></div>
     }
     return this.props.playlist.videos.map(video => {
-      let { resource_id, page_token, playlist_id, video_id } = this.props.match.params;
-      if(video.contentDetails.videoId === video_id) {
-        return (
-          <Item as={Link} to={`/classroom/${resource_id}/${playlist_id}/${page_token}/${video.contentDetails.videoId}`}>
-              <Item.Image size='tiny' src={video.snippet.thumbnails.high.url} />
-              <Item.Content verticalAlign='top'>
-                <Header sub style={{ color: 'teal'}}>{video.snippet.title}</Header>
-              </Item.Content>
-            </Item>
-        )
-      }
       return (
-          <Item as={Link} to={`/classroom/${resource_id}/${playlist_id}/${page_token}/${video.contentDetails.videoId}`}>
+          <Item onClick={() => {this.props.selectedVideo(video.contentDetails.videoId)}} as='a'>
             <Item.Image size='tiny' src={video.snippet.thumbnails.high.url} />
             <Item.Content verticalAlign='top'>
               <Header sub>{video.snippet.title}</Header>
@@ -55,24 +27,25 @@ class List extends Component {
   }
 
   renderPaginationButtons() {
+    if(!this.props.playlist.videos) {
+      return <div></div>
+    }
     return (
       <div>
         <Button.Group fluid>
           <Button
             basic
             color='teal'
-            as={Link}
-            to={`/classroom/${this.props.match.params.resource_id}/${this.props.match.params.playlist_id}/${this.props.playlist.previous_page}/${this.props.match.params.video_id}`}
             disabled={this.props.playlist.previous_page === '0'}
+            onClick={() => this.handleClick(this.props.playlist.previous_page)}
             >
             prev
           </Button>
           <Button
             basic
             color='teal'
-            as={Link}
-            to={`/classroom/${this.props.match.params.resource_id}/${this.props.match.params.playlist_id}/${this.props.playlist.next_page}/${this.props.match.params.video_id}`}
             disabled={this.props.playlist.next_page === '0'}
+            onClick={() => this.handleClick(this.props.playlist.next_page)}
             >
             next
           </Button>

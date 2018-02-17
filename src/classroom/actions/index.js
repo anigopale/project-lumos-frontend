@@ -59,7 +59,6 @@ export function fetchPlaylist(playlist_id, page_token, initial_fetch) {
 }
 
 export function selectVideo(videoData) {
-  console.log(videoData);
   return {
     type: SELECT_VIDEO,
     payload: videoData

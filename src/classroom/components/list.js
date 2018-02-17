@@ -8,14 +8,13 @@ class List extends Component {
   state = { selectedVideo: "" };
 
   handleClick = (page_token) => {
-    this.props.fetchPlaylist(this.props.playlist_id, page_token);
+    this.props.fetchPlaylist(this.props.playlist_id, page_token, false);
   }
 
-  onVideoSelect = (video, current_page_token) => {
+  onVideoSelect = (video) => {
     let id = video.contentDetails.videoId;
     let title = video.snippet.title;
     this.props.selectVideo({ id, title });
-    this.props.changePageToken(current_page_token);
     this.setState({ selectedVideo: id });
   }
 
@@ -24,7 +23,7 @@ class List extends Component {
       return <div></div>
     }
     return this.props.playlist.videos.map(video => {
-      if(video.contentDetails.videoId === this.state.selectedVideo) {
+      if(video.contentDetails.videoId === this.props.activeVideo.id) {
         return (
           <Item onClick={() => this.onVideoSelect(video, this.props.playlist.current_page)} as='a'>
             <Item.Image size='tiny' src={video.snippet.thumbnails.high.url} />
@@ -87,8 +86,8 @@ class List extends Component {
   }
 }
 
-function mapStateToProps({ playlist }) {
-  return { playlist };
+function mapStateToProps({ playlist, activeVideo }) {
+  return { playlist, activeVideo };
 }
 
 export default connect(mapStateToProps, { fetchPlaylist, selectVideo })(List);

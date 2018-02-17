@@ -8,11 +8,7 @@ import { fetchPlaylist } from '../actions';
 
 class Playlist extends Component {
 
-  state = { page_token: "", videoData: {}, playlist_id: "" };
-
-  componentDidMount() {
-
-  }
+  state = { playlist_id: "" };
 
   handleClick = () => {
     let playlist_id = this.props.url.split('list=')[1];
@@ -35,11 +31,14 @@ class Playlist extends Component {
   renderList() {
     if(this.state.playlist_id) {
       return (
-        <List
-          playlist_id={this.state.playlist_id}
-          changePageToken={(token) => {this.setState({ page_token: token })}}
-          selectedVideo={(videoData) => {this.setState({ videoData })}}
-          />
+        <List playlist_id={this.state.playlist_id} />
+      )
+    }
+  }
+  renderVideo() {
+    if(this.state.playlist_id) {
+      return (
+        <Video />
       )
     }
   }
@@ -53,7 +52,7 @@ class Playlist extends Component {
           </Grid.Column>
 
           <Grid.Column width={8}>
-            <Video video={this.state.videoData} />
+            {this.renderVideo()}
             <h1>{this.props.resource.title}</h1>
             {this.renderStartButton()}
           </Grid.Column>

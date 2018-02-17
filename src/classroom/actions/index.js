@@ -3,6 +3,7 @@ import resources_new from './json/resources_new.json';
 
 export const FETCH_RESOURCE = 'fetch-resource';
 export const FETCH_PLAYLIST = 'fetch-playlist';
+export const SELECT_VIDEO = 'select-video';
 
 export function fetchResource(resource_id) {
   return function(dispatch) {
@@ -17,7 +18,7 @@ export function fetchResource(resource_id) {
   }
 }
 
-export function fetchPlaylist(playlist_id, page_token) {
+export function fetchPlaylist(playlist_id, page_token, initial_fetch) {
   if(!page_token) {
     page_token = "";
   }
@@ -30,6 +31,16 @@ export function fetchPlaylist(playlist_id, page_token) {
         }
         if(!data.nextPageToken) {
           data.nextPageToken = "0";
+        }
+        if(initial_fetch) {
+          let first_video = data.items[0];
+          dispatch({
+            type: SELECT_VIDEO,
+            payload: {
+              video_id: first_video.contentDetails.videoId,
+              video_title: first_video.snippet.title,
+            }
+          })
         }
 
         dispatch({

@@ -11,19 +11,14 @@ class Playlist extends Component {
   state = { page_token: "", videoData: {}, playlist_id: "" };
 
   componentDidMount() {
-    if(localStorage.getItem('bookmark')) {
-      let state = JSON.parse(localStorage.getItem('bookmark'));
-      let playlist_id = this.props.url.split('list=')[1];
-      if(playlist_id === state.playlist_id)
-        this.setState(state);
-      this.props.fetchPlaylist(state.playlist_id, state.page_token);
-    }
+
   }
 
   handleClick = () => {
-    let url = this.props.url.split('list=')[1];
-    this.setState({ playlist_id: url })
-    this.props.fetchPlaylist(url, this.state.page_token);
+    let playlist_id = this.props.url.split('list=')[1];
+    let initial_fetch = true;
+    this.setState({ playlist_id });
+    this.props.fetchPlaylist(playlist_id, this.state.page_token, initial_fetch);
   }
 
   renderStartButton() {
@@ -58,21 +53,6 @@ class Playlist extends Component {
           </Grid.Column>
 
           <Grid.Column width={8}>
-            <Button
-              onClick={() => {
-                localStorage.setItem('bookmark', JSON.stringify(this.state))
-                this.setState({ bookmark: "a" })
-              }}
-              secondary={localStorage.bookmark}
-              >
-              Bookmark
-            </Button>
-            <Button onClick={() => {localStorage.clear()
-                this.setState({ bookmark: "" })
-              }}
-              >
-              Delete Bookmark
-            </Button>
             <Video video={this.state.videoData} />
             <h1>{this.props.resource.title}</h1>
             {this.renderStartButton()}

@@ -37,8 +37,8 @@ export function fetchPlaylist(playlist_id, page_token, initial_fetch) {
           dispatch({
             type: SELECT_VIDEO,
             payload: {
-              video_id: first_video.contentDetails.videoId,
-              video_title: first_video.snippet.title,
+              id: first_video.contentDetails.videoId,
+              title: first_video.snippet.title,
             }
           })
         }
@@ -55,5 +55,13 @@ export function fetchPlaylist(playlist_id, page_token, initial_fetch) {
         })
       })
     })
+  }
+}
+
+export function selectVideo(videoData) {
+  console.log(videoData);
+  return {
+    type: SELECT_VIDEO,
+    payload: videoData
   }
 }

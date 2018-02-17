@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Segment, Button, Item, Header, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { fetchPlaylist } from '../actions';
+import { fetchPlaylist, selectVideo } from '../actions';
 
 class List extends Component {
   state = { selectedVideo: "" };
@@ -14,7 +14,7 @@ class List extends Component {
   onVideoSelect = (video, current_page_token) => {
     let id = video.contentDetails.videoId;
     let title = video.snippet.title;
-    this.props.selectedVideo({ id, title });
+    this.props.selectVideo({ id, title });
     this.props.changePageToken(current_page_token);
     this.setState({ selectedVideo: id });
   }
@@ -91,4 +91,4 @@ function mapStateToProps({ playlist }) {
   return { playlist };
 }
 
-export default connect(mapStateToProps, { fetchPlaylist })(List);
+export default connect(mapStateToProps, { fetchPlaylist, selectVideo })(List);

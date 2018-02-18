@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Button, Container, Divider } from 'semantic-ui-react';
+import { Segment, Button, Container, Divider, Grid, Input } from 'semantic-ui-react';
 import { fetchResource } from './actions';
-import VideoResource from './components/video-resource';
-import Playlist from './components/playlist';
+import Resource from './components/resource';
 
 class Classroom extends Component {
 
@@ -14,33 +13,25 @@ class Classroom extends Component {
     this.props.fetchResource(this.props.match.params.resource_id);
   }
 
-
   renderBody() {
     if(this.props.resource.id) {
-      if(this.props.resource.id.toString() === this.props.match.params.resource_id) {
-        if(this.props.resource.video_id) {
-          if(this.props.resource.video_id.includes('list=')) {
-            return <Playlist url={this.props.resource.video_id} {...this.props} />
-          }
-          return (
-            <div>
-              <VideoResource url={this.props.resource.video_id} />
-            </div>
-          )
+      if(this.props.resource.video_id) {
+        if(this.props.resource.video_id.includes('list=')) {
+          return <Resource url={this.props.resource.video_id} type='playlist' />
         }
-
-        return (
-          <div>
-            <a href={this.props.resource.link_url}>
-              <Button size='massive'>Click here</Button>
-            </a>
-            <h1>{this.props.resource.title}</h1>
-          </div>
-        )
-      }
+        return <Resource url={this.props.resource.video_id} type='video' />
+       }
+      return (
+        <div>
+          <a href={this.props.resource.link_url} target='_blank' rel='noopener'>
+            <Button size='massive' fluid>Go to course</Button>
+          </a>
+        </div>
+      )
     }
     return <h1>Loading...</h1>
   }
+
 
 
   render() {
@@ -48,7 +39,26 @@ class Classroom extends Component {
       <Container fluid>
         <Divider hidden />
           <Segment basic>
-            {this.renderBody()}
+              <Grid celled='internally' stackable>
+                <Grid.Column width={4}>
+                </Grid.Column>
+
+                <Grid.Column width={8}>
+                  <h1>{this.props.resource.title}</h1>
+                  {this.renderBody()}
+                </Grid.Column>
+
+                <Grid.Column width={4}>
+                  <Segment basic>
+                    <Input icon='wikipedia' fluid />
+                  </Segment>
+                  <Segment basic>
+                    <Input icon='wikipedia' fluid />
+                  </Segment>
+                </Grid.Column>
+              </Grid>
+
+
           </Segment>
       </Container>
     )

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Embed, Grid, Input, Segment } from 'semantic-ui-react';
 
 class VideoResource extends Component {
-  state = { video_id: "" }
   componentDidMount() {
     let video_id = this.props.url.split('v=')[1];
     this.setState({ video_id });
@@ -38,4 +36,4 @@ function mapStateToProps({ resource }) {
   return { resource };
 }
 
-export default connect(mapStateToProps)(VideoResource);
+export default VideoResource;

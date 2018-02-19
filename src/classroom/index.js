@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Button, Container, Divider, Grid, Input } from 'semantic-ui-react';
+import { Segment, Button, Container, Divider, Grid } from 'semantic-ui-react';
 import { fetchResource } from './actions';
 import Resource from './components/embed-resource';
+import WikipediaSearch from './components/wikipedia-search';
+import WiktionarySearch from './components/wiktionary-search';
 
 class Classroom extends Component {
 
@@ -51,20 +53,10 @@ class Classroom extends Component {
                 </Grid.Column>
                 <Grid.Column width={4} only='computer tablet'>
                   <Segment basic>
-                    <Input
-                      icon='wikipedia'
-                      iconPosition='left'
-                      placeholder='Search Wikipedia'
-                      action={<Button icon='search' />}
-                      />
+                    <WikipediaSearch />
                   </Segment>
                   <Segment basic>
-                    <Input
-                      icon='wikipedia'
-                      iconPosition='left'
-                      placeholder='Search Wiktionary'
-                      action={<Button icon='search' />}
-                      />
+                    <WiktionarySearch />
                   </Segment>
                 </Grid.Column>
               </Grid>

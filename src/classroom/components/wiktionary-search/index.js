@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Input, Button, Modal, Icon, Header, Form, Loader, Segment, Dimmer, Container } from 'semantic-ui-react';
+import {
+  Input,
+  Button,
+  Modal,
+  Icon,
+  Header,
+  Form,
+  Loader,
+  Segment,
+  Dimmer,
+  Container,
+  List,
+  Divider,
+  Grid
+} from 'semantic-ui-react';
 import { wiktionarySearch, emptyReducer } from './actions';
 
 class Wiktionary extends Component {
@@ -24,9 +38,39 @@ class Wiktionary extends Component {
     this.props.emptyReducer()
   }
 
+  synonymSearch = (term) => {
+    this.setState({ term })
+    this.props.emptyReducer();
+    this.props.wiktionarySearch(term);
+  }
+
   renderMeanings(meanings) {
     return meanings.map((meaning) => {
-      return <li>{meaning}</li>
+      return <List.Item as='li'>{meaning}</List.Item>
+    })
+  }
+
+  renderDictionary(data) {
+    return Object.keys(data).map((key => {
+      return (
+        <div>
+          <Divider hidden />
+          <Header>{key}</Header>
+          <List as='ul'>
+            {this.renderMeanings(data[key])}
+          </List>
+        </div>
+      )
+    }))
+  }
+
+  renderSynonym(terms) {
+    return terms.map((term) => {
+      return (
+        <List.Item as='a' onClick={() => {
+            this.synonymSearch(term)
+          }}>{term}</List.Item>
+    )
     })
   }
 
@@ -37,18 +81,28 @@ class Wiktionary extends Component {
       )
     }
     if(this.props.wiktionaryData.term_meaning) {
-     return Object.keys(this.props.wiktionaryData.term_meaning).map((key => {
-       return (
-         <div>
-           <Header>{key}</Header>
-           <ul>
-             {this.renderMeanings(this.props.wiktionaryData.term_meaning[key])}
-           </ul>
-         </div>
-       )
-     }))
+     return (
+       <div>
+         {this.renderDictionary(this.props.wiktionaryData.term_meaning)}
+         <Divider />
+         <Grid columns={2}>
+           <Grid.Column>
+             <Header>Synonyms</Header>
+             <List>
+               {this.renderSynonym(this.props.wiktionaryData.term_synonym)}
+             </List>
+           </Grid.Column>
+           <Grid.Column>
+             <Header>Antonyms</Header>
+             <List>
+               {this.renderSynonym(this.props.wiktionaryData.term_antonym)}
+             </List>
+           </Grid.Column>
+         </Grid>
 
 
+       </div>
+     )
     }
 
     return (

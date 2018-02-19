@@ -34,8 +34,8 @@ class Wiktionary extends Component {
   }
 
   handleCloseModal = () => {
-    this.setState({ openModal: false });
-    this.props.emptyReducer()
+    this.setState({ openModal: false, term: "" });
+    this.props.emptyReducer();
   }
 
   synonymSearch = (term) => {
@@ -117,6 +117,7 @@ class Wiktionary extends Component {
       <div>
         <Form onSubmit={this.handleSubmit}>
           <Input
+            value={this.state.term}
             type='text'
             onChange={(event) => {this.setState({ term: event.target.value })}}
             icon='wikipedia'

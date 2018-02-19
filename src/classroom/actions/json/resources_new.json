@@ -91,13 +91,13 @@
     },
     {
       "id": 4,
-      "title": "Javascript for beginners",
-      "description": "javascript for beginners",
-      "slug": "getting-started-with-python",
+      "title": "Basic C programming",
+      "description": "basic c programming",
+      "slug": "basic-c-programming",
       "languages": [
         {
-          "language_name": "python",
-          "slug": "python"
+          "language_name": "C",
+          "slug": "c"
         },
         {
           "language_name": "JavaScript",
@@ -115,7 +115,7 @@
         }
       ],
       "skill_level": "BG",
-      "video_id": "https://www.youtube.com/watch?v=08yflg_VVO8&list=PLS1QulWo1RIZ4erAYe3k8zWA5jAu72mVa"
+      "video_id": "https://vimeo.com/4621443"
     },
     {
       "id": 5,

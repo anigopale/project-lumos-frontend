@@ -8,9 +8,14 @@ export default class Resource extends Component {
   state = { url: "" };
 
   componentDidMount() {
-    if(this.props.url.includes('list=')) {
+    if(this.props.type === 'vimeo') {
+      let id = this.props.url.split('/').slice(-1)[0].split('?')[0];
+      this.setState({ url: `https://player.vimeo.com/video/${id}`});
+    }
+    else if(this.props.type === 'yt_playlist') {
       let id = this.props.url.split('list=')[1];
       this.setState({ url: `https://www.youtube.com/embed/videoseries?list=${id}` });
+
     }
     else {
       let id = this.props.url.split('v=')[1];
@@ -24,7 +29,7 @@ export default class Resource extends Component {
         <Embed
           url={this.state.url}
           icon='youtube play'
-          defaultActive={true}
+          active={true}
           />
       )
     }

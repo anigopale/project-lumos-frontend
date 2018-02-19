@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Segment, Button, Container, Divider, Grid, Input } from 'semantic-ui-react';
 import { fetchResource } from './actions';
-import Resource from './components/resource';
+import Resource from './components/embed-resource';
 
 class Classroom extends Component {
 
@@ -16,10 +16,14 @@ class Classroom extends Component {
   renderBody() {
     if(this.props.resource.id) {
       if(this.props.resource.video_id) {
-        if(this.props.resource.video_id.includes('list=')) {
-          return <Resource url={this.props.resource.video_id} type='playlist' />
+        let type = 'yt_video';
+        if(this.props.resource.video_id.includes('vimeo')) {
+          type = 'vimeo';
         }
-        return <Resource url={this.props.resource.video_id} type='video' />
+        if(this.props.resource.video_id.includes('list=')) {
+          type='yt_playlist';
+        }
+        return <Resource url={this.props.resource.video_id} type={type} />
        }
       return (
         <div>
@@ -37,28 +41,33 @@ class Classroom extends Component {
   render() {
     return (
       <Container fluid>
-        <Divider hidden />
           <Segment basic>
               <Grid celled='internally' stackable>
-                <Grid.Column width={4}>
+                <Grid.Column width={4} only='computer tablet'>
                 </Grid.Column>
-
                 <Grid.Column width={8}>
                   <h1>{this.props.resource.title}</h1>
                   {this.renderBody()}
                 </Grid.Column>
-
-                <Grid.Column width={4}>
+                <Grid.Column width={4} only='computer tablet'>
                   <Segment basic>
-                    <Input icon='wikipedia' fluid />
+                    <Input
+                      icon='wikipedia'
+                      iconPosition='left'
+                      placeholder='Search Wikipedia'
+                      action={<Button icon='search' />}
+                      />
                   </Segment>
                   <Segment basic>
-                    <Input icon='wikipedia' fluid />
+                    <Input
+                      icon='wikipedia'
+                      iconPosition='left'
+                      placeholder='Search Wiktionary'
+                      action={<Button icon='search' />}
+                      />
                   </Segment>
                 </Grid.Column>
               </Grid>
-
-
           </Segment>
       </Container>
     )

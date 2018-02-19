@@ -65,19 +65,21 @@ class Wiktionary extends Component {
   }
 
   renderSynonym(terms) {
-    return terms.map((term) => {
-      return (
-        <List.Item as='a' onClick={() => {
-            this.synonymSearch(term)
-          }}>{term}</List.Item>
-    )
-    })
+    if(terms) {
+      return terms.map((term) => {
+        return (
+          <List.Item as='a' onClick={() => {
+              this.synonymSearch(term)
+            }}>{term}</List.Item>
+          )
+        })
+    }
   }
 
   renderContent() {
     if(this.props.wiktionaryData.error) {
       return (
-        <div>no meaning found</div>
+        <div>no result found</div>
       )
     }
     if(this.props.wiktionaryData.term_meaning) {
@@ -99,8 +101,6 @@ class Wiktionary extends Component {
              </List>
            </Grid.Column>
          </Grid>
-
-
        </div>
      )
     }

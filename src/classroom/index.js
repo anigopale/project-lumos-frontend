@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Segment, Button, Container, Divider, Grid } from 'semantic-ui-react';
 import { fetchResource } from './actions';
 import Resource from './components/embed-resource';
-import WikipediaSearch from './components/wikipedia-search';
-import WiktionarySearch from './components/wiktionary-search';
+import Wikipedia from './components/wikipedia-search';
+import Wiktionary from './components/wiktionary-search';
 
 class Classroom extends Component {
 
@@ -53,10 +53,10 @@ class Classroom extends Component {
                 </Grid.Column>
                 <Grid.Column width={4} only='computer tablet'>
                   <Segment basic>
-                    <WikipediaSearch />
+                    <Wikipedia />
                   </Segment>
                   <Segment basic>
-                    <WiktionarySearch />
+                    <Wiktionary />
                   </Segment>
                 </Grid.Column>
               </Grid>

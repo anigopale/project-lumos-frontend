@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Input, Button, Modal, Icon, Header, Form } from 'semantic-ui-react';
 
-export default class WikipediaSearch extends Component {
+export default class Wikipedia extends Component {
   state = { term: "", openModal: false };
 
   handleSearch = () => {

@@ -10,7 +10,8 @@ import {
   Loader,
   Dimmer,
   Divider,
-  Container
+  Container,
+  List
 } from 'semantic-ui-react';
 import { wikipediaSearch, emptyReducer } from './actions';
 
@@ -24,11 +25,80 @@ class Wikipedia extends Component {
     }
   }
   handleCloseModal = () => {
-    this.setState({ openModal: false });
+    this.setState({ openModal: false, term: "" });
     this.props.emptyReducer();
   }
 
+  linkSearch = (term) => {
+    this.setState({ term })
+    this.props.emptyReducer();
+    this.props.wikipediaSearch(term);
+  }
 
+  renderLinks(links, related) {
+    return Object.keys(links).map((key => {
+      return (
+        <List.Item onClick={() => {this.linkSearch(key)}} as='a'>
+          <List.Icon name='search' />
+          <List.Content>{key}</List.Content>
+        </List.Item>
+      )
+    }))
+  }
+
+  renderContent() {
+    if(this.props.wikipediaData.error) {
+      return (
+        <div>{this.props.wikipediaData.error}</div>
+      )
+    }
+
+    if(this.props.wikipediaData.wiki_term) {
+      let { related_terms } = this.props.wikipediaData;
+      if(this.props.wikipediaData.detailed_data) {
+        let { title, url } = this.props.wikipediaData.detailed_data;
+        let { summary_content } = this.props.wikipediaData.summary_data;
+        return (
+          <div>
+            <Header>{title}</Header>
+            <p style={{ textAlign: 'justify' }}>
+              {summary_content}
+            </p>
+            <a href={url}>
+              [Full Article
+              <Icon name='external' />]
+            </a>
+            <Header>Related:</Header>
+            <List>
+              {this.renderLinks(related_terms, true)}
+            </List>
+          </div>
+        )
+      }
+      return (
+        <div>
+          <h3>{`Search: ${this.state.term}`}</h3>
+          <Divider />
+          <Header>Disambiguation:</Header>
+          <List>
+            {this.renderLinks(this.props.wikipediaData.summary_data.other_links)}
+          </List>
+          <Divider hidden />
+          <Header>Related:</Header>
+          <List>
+            {this.renderLinks(related_terms, true)}
+          </List>
+        </div>
+      )
+    }
+
+
+    return (
+      <Dimmer active inverted>
+        <Loader />
+      </Dimmer>
+    )
+  }
 
   render() {
     console.log(this.props.wikipediaData);
@@ -57,9 +127,7 @@ class Wikipedia extends Component {
             </Modal.Header>
             <Modal.Content>
               <Container text>
-                <h3>{`Search: ${this.state.term}`}</h3>
-                <Divider />
-
+                {this.renderContent()}
               </Container>
             </Modal.Content>
           </Modal>

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Input, Button, Modal, Icon, Header, Form } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Input, Button, Modal, Icon, Header, Form, Loader, Dimmer } from 'semantic-ui-react';
+import { wikipediaSearch } from './actions';
 
-export default class Wikipedia extends Component {
+class Wikipedia extends Component {
   state = { term: "", openModal: false };
 
   handleSearch = () => {
     if(this.state.term) {
+      this.props.wikipediaSearch(this.state.term);
       this.setState({ openModal: true });
     }
   }
@@ -20,7 +23,7 @@ export default class Wikipedia extends Component {
             icon='wikipedia'
             iconPosition='left'
             placeholder='Search Wikipedia'
-            action={<Button onClick={this.handleSearch} color='teal' icon='search' />}
+            action={<Button color='teal' icon='search' />}
             />
         </Form>
           <Modal
@@ -43,3 +46,5 @@ export default class Wikipedia extends Component {
     )
   }
 }
+
+export default connect(null, { wikipediaSearch })(Wikipedia);

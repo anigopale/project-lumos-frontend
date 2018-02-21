@@ -1,7 +1,7 @@
 export const FETCH_WIKTIONARY = 'fetch-wiktionary';
 export const EMPTY_WIKTIONARY = 'empty-wiktionary';
 
-let url = 'https://pl-backend-development.herokuapp.com/dict/';
+const url = 'https://pl-backend-development.herokuapp.com/dict/';
 
 export function wiktionarySearch(term) {
   return function(dispatch) {

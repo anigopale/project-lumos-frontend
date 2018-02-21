@@ -7,6 +7,7 @@ export function wiktionarySearch(term) {
   return function(dispatch) {
     term = term.trim();
     term = term.replace(/ /g,"_");
+    term = term.replace(/[^a-zA-Z0-9_]/g, "");
     fetch(url + term)
     .then((response) => {
       response.json()

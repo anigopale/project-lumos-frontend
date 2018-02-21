@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Input, Button, Modal, Icon, Header, Form, Loader, Dimmer } from 'semantic-ui-react';
-import { wikipediaSearch } from './actions';
+import {
+  Input,
+  Button,
+  Modal,
+  Icon,
+  Header,
+  Form,
+  Loader,
+  Dimmer,
+  Divider,
+  Container
+} from 'semantic-ui-react';
+import { wikipediaSearch, emptyReducer } from './actions';
 
 class Wikipedia extends Component {
   state = { term: "", openModal: false };
@@ -12,9 +23,15 @@ class Wikipedia extends Component {
       this.setState({ openModal: true });
     }
   }
-  handleCloseModal = () => this.setState({ openModal: false });
+  handleCloseModal = () => {
+    this.setState({ openModal: false });
+    this.props.emptyReducer();
+  }
+
+
 
   render() {
+    console.log(this.props.wikipediaData);
     return (
       <div>
         <Form onSubmit={this.handleSearch}>
@@ -31,15 +48,19 @@ class Wikipedia extends Component {
             onClose={this.handleCloseModal}
             >
             <Modal.Header>
-              <Header as='h2' icon>
-                <Icon name='wikipedia' />
-                Wikipedia
-              </Header>
+              <Container text>
+                <Header as='h2' icon>
+                  <Icon name='wikipedia' />
+                  Wikipedia
+                </Header>
+            </Container>
             </Modal.Header>
             <Modal.Content>
-              <h3>{this.state.term}</h3>
-              <br />
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <Container text>
+                <h3>{`Search: ${this.state.term}`}</h3>
+                <Divider />
+
+              </Container>
             </Modal.Content>
           </Modal>
       </div>
@@ -47,4 +68,8 @@ class Wikipedia extends Component {
   }
 }
 
-export default connect(null, { wikipediaSearch })(Wikipedia);
+function mapStateToProps({ wikipediaData }) {
+  return { wikipediaData };
+}
+
+export default connect(mapStateToProps, { wikipediaSearch, emptyReducer })(Wikipedia);

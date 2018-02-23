@@ -107,6 +107,7 @@ class Wikipedia extends Component {
         <Form onSubmit={this.handleSearch}>
           <Input
             onChange={(event) => {this.setState({ term: event.target.value })}}
+            value={this.state.term}
             icon='wikipedia'
             iconPosition='left'
             placeholder='Search Wikipedia'
@@ -121,7 +122,7 @@ class Wikipedia extends Component {
               <Container text>
                 <Header as='h2' icon>
                   <Icon name='wikipedia' />
-                  Wikipedia
+                  <Header sub>Wikipedia</Header>
                 </Header>
             </Container>
             </Modal.Header>

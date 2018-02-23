@@ -6,9 +6,8 @@ const url = 'https://pl-backend-development.herokuapp.com/wiki/';
 export function wikipediaSearch(term) {
   return function(dispatch) {
     term = term.trim();
-    term = term.replace(/ /g,"_");
-    term = term.replace(/[^a-zA-Z0-9_]/g, "");
-    
+    term = term.replace(/[^a-zA-Z0-9]/g, "_");
+
     fetch(url + term)
     .then(response => {
       response.json()

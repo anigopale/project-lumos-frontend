@@ -132,10 +132,10 @@ class Wiktionary extends Component {
           >
           <Modal.Header>
             <Container text>
-            <Header as='h2' icon>
-              <Icon name='wikipedia' />
-              Wiktionary
-            </Header>
+              <Header icon>
+                <Icon name='wikipedia' />
+                <Header sub>Wiktionary</Header>
+              </Header>
             </Container>
           </Modal.Header>
 

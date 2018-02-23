@@ -12,20 +12,20 @@ class Classroom extends Component {
     this.props.fetchResource(this.props.match.params.resource_id);
   }
   componentDidUpdate() {
-    this.props.fetchResource(this.props.match.params.resource_id);
+
   }
 
   renderBody() {
     if(this.props.resource.id) {
-      if(this.props.resource.video_id) {
+      if(this.props.resource.video_url) {
         let type = 'yt_video';
-        if(this.props.resource.video_id.includes('vimeo')) {
+        if(this.props.resource.video_url.includes('vimeo')) {
           type = 'vimeo';
         }
-        if(this.props.resource.video_id.includes('list=')) {
+        if(this.props.resource.video_url.includes('list=')) {
           type='yt_playlist';
         }
-        return <Resource url={this.props.resource.video_id} type={type} />
+        return <Resource url={this.props.resource.video_url} type={type} />
        }
       return (
         <div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Segment, Grid, Divider, Header } from 'semantic-ui-react';
+import { Container, Segment, Grid, Divider, Header, Loader, Dimmer } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchSoftSkills } from './actions';
 
@@ -29,6 +29,22 @@ class SoftSkills extends Component {
     })
   }
 
+  renderBody() {
+    if(!this.props.softskills.length) {
+      return (
+        <Segment basic>
+          <Dimmer active inverted>
+            <Loader size='medium' />
+          </Dimmer>
+        </Segment>
+      )
+    }
+    return (
+      <Grid columns={3} stretched stackable>
+        {this.renderSoftSkills()}
+      </Grid>
+    )
+  }
 
   render() {
     return (
@@ -41,9 +57,7 @@ class SoftSkills extends Component {
               Soft Skills
             </Header>
             <Divider />
-            <Grid columns={3} stretched stackable>
-              {this.renderSoftSkills()}
-            </Grid>
+            {this.renderBody()}
           </Segment>
         </Container>
       </div>

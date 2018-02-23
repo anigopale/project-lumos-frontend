@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Segment, Grid, Divider, Header } from 'semantic-ui-react';
+import { Container, Segment, Grid, Divider, Header, Dimmer, Loader } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchDomains } from './actions';
 
@@ -29,6 +29,23 @@ class Domains extends Component {
     })
   }
 
+  renderBody() {
+    if(!this.props.domains.length) {
+      return (
+        <Segment basic>
+          <Dimmer active inverted>
+            <Loader size='medium' />
+          </Dimmer>
+        </Segment>
+      )
+    }
+    return (
+      <Grid columns={3} stretched stackable>
+        {this.renderDomains()}
+      </Grid>
+    )
+  }
+
   render() {
     return (
       <div>
@@ -40,9 +57,7 @@ class Domains extends Component {
               Domain
             </Header>
             <Divider />
-            <Grid columns={3} stretched stackable>
-              {this.renderDomains()}
-            </Grid>
+            {this.renderBody()}
           </Segment>
         </Container>
       </div>

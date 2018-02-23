@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Segment, Header, Container, Divider } from 'semantic-ui-react';
+import { Grid, Segment, Header, Container, Divider, Loader, Dimmer } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchLanguages } from './actions';
 
@@ -30,6 +30,22 @@ class Languages extends Component {
     })
   }
 
+  renderBody() {
+    if(!this.props.languages.length) {
+      return (
+        <Segment basic>
+          <Dimmer active inverted>
+            <Loader size='medium' />
+          </Dimmer>
+        </Segment>
+      )
+    }
+    return (
+      <Grid columns={3} stretched stackable>
+        {this.renderLanguages()}
+      </Grid>
+    )
+  }
 
   render() {
     return (
@@ -42,9 +58,7 @@ class Languages extends Component {
               Language
             </Header>
             <Divider />
-            <Grid columns={3} stretched stackable>
-              {this.renderLanguages()}
-            </Grid>
+            {this.renderBody()}
           </Segment>
         </Container>
       </div>

@@ -7,6 +7,7 @@ import DomainPage from './scenes/domain-page';
 import LanguagePage from './scenes/language-page';
 import CoursesPage from './scenes/courses';
 import SoftSkillsPage from './scenes/soft-skills-page';
+import NotFoundPage from './scenes/not-found-page';
 
 class App extends Component {
   render() {
@@ -14,13 +15,14 @@ class App extends Component {
       <div>
         <HashRouter>
           <Switch>
-            <Route path='/soft-skills' component={SoftSkillsPage} />
-            <Route path='/courses' component={CoursesPage} />
-            <Route path='/technical/language' component={LanguagePage} />
-            <Route path='/technical/domain' component={DomainPage} />
-            <Route path='/technical' component={Technical} />
-            <Route path='/signin' component={Signin} />
-            <Route path='/' component={Home} />
+            <Route exact path='/soft-skills' component={SoftSkillsPage} />
+            <Route exact path='/courses/:type/:id/:page_token' component={CoursesPage} />
+            <Route exact path='/technical/language' component={LanguagePage} />
+            <Route exact path='/technical/domain' component={DomainPage} />
+            <Route exact path='/technical' component={Technical} />
+            <Route exact path='/signin' component={Signin} />
+            <Route exact path='/' component={Home} />
+            <Route component={NotFoundPage} />
           </Switch>
         </HashRouter>
       </div>

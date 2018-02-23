@@ -20,7 +20,7 @@ class Domains extends Component {
             padded
             basic
             as={Link}
-            to={`/courses/${domain.slug}/0`}
+            to={`/courses/domain/${domain.id}/0`}
             >
             {domain.domain_name}
           </Segment>

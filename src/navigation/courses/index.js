@@ -6,31 +6,26 @@ import { fetchCourses } from './actions';
 
 class Courses extends Component {
   componentDidMount() {
-    let { category, page_token } = this.props.match.params;
-    this.props.fetchCourses(category, page_token);
+    let { type, category, page_token } = this.props.match.params;
+    this.props.fetchCourses(type, category, page_token);
   }
   componentDidUpdate() {
-    let { category, page_token } = this.props.match.params;
-    this.props.fetchCourses(category, page_token);
+
   }
 
   renderDomainLabels(domains) {
-    return domains.map((domain) => {
-      return <Label>{domain.domain_name}</Label>
-    })
+
   }
   renderLanguageLabels(languages) {
-    return languages.map((language) => {
-      return <Label>{language.language_name}</Label>
-    })
+
   }
 
 
   renderCourses() {
-    if(!this.props.courses.page_token) {
+    if(!this.props.courses.data) {
       return <h1>Loading...</h1>
     }
-    return this.props.courses.items.map((course) => {
+    return this.props.courses.data.map((course) => {
       return (
         <Item as={Link} to={`/classroom/${course.id}`}>
           <Item.Content>
@@ -56,7 +51,7 @@ class Courses extends Component {
           basic
           color='teal'
           as={Link}
-          to={`${this.props.courses.previous_page}`}
+          to={`${this.props.courses.previous_page_token}`}
           >
           Prev
         </Button>
@@ -64,7 +59,7 @@ class Courses extends Component {
           basic
           color='teal'
           as={Link}
-          to={`${this.props.courses.next_page}`}
+          to={`${this.props.courses.next_page_token}`}
           >
           Next
         </Button>

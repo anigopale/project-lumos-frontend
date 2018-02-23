@@ -21,7 +21,7 @@ class Languages extends Component {
             padded
             basic
             as={Link}
-            to={`/courses/${language.slug}/0`}
+            to={`/courses/language/${language.id}/0`}
             >
             {language.language_name}
           </Segment>

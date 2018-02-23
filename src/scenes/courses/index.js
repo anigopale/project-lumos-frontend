@@ -8,7 +8,7 @@ export default class CoursesPage extends Component {
     return (
       <div>
         <NavBar />
-        <Route path='/courses/:category/:page_token' component={Courses} />
+        <Route path='/courses/:type/:id/:page_token' component={Courses} />
       </div>
     )
   }

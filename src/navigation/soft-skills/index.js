@@ -20,7 +20,7 @@ class SoftSkills extends Component {
             padded
             basic
             as={Link}
-            to={`/courses/${skill.slug}/0`}
+            to={`/courses/domain/${skill.id}/0`}
             >
             {skill.domain_name}
           </Segment>

@@ -1,0 +1,265 @@
+{
+  "page_token": "2",
+  "next_page": "3",
+  "previous_page": "1",
+  "items": [
+    {
+      "id": 1,
+      "title": "Getting started with python",
+      "description": "we will now get started with python",
+      "slug": "getting-started-with-python",
+      "languages": [
+        {
+          "language_name": "python",
+          "slug": "python"
+        },
+        {
+          "language_name": "JavaScript",
+          "slug": "javascript"
+        }
+      ],
+      "domains": [
+        {
+          "domain_name": "Web Development",
+          "slug": "web-development"
+        },
+        {
+          "domain_name": "Android",
+          "slug": "android"
+        }
+      ],
+      "skill_level": "BG",
+      "video_id": "https://www.youtube.com/watch?v=1QfPTboc1Pw"
+    },
+    {
+      "id": 2,
+      "title": "Getting started with python",
+      "description": "we will now get started with python",
+      "slug": "getting-started-with-python",
+      "languages": [
+        {
+          "language_name": "python",
+          "slug": "python"
+        },
+        {
+          "language_name": "JavaScript",
+          "slug": "javascript"
+        }
+      ],
+      "domains": [
+        {
+          "domain_name": "Web Development",
+          "slug": "web-development"
+        },
+        {
+          "domain_name": "Android",
+          "slug": "android"
+        }
+      ],
+      "skill_level": "BG",
+      "link_url": "https://www.tutorialspoint.com/python/index.htm",
+      "external_type": "TU",
+      "paid": false
+    },
+    {
+      "id": 3,
+      "title": "Getting started with python",
+      "description": "we will now get started with python",
+      "slug": "getting-started-with-python",
+      "languages": [
+        {
+          "language_name": "python",
+          "slug": "python"
+        },
+        {
+          "language_name": "JavaScript",
+          "slug": "javascript"
+        }
+      ],
+      "domains": [
+        {
+          "domain_name": "Web Development",
+          "slug": "web-development"
+        },
+        {
+          "domain_name": "Android",
+          "slug": "android"
+        }
+      ],
+      "skill_level": "BG",
+      "video_id": "https://www.youtube.com/watch?v=41qgdwd3zAg&list=PLS1QulWo1RIaJECMeUT4LFwJ-ghgoSH6n"
+    },
+    {
+      "id": 4,
+      "title": "Basic C programming",
+      "description": "basic c programming",
+      "slug": "basic-c-programming",
+      "languages": [
+        {
+          "language_name": "C",
+          "slug": "c"
+        },
+        {
+          "language_name": "JavaScript",
+          "slug": "javascript"
+        }
+      ],
+      "domains": [
+        {
+          "domain_name": "Web Development",
+          "slug": "web-development"
+        },
+        {
+          "domain_name": "Android",
+          "slug": "android"
+        }
+      ],
+      "skill_level": "BG",
+      "video_id": "https://vimeo.com/4621443"
+    },
+    {
+      "id": 5,
+      "title": "Getting started with python",
+      "description": "we will now get started with python",
+      "slug": "getting-started-with-python",
+      "languages": [
+        {
+          "language_name": "python",
+          "slug": "python"
+        },
+        {
+          "language_name": "JavaScript",
+          "slug": "javascript"
+        }
+      ],
+      "domains": [
+        {
+          "domain_name": "Web Development",
+          "slug": "web-development"
+        },
+        {
+          "domain_name": "Android",
+          "slug": "android"
+        }
+      ],
+      "skill_level": "BG",
+      "video_id": "https://www.youtube.com/watch?v=41qgdwd3zAg&list=PLS1QulWo1RIaJECMeUT4LFwJ-ghgoSH6n"
+    },
+    {
+      "id": 6,
+      "title": "Getting started with python",
+      "description": "we will now get started with python",
+      "slug": "getting-started-with-python",
+      "languages": [
+        {
+          "language_name": "python",
+          "slug": "python"
+        },
+        {
+          "language_name": "JavaScript",
+          "slug": "javascript"
+        }
+      ],
+      "domains": [
+        {
+          "domain_name": "Web Development",
+          "slug": "web-development"
+        },
+        {
+          "domain_name": "Android",
+          "slug": "android"
+        }
+      ],
+      "skill_level": "BG",
+      "link_url": "https://www.tutorialspoint.com/python/index.htm",
+      "external_type": "TU",
+      "paid": false
+    },
+    {
+      "id": 7,
+      "title": "Getting started with python",
+      "description": "we will now get started with python",
+      "slug": "getting-started-with-python",
+      "languages": [
+        {
+          "language_name": "python",
+          "slug": "python"
+        },
+        {
+          "language_name": "JavaScript",
+          "slug": "javascript"
+        }
+      ],
+      "domains": [
+        {
+          "domain_name": "Web Development",
+          "slug": "web-development"
+        },
+        {
+          "domain_name": "Android",
+          "slug": "android"
+        }
+      ],
+      "skill_level": "BG",
+      "video_id": "https://www.youtube.com/watch?v=41qgdwd3zAg&list=PLS1QulWo1RIaJECMeUT4LFwJ-ghgoSH6n"
+    },
+    {
+      "id": 8,
+      "title": "Getting started with python",
+      "description": "we will now get started with python",
+      "slug": "getting-started-with-python",
+      "languages": [
+        {
+          "language_name": "python",
+          "slug": "python"
+        },
+        {
+          "language_name": "JavaScript",
+          "slug": "javascript"
+        }
+      ],
+      "domains": [
+        {
+          "domain_name": "Web Development",
+          "slug": "web-development"
+        },
+        {
+          "domain_name": "Android",
+          "slug": "android"
+        }
+      ],
+      "skill_level": "BG",
+      "link_url": "https://www.tutorialspoint.com/python/index.htm",
+      "external_type": "TU",
+      "paid": false
+    },
+    {
+      "id": 9,
+      "title": "Getting started with python",
+      "description": "we will now get started with python",
+      "slug": "getting-started-with-python",
+      "languages": [
+        {
+          "language_name": "python",
+          "slug": "python"
+        },
+        {
+          "language_name": "JavaScript",
+          "slug": "javascript"
+        }
+      ],
+      "domains": [
+        {
+          "domain_name": "Web Development",
+          "slug": "web-development"
+        },
+        {
+          "domain_name": "Android",
+          "slug": "android"
+        }
+      ],
+      "skill_level": "BG",
+      "video_id": "https://www.youtube.com/watch?v=41qgdwd3zAg&list=PLS1QulWo1RIaJECMeUT4LFwJ-ghgoSH6n"
+    }
+  ]
+}

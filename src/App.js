@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import Home from './scenes/home';
 import Signin from './scenes/signin';
+import ClassroomPage from './scenes/classroom-page';
 
 class App extends Component {
   render() {
@@ -9,6 +10,7 @@ class App extends Component {
       <div>
         <HashRouter>
           <Switch>
+            <Route path='/classroom/:type/:resource_id' component={ClassroomPage} />
             <Route path='/signin' component={Signin} />
             <Route path='/' component={Home} />
           </Switch>

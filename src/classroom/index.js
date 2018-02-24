@@ -9,7 +9,8 @@ import Wiktionary from './components/wiktionary-search';
 class Classroom extends Component {
 
   componentDidMount() {
-    this.props.fetchResource(this.props.match.params.resource_id);
+    let { type, resource_id } = this.props.match.params
+    this.props.fetchResource(resource_id, type);
   }
   componentDidUpdate() {
 

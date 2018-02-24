@@ -10,7 +10,7 @@ class App extends Component {
       <div>
         <HashRouter>
           <Switch>
-            <Route path='/classroom/:resource_id' component={ClassroomPage} />
+            <Route path='/classroom/:type/:resource_id' component={ClassroomPage} />
             <Route path='/signin' component={Signin} />
             <Route path='/' component={Home} />
           </Switch>

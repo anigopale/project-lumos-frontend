@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Divider, Item, Header, Button, Segment, Label, Loader, Dimmer } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchCourses } from './actions';
+import DomainLanguageLabels from './components/domain-language-labels';
 
 class Courses extends Component {
   componentDidMount() {
@@ -12,14 +13,6 @@ class Courses extends Component {
   componentDidUpdate() {
 
   }
-
-  renderDomainLabels(domains) {
-
-  }
-  renderLanguageLabels(languages) {
-
-  }
-
 
   renderCourses() {
     return this.props.courses.data.map((course) => {
@@ -32,8 +25,7 @@ class Courses extends Component {
             </Item.Meta>
             <Item.Description>{course.description}</Item.Description>
             <Item.Extra>
-              {this.renderDomainLabels(course.domains)}
-              {this.renderLanguageLabels(course.languages)}
+              <DomainLanguageLabels languages={course.languages_fk} domains={course.domains_fk} />
             </Item.Extra>
           </Item.Content>
         </Item>

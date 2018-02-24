@@ -1,4 +1,4 @@
-import { FETCH_WIKIPEDIA, EMPTY_WIKIPEDIA } from '../actions';
+import { FETCH_WIKIPEDIA, EMPTY_WIKIPEDIA, ERROR_WIKIPEDIA } from '../actions';
 
 export default function( state = {}, action) {
   switch (action.type) {
@@ -7,6 +7,12 @@ export default function( state = {}, action) {
       break;
     case EMPTY_WIKIPEDIA:
       return {};
+      break;
+    case ERROR_WIKIPEDIA:
+      return {
+        error: 'An error occured'
+      }
+      break;
   }
   return state;
 }

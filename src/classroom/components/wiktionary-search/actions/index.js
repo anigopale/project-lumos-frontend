@@ -1,5 +1,6 @@
 export const FETCH_WIKTIONARY = 'fetch-wiktionary';
 export const EMPTY_WIKTIONARY = 'empty-wiktionary';
+export const ERROR_WIKTIONARY = 'error-wiktionary';
 
 const url = 'https://pl-backend-development.herokuapp.com/dict/';
 
@@ -12,7 +13,6 @@ export function wiktionarySearch(term) {
     .then((response) => {
       response.json()
       .then((data) => {
-        console.log(data);
         if(data.term_meaning) {
           dispatch({
             type: FETCH_WIKTIONARY,
@@ -27,6 +27,11 @@ export function wiktionarySearch(term) {
             }
           })
         }
+      })
+      .catch(error => {
+        dispatch({
+          type: ERROR_WIKTIONARY
+        })
       })
     })
   }

@@ -1,5 +1,6 @@
 export const FETCH_WIKIPEDIA = 'fetch-wikipedia';
 export const EMPTY_WIKIPEDIA = 'empty-wikipedia';
+export const ERROR_WIKIPEDIA = 'error-wikipedia';
 
 const url = 'https://pl-backend-development.herokuapp.com/wiki/';
 
@@ -15,6 +16,11 @@ export function wikipediaSearch(term) {
         dispatch({
           type: FETCH_WIKIPEDIA,
           payload: data
+        })
+      })
+      .catch(error => {
+        dispatch({
+          type: ERROR_WIKIPEDIA
         })
       })
     })

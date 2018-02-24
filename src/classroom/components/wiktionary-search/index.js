@@ -79,7 +79,7 @@ class Wiktionary extends Component {
   renderContent() {
     if(this.props.wiktionaryData.error) {
       return (
-        <div>no result found</div>
+        <div>{this.props.wiktionaryData.error}</div>
       )
     }
     if(this.props.wiktionaryData.term_meaning) {

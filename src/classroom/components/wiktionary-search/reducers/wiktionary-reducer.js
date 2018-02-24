@@ -1,4 +1,4 @@
-import { FETCH_WIKTIONARY, EMPTY_WIKTIONARY } from '../actions';
+import { FETCH_WIKTIONARY, EMPTY_WIKTIONARY, ERROR_WIKTIONARY } from '../actions';
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -6,7 +6,12 @@ export default function (state = {}, action) {
       return action.payload;
       break;
     case EMPTY_WIKTIONARY:
-      return {}
+      return {};
+      break;
+    case ERROR_WIKTIONARY:
+      return {
+        error: 'An error occured'
+      };
       break;
   }
   return state;

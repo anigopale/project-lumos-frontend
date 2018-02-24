@@ -2,6 +2,7 @@ import resources from './json/resources.json';
 import resources_new from './json/resources_new.json';
 
 export const FETCH_RESOURCE = 'fetch-resource';
+export const ERROR_RESOURCE = 'error-resource';
 
 const url = 'https://private-eb08cd-plbackendmockup.apiary-mock.com/api/v1/courses';
 
@@ -17,13 +18,10 @@ export function fetchResource(resource_id) {
         });
       })
     })
-    // resources_new.items.map(resource => {
-    //   if(resource.id == resource_id) {
-    //     dispatch({
-    //       type: FETCH_RESOURCE,
-    //       payload: resource
-    //     })
-    //   }
-    // })
+    .catch(error => {
+      dispatch({
+        type: ERROR_RESOURCE
+      })
+    })
   }
 }

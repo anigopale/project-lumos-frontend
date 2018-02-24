@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Button, Container, Divider, Grid } from 'semantic-ui-react';
+import { Segment, Button, Container, Divider, Grid, Loader, Dimmer } from 'semantic-ui-react';
 import { fetchResource } from './actions';
 import Resource from './components/embed-resource';
 import Wikipedia from './components/wikipedia-search';
@@ -17,6 +17,11 @@ class Classroom extends Component {
   }
 
   renderBody() {
+    if(this.props.resource.error) {
+      return (
+        <div>this.props.resource.error</div>
+      )
+    }
     if(this.props.resource.id) {
       if(this.props.resource.video_url) {
         let type = 'yt_video';
@@ -36,7 +41,13 @@ class Classroom extends Component {
         </div>
       )
     }
-    return <h1>Loading...</h1>
+    return (
+      <Segment basic>
+        <Dimmer inverted active>
+          <Loader />
+        </Dimmer>
+      </Segment>
+    )
   }
 
 

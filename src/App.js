@@ -8,6 +8,7 @@ import LanguagePage from './scenes/language-page';
 import CoursesPage from './scenes/courses';
 import SoftSkillsPage from './scenes/soft-skills-page';
 import NotFoundPage from './scenes/not-found-page';
+import ClassroomPage from './scenes/classroom-page';
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
             <Route exact path='/technical' component={Technical} />
             <Route exact path='/signin' component={Signin} />
             <Route exact path='/' component={Home} />
+            <Route exact path='/classroom/:type/:resource_id' component={ClassroomPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </HashRouter>

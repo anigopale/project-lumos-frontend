@@ -16,8 +16,12 @@ class Courses extends Component {
 
   renderCourses() {
     return this.props.courses.data.map((course) => {
+      let course_type = 'external';
+      if(course.video_url) {
+        course_type = 'video'
+      }
       return (
-        <Item as={Link} to={`/classroom/${course.id}`}>
+        <Item as={Link} to={`/classroom/${course_type}/${course.id}`}>
           <Item.Content>
             <Item.Header as='a'>{course.title}</Item.Header>
             <Item.Meta>

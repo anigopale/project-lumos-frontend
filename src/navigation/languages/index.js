@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Segment, Header, Container, Divider, Loader, Dimmer } from 'semantic-ui-react';
+import { Grid, Segment, Header, Container, Divider, Loader, Dimmer, Pagination } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchLanguages } from './actions';
 
 class Languages extends Component {
+  state = { activePage: 1 };
+
   componentDidMount() {
     this.props.fetchLanguages();
   }
 
+  handlePageChange = (e, { activePage }) => {
+    this.setState({ activePage })
+  }
+
   renderLanguages() {
-    return this.props.languages.map((language) => {
+    return this.props.languages[this.state.activePage - 1].map((language) => {
       return (
         <Grid.Column>
           <Segment
             textAlign='center'
             size='massive'
             color='teal'
-            inverted
             padded
-            basic
             as={Link}
             to={`/courses/language/${language.id}/0`}
             >
@@ -41,7 +45,7 @@ class Languages extends Component {
       )
     }
     return (
-      <Grid columns={3} stretched stackable>
+      <Grid columns={3} stretched stackable centered>
         {this.renderLanguages()}
       </Grid>
     )
@@ -51,7 +55,7 @@ class Languages extends Component {
     return (
       <div>
         <Container>
-          <Segment basic>
+          <Segment basic textAlign='center'>
             <Divider hidden />
             <Header as='h1' textAlign='center'>
               <Header sub>Browse courses by</Header>
@@ -59,6 +63,14 @@ class Languages extends Component {
             </Header>
             <Divider />
             {this.renderBody()}
+            <Divider hidden />
+            <Pagination
+              defaultActivePage={1}
+              totalPages={this.props.languages.length}
+              firstItem={null}
+              lastItem={null}
+              onPageChange={this.handlePageChange}
+              />
           </Segment>
         </Container>
       </div>

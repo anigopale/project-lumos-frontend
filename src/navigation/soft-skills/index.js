@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Segment, Grid, Divider, Header, Loader, Dimmer, Pagination } from 'semantic-ui-react';
+import { Container, Segment, Grid, Divider, Header, Loader, Dimmer, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchSoftSkills } from './actions';
 
@@ -11,20 +11,43 @@ class SoftSkills extends Component {
     this.props.fetchSoftSkills();
   }
 
-  handlePageChange = (e, { activePage }) => {
+  handlePageChange = (activePage) => {
     this.setState({ activePage })
+  }
+
+  previousPage = () => {
+    if(this.state.activePage > 1) {
+      this.setState({ activePage: this.state.activePage - 1 })
+    }
+  }
+
+  nextPage = () => {
+    if(this.state.activePage < this.props.softskills.length) {
+      this.setState({ activePage: this.state.activePage + 1 })
+    }
+  }
+
+  renderPageNumbers() {
+    return this.props.softskills.map((domain, index) => {
+      return (
+        <Menu.Item
+          onClick={() => {this.handlePageChange(index + 1)}}
+          active={this.state.activePage === index + 1}
+          >
+          {index + 1}
+        </Menu.Item>
+      )
+    })
   }
 
   renderPagination() {
     if(this.props.softskills.length > 1 ) {
       return (
-        <Pagination
-          defaultActivePage={1}
-          totalPages={this.props.softskills.length}
-          firstItem={null}
-          lastItem={null}
-          onPageChange={this.handlePageChange}
-          />
+        <Menu pagination>
+          <Menu.Item onClick={this.previousPage} icon='angle left'></Menu.Item>
+          {this.renderPageNumbers()}
+          <Menu.Item onClick={this.nextPage} icon='angle right'></Menu.Item>
+        </Menu>
       )
     }
   }

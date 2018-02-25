@@ -14,6 +14,18 @@ class Courses extends Component {
 
   }
 
+  renderSkillLevel(skill_level) {
+    if(skill_level === 'BG') {
+      return 'Beginner';
+    }
+    if(skill_level === 'IT') {
+      return 'Intermediate'
+    }
+    if(skill_level === 'AD') {
+      return 'Advanced'
+    }
+  }
+
   renderCourses() {
     return this.props.courses.data.map((course) => {
       let course_type = 'external';
@@ -25,7 +37,7 @@ class Courses extends Component {
           <Item.Content>
             <Item.Header as='a'>{course.title}</Item.Header>
             <Item.Meta>
-              <span className='cinema'>skill level: {course.skill_level}</span>
+              <span className='cinema'>skill level: {this.renderSkillLevel(course.skill_level)}</span>
             </Item.Meta>
             <Item.Description>{course.description}</Item.Description>
             <Item.Extra>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Segment, Grid, Divider, Header, Dimmer, Loader, Pagination } from 'semantic-ui-react';
+import { Container, Segment, Grid, Divider, Header, Dimmer, Loader, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchDomains } from './actions';
 
@@ -11,20 +11,43 @@ class Domains extends Component {
     this.props.fetchDomains();
   }
 
-  handlePageChange = (e, { activePage }) => {
+  handlePageChange = (activePage) => {
     this.setState({ activePage })
+  }
+
+  previousPage = () => {
+    if(this.state.activePage > 1) {
+      this.setState({ activePage: this.state.activePage - 1 })
+    }
+  }
+
+  nextPage = () => {
+    if(this.state.activePage < this.props.domains.length) {
+      this.setState({ activePage: this.state.activePage + 1 })
+    }
+  }
+
+  renderPageNumbers() {
+    return this.props.domains.map((domain, index) => {
+      return (
+        <Menu.Item
+          onClick={() => {this.handlePageChange(index + 1)}}
+          active={this.state.activePage === index + 1}
+          >
+          {index + 1}
+        </Menu.Item>
+      )
+    })
   }
 
   renderPagination() {
     if(this.props.domains.length > 1 ) {
       return (
-        <Pagination
-          defaultActivePage={1}
-          totalPages={this.props.domains.length}
-          firstItem={null}
-          lastItem={null}
-          onPageChange={this.handlePageChange}
-          />
+        <Menu pagination>
+          <Menu.Item onClick={this.previousPage} icon='angle left'></Menu.Item>
+          {this.renderPageNumbers()}
+          <Menu.Item onClick={this.nextPage} icon='angle right'></Menu.Item>
+        </Menu>
       )
     }
   }

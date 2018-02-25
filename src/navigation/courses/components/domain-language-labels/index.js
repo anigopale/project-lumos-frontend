@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Label } from 'semantic-ui-react';
 
+// DomainLanguageLabels component fetches domains/languages from id list passed down as props
+// and renders Labels for Courses component
 export default class DomainLanguageLabels extends Component {
 
   state = { domains: [], languages: [] };
@@ -10,6 +12,7 @@ export default class DomainLanguageLabels extends Component {
   }
 
   fetchData = () => {
+    // updating state on fetching data
     this.props.domains.map(id => {
       fetch(`https://private-eb08cd-plbackendmockup.apiary-mock.com/api/v1/domains/tech/${id}`)
       .then(response => {
@@ -33,16 +36,23 @@ export default class DomainLanguageLabels extends Component {
   }
 
   renderDomainLabels() {
-    if(this.state.domains.length)
-      return this.state.domains.map(domain => {
-        return <Label color='blue'>{domain.domain_name}</Label>
-      })
+    if(this.props.domains.length) {
+      if(this.state.domains.length === this.props.domains.length
+        && this.state.languages.length === this.props.languages.length)
+        return this.state.domains.map(domain => {
+          return <Label color='blue'>{domain.domain_name}</Label>
+        })
+    }
   }
   renderLanguageLabels() {
-    if(this.state.languages.length)
-      return this.state.languages.map(language => {
-        return <Label color='red'>{language.language_name}</Label>
-      })
+    if(this.props.domains.length) {
+      if(this.state.domains.length === this.props.domains.length
+        && this.state.languages.length === this.props.languages.length)
+        return this.state.languages.map(language => {
+          return <Label color='purple'>{language.language_name}</Label>
+        })
+        return <div>Loading...</div>
+    }
   }
 
   render() {

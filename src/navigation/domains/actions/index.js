@@ -1,7 +1,6 @@
-import domains from './domain.json';
-
 export const FETCH_DOMAINS = 'fetch-domains';
 
+// API endpoint for domains
 const url = 'https://private-eb08cd-plbackendmockup.apiary-mock.com/api/v1/domains/tech';
 
 export function fetchDomains() {

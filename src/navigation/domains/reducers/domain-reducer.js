@@ -5,6 +5,8 @@ import { FETCH_DOMAINS } from '../actions';
 export default function(state = [], action) {
   switch (action.type) {
     case FETCH_DOMAINS:
+    
+      //creating chunks for custom pagination
       state = _.chunk(action.payload, ITEMS_PER_PAGE);
       return state;
       break;

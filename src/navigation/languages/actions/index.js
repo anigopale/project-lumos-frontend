@@ -1,7 +1,6 @@
-import languages from './language.json';
-
 export const FETCH_LANGUAGES = 'fetch-languages';
 
+// API endpoint for languages
 const url = 'https://private-eb08cd-plbackendmockup.apiary-mock.com/api/v1/languages';
 
 export function fetchLanguages() {

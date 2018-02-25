@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Segment, Header, Container, Divider, Loader, Dimmer, Menu } from 'semantic-ui-react';
+import { Grid, Segment, Header, Container, Divider, Loader, Dimmer, Menu, Card, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchLanguages } from './actions';
 
@@ -56,16 +56,16 @@ class Languages extends Component {
     return this.props.languages[this.state.activePage - 1].map((language) => {
       return (
         <Grid.Column>
-          <Segment
-            textAlign='center'
-            size='massive'
-            color='teal'
-            padded
+          <Card
             as={Link}
             to={`/courses/language/${language.id}/0`}
+            fluid
             >
-            {language.language_name}
-          </Segment>
+            <Image src='https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png' width='100%' height='100%' />
+            <Card.Content extra>
+              {language.language_name}
+            </Card.Content>
+          </Card>
         </Grid.Column>
       )
     })
@@ -82,7 +82,7 @@ class Languages extends Component {
       )
     }
     return (
-      <Grid columns={3} stretched stackable centered>
+      <Grid columns={3} stretched stackable centered padded relaxed='very'>
         {this.renderLanguages()}
       </Grid>
     )

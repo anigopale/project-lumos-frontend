@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Segment, Grid, Divider, Header, Loader, Dimmer, Menu } from 'semantic-ui-react';
+import { Container, Segment, Grid, Divider, Header, Loader, Dimmer, Menu, Card, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchSoftSkills } from './actions';
 
@@ -56,16 +56,16 @@ class SoftSkills extends Component {
     return this.props.softskills[this.state.activePage - 1].map((skill) => {
       return (
         <Grid.Column>
-          <Segment
-            textAlign='center'
-            size='massive'
-            color='teal'
-            padded
+          <Card
             as={Link}
-            to={`/courses/domain/${skill.id}/0`}
+            to={`/courses/softskills/${skill.id}/0`}
+            fluid
             >
-            {skill.domain_name}
-          </Segment>
+            <Image src='https://st2.depositphotos.com/1001599/11761/v/950/depositphotos_117615774-stock-illustration-man-during-tv-interview.jpg' />
+            <Card.Content extra>
+              {skill.domain_name}
+            </Card.Content>
+          </Card>
         </Grid.Column>
       )
     })
@@ -82,7 +82,7 @@ class SoftSkills extends Component {
       )
     }
     return (
-      <Grid columns={3} stretched stackable centered>
+      <Grid columns={3} stretched stackable centered padded relaxed='very'>
         {this.renderSoftSkills()}
       </Grid>
     )

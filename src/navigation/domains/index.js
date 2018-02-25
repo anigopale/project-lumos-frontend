@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Segment, Grid, Divider, Header, Dimmer, Loader, Menu } from 'semantic-ui-react';
+import { Container, Segment, Grid, Divider, Header, Dimmer, Loader, Menu, Card, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchDomains } from './actions';
 
@@ -56,16 +56,16 @@ class Domains extends Component {
     return this.props.domains[this.state.activePage - 1].map((domain) => {
       return (
         <Grid.Column>
-          <Segment
-            textAlign='center'
-            size='massive'
-            color='teal'
-            padded
+          <Card
             as={Link}
             to={`/courses/domain/${domain.id}/0`}
+            fluid
             >
-            {domain.domain_name}
-          </Segment>
+            <Image src='https://cdn.dribbble.com/users/1643824/screenshots/3429154/untitled-4.gif' width='100%' height='100%' />
+            <Card.Content extra>
+              {domain.domain_name}
+            </Card.Content>
+          </Card>
         </Grid.Column>
       )
     })
@@ -82,7 +82,7 @@ class Domains extends Component {
       )
     }
     return (
-      <Grid columns={3} stretched stackable centered>
+      <Grid columns={3} stretched stackable centered padded relaxed='very'>
         {this.renderDomains()}
       </Grid>
     )

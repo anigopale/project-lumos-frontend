@@ -15,6 +15,20 @@ class SoftSkills extends Component {
     this.setState({ activePage })
   }
 
+  renderPagination() {
+    if(this.props.softskills.length > 1 ) {
+      return (
+        <Pagination
+          defaultActivePage={1}
+          totalPages={this.props.languages.length}
+          firstItem={null}
+          lastItem={null}
+          onPageChange={this.handlePageChange}
+          />
+      )
+    }
+  }
+
   renderSoftSkills() {
     return this.props.softskills[this.state.activePage - 1].map((skill) => {
       return (
@@ -64,13 +78,7 @@ class SoftSkills extends Component {
             <Divider />
             {this.renderBody()}
             <Divider hidden />
-            <Pagination
-              defaultActivePage={1}
-              totalPages={this.props.softskills.length}
-              firstItem={null}
-              lastItem={null}
-              onPageChange={this.handlePageChange}
-              />
+            {this.renderPagination()}
           </Segment>
         </Container>
       </div>

@@ -15,6 +15,20 @@ class Domains extends Component {
     this.setState({ activePage })
   }
 
+  renderPagination() {
+    if(this.props.domains.length > 1 ) {
+      return (
+        <Pagination
+          defaultActivePage={1}
+          totalPages={this.props.languages.length}
+          firstItem={null}
+          lastItem={null}
+          onPageChange={this.handlePageChange}
+          />
+      )
+    }
+  }
+
   renderDomains() {
     return this.props.domains[this.state.activePage - 1].map((domain) => {
       return (
@@ -64,13 +78,7 @@ class Domains extends Component {
             <Divider />
             {this.renderBody()}
             <Divider hidden />
-            <Pagination
-              defaultActivePage={1}
-              totalPages={this.props.domains.length}
-              firstItem={null}
-              lastItem={null}
-              onPageChange={this.handlePageChange}
-              />
+            {this.renderPagination()}
           </Segment>
         </Container>
       </div>

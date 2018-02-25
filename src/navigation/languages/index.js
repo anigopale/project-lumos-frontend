@@ -15,6 +15,20 @@ class Languages extends Component {
     this.setState({ activePage })
   }
 
+  renderPagination() {
+    if(this.props.languages.length > 1 ) {
+      return (
+        <Pagination
+          defaultActivePage={1}
+          totalPages={this.props.languages.length}
+          firstItem={null}
+          lastItem={null}
+          onPageChange={this.handlePageChange}
+          />
+      )
+    }
+  }
+
   renderLanguages() {
     return this.props.languages[this.state.activePage - 1].map((language) => {
       return (
@@ -64,13 +78,7 @@ class Languages extends Component {
             <Divider />
             {this.renderBody()}
             <Divider hidden />
-            <Pagination
-              defaultActivePage={1}
-              totalPages={this.props.languages.length}
-              firstItem={null}
-              lastItem={null}
-              onPageChange={this.handlePageChange}
-              />
+            {this.renderPagination()}
           </Segment>
         </Container>
       </div>

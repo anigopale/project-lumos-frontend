@@ -20,7 +20,7 @@ class Domains extends Component {
       return (
         <Pagination
           defaultActivePage={1}
-          totalPages={this.props.languages.length}
+          totalPages={this.props.domains.length}
           firstItem={null}
           lastItem={null}
           onPageChange={this.handlePageChange}
@@ -59,7 +59,7 @@ class Domains extends Component {
       )
     }
     return (
-      <Grid columns={3} stretched stackable>
+      <Grid columns={3} stretched stackable centered>
         {this.renderDomains()}
       </Grid>
     )

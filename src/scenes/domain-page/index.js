@@ -16,7 +16,7 @@ export default class DomainPage extends Component {
             <Breadcrumb.Divider icon='right angle' />
             <Breadcrumb.Section as={Link} to='/technical'>Technical Skills</Breadcrumb.Section>
             <Breadcrumb.Divider icon='right angle' />
-            <Breadcrumb.Section active>Languages</Breadcrumb.Section>
+            <Breadcrumb.Section active>Domains</Breadcrumb.Section>
           </Breadcrumb>
         </Container>
         <Domains />

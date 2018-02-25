@@ -16,7 +16,7 @@ export default class LanguagePage extends Component {
             <Breadcrumb.Divider icon='right angle' />
             <Breadcrumb.Section as={Link} to='/technical'>Technical Skills</Breadcrumb.Section>
             <Breadcrumb.Divider icon='right angle' />
-            <Breadcrumb.Section active>Domains</Breadcrumb.Section>
+            <Breadcrumb.Section active>Languages</Breadcrumb.Section>
           </Breadcrumb>
         </Container>
         <Languages />

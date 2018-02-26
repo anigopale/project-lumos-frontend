@@ -58,7 +58,7 @@ class SoftSkills extends Component {
         <Grid.Column>
           <Card
             as={Link}
-            to={`/courses/softskills/${skill.id}/0`}
+            to={`/courses/domain/${skill.id}/0`}
             fluid
             >
             <Image src='https://st2.depositphotos.com/1001599/11761/v/950/depositphotos_117615774-stock-illustration-man-during-tv-interview.jpg' />

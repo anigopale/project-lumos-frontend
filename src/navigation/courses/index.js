@@ -8,12 +8,12 @@ import DomainLanguageLabels from './components/domain-language-labels';
 class Courses extends Component {
   componentDidMount() {
     let { category, id, page_token } = this.props.match.params;
-
+    console.log(category, id, page_token);
     // push to home, if category doesn't match 'domain' or 'language'
-    if(category !== 'video' && category !== 'domain') {
-      this.props.history.push('/');
+    if(category !== 'domain' && category !== 'language') {
+      //this.props.history.push('/');
     }
-    this.props.fetchCourses(type, id, page_token);
+    this.props.fetchCourses(category, id, page_token);
   }
 
 
@@ -22,7 +22,7 @@ class Courses extends Component {
 
     // push to home, if category doesn't match 'domain' or 'language'
     if(category !== 'domain' && category !== 'language') {
-      this.props.history.push('/');
+      //this.props.history.push('/');
     }
   }
 

@@ -9,11 +9,22 @@ import Wiktionary from './components/wiktionary-search';
 class Classroom extends Component {
 
   componentDidMount() {
-    let { type, resource_id } = this.props.match.params
-    this.props.fetchResource(resource_id, type);
-  }
-  componentDidUpdate() {
+    let { resource_type, resource_id } = this.props.match.params;
 
+    // push to home, if resource_type doesn't match 'video' or 'external'
+    if(resource_type !== 'video' && resource_type !== 'external') {
+      this.props.history.push('/');
+    }
+    this.props.fetchResource(resource_id, resource_type);
+  }
+
+  componentDidUpdate() {
+    let { resource_type, resource_id } = this.props.match.params;
+
+    // push to home, if resource_type doesn't match 'video' or 'external'
+    if(resource_type !== 'video' && resource_type !== 'external') {
+      this.props.history.push('/');
+    }
   }
 
   renderBody() {

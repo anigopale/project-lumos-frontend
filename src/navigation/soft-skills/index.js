@@ -82,7 +82,7 @@ class SoftSkills extends Component {
       )
     }
     return (
-      <Grid columns={3} stretched stackable centered padded relaxed='very'>
+      <Grid columns={3} stretched doubling centered padded relaxed='very'>
         {this.renderSoftSkills()}
       </Grid>
     )

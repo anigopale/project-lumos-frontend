@@ -17,13 +17,13 @@ class App extends Component {
         <HashRouter>
           <Switch>
             <Route exact path='/soft-skills' component={SoftSkillsPage} />
-            <Route exact path='/courses/:type/:id/:page_token' component={CoursesPage} />
+            <Route exact path='/courses/:category/:id/:page_token' component={CoursesPage} />
             <Route exact path='/technical/language' component={LanguagePage} />
             <Route exact path='/technical/domain' component={DomainPage} />
             <Route exact path='/technical' component={Technical} />
             <Route exact path='/signin' component={Signin} />
             <Route exact path='/' component={Home} />
-            <Route exact path='/classroom/:type/:resource_id' component={ClassroomPage} />
+            <Route exact path='/classroom/:resource_type/:resource_id' component={ClassroomPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </HashRouter>

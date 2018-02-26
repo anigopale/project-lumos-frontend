@@ -37,47 +37,38 @@ export default class Home extends Component {
           <Grid columns={2} stackable>
             <Grid.Column>
 
-              <Card fluid>
-                <Card.Content>
-                  <Card.Header as='h1'>
-                    Technical Skills
-                  </Card.Header>
-                  <Card.Description>
-                    Description:
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </Card.Description>
-                  <Card.Content extra>
-                    <div>
-                      <Link to ='/technical'>
-                        <Button floated='right' basic color='teal'>Select</Button>
-                      </Link>
-                    </div>
+              <Link to ='/technical'>
+                <Card fluid>
+                  <Card.Content>
+                    <Card.Header as='h1'>
+                      Technical Skills
+                    </Card.Header>
+                    <Card.Description>
+                      Description:
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </Card.Description>
+
                   </Card.Content>
-                </Card.Content>
-              </Card>
+                </Card>
+              </Link>
 
             </Grid.Column>
 
             <Grid.Column>
 
-              <Card fluid>
-                <Card.Content>
-                  <Card.Header as='h1'>
-                    Soft Skills
-                  </Card.Header>
-                  <Card.Description>
-                    Description:
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </Card.Description>
-                  <Card.Content extra>
-                    <div>
-                      <Link to ='/soft-skills'>
-                        <Button floated='right' basic color='teal'>Select</Button>
-                      </Link>
-                    </div>
+              <Link to ='/soft-skills'>
+                <Card fluid>
+                  <Card.Content>
+                    <Card.Header as='h1'>
+                      Soft Skills
+                    </Card.Header>
+                    <Card.Description>
+                      Description:
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </Card.Description>
                   </Card.Content>
-                </Card.Content>
-              </Card>
+                </Card>
+              </Link>
 
             </Grid.Column>
 

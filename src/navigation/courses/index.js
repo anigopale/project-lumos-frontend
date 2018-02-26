@@ -7,12 +7,25 @@ import DomainLanguageLabels from './components/domain-language-labels';
 
 class Courses extends Component {
   componentDidMount() {
-    let { type, id, page_token } = this.props.match.params;
+    let { category, id, page_token } = this.props.match.params;
+
+    // push to home, if category doesn't match 'domain' or 'language'
+    if(category !== 'video' && category !== 'domain') {
+      this.props.history.push('/');
+    }
     this.props.fetchCourses(type, id, page_token);
   }
-  componentDidUpdate() {
 
+
+  componentDidUpdate() {
+    let { category, id, page_token } = this.props.match.params;
+
+    // push to home, if category doesn't match 'domain' or 'language'
+    if(category !== 'domain' && category !== 'language') {
+      this.props.history.push('/');
+    }
   }
+
 
   renderSkillLevel(skill_level) {
     if(skill_level === 'BG') {

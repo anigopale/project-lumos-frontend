@@ -46,7 +46,13 @@ class Courses extends Component {
         course_type = 'video'
       }
       return (
-        <Item as={Link} to={`/classroom/${course_type}/${course.id}`}>
+        <Item
+          as={Link}
+          to={{
+            pathname: `/classroom/${course_type}/${course.id}`,
+            state: { fromCourses: true }
+          }}
+          >
           <Item.Content>
             <Item.Header as='a'>{course.title}</Item.Header>
             <Item.Meta>

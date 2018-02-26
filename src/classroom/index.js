@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Button, Container, Divider, Grid, Loader, Dimmer } from 'semantic-ui-react';
+import { Segment, Button, Container, Divider, Grid, Loader, Dimmer, Icon } from 'semantic-ui-react';
 import { fetchResource } from './actions';
 import Resource from './components/embed-resource';
 import Wikipedia from './components/wikipedia-search';
@@ -24,6 +24,25 @@ class Classroom extends Component {
     // push to home, if resource_type doesn't match 'video' or 'external'
     if(resource_type !== 'video' && resource_type !== 'external') {
       this.props.history.push('/');
+    }
+  }
+
+  renderBackButton() {
+    // checks if location.state exists, as passed by Courses component
+    // renders back button only if user reaches Classroom through Courses page
+    if(this.props.location.state) {
+      let { fromCourses } = this.props.location.state;
+      if(fromCourses)
+      return (
+        <Button
+
+          onClick={() => this.props.history.goBack()}
+          >
+          <Icon name='left arrow' />
+          Back to Courses
+        </Button>
+
+      )
     }
   }
 
@@ -71,6 +90,7 @@ class Classroom extends Component {
                 <Grid.Column width={4} only='computer tablet'>
                 </Grid.Column>
                 <Grid.Column width={8}>
+                  {this.renderBackButton()}
                   <h1>{this.props.resource.title}</h1>
                   {this.renderBody()}
                 </Grid.Column>

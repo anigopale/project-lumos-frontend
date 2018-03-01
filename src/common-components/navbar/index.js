@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Header, Segment, Container } from 'semantic-ui-react';
+import { Menu, Header, Segment, Container, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import SearchBar from '../search-bar';
 
@@ -26,6 +26,7 @@ export default class NavBar extends Component {
             </Container>
           </Menu>
         </Segment>
+        <Divider hidden />
       </div>
     )
   }

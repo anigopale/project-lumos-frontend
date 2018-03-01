@@ -1,19 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Divider, Item, Header, Button, Segment, Label, Loader, Dimmer } from 'semantic-ui-react';
+import { Container, Divider, Item, Header, Button, Segment, Label, Loader, Dimmer, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { fetchCourses } from './actions';
+import { fetchCourses, deleteCourses } from './actions';
 import DomainLanguageLabels from './components/domain-language-labels';
 
 class Courses extends Component {
+  state = { course_type: 'videos' };
+
+  dropdownOptions = [
+    {
+      text: "Videos",
+      value: "videos"
+    },
+    {
+      text: "Links",
+      value: "links"
+    }
+  ]
+
   componentDidMount() {
     let { category, id, page_token } = this.props.match.params;
-    console.log(category, id, page_token);
+    let { course_type } = this.state;
+
     // push to home, if category doesn't match 'domain' or 'language'
     if(category !== 'domain' && category !== 'language') {
-      //this.props.history.push('/');
+      this.props.history.push('/courses');
     }
-    this.props.fetchCourses(category, id, page_token);
+    this.props.fetchCourses(category, id, page_token, course_type);
   }
 
 
@@ -26,6 +40,14 @@ class Courses extends Component {
     }
   }
 
+  handleDropdownChange = (e, { value }) => {
+    let { category, id, page_token } = this.props.match.params;
+    let { course_type } = this.state;
+      this.props.history.push(`/courses/${category}/${id}/0`);
+    this.props.deleteCourses();
+    this.props.fetchCourses(category, id, page_token, course_type);
+    this.setState({ course_type: value });
+  }
 
   renderSkillLevel(skill_level) {
     if(skill_level === 'BG') {
@@ -122,6 +144,12 @@ class Courses extends Component {
         <Container text>
           <Divider hidden />
           <Header as='h1'>Courses</Header>
+          <Dropdown
+            selection
+            options={this.dropdownOptions}
+            onChange={this.handleDropdownChange}
+            placeholder='Videos'
+            />
           <Divider />
           {this.renderBody()}
         </Container>
@@ -134,4 +162,4 @@ function mapStateToProps({ courses }) {
   return { courses };
 }
 
-export default connect(mapStateToProps, { fetchCourses })(Courses);
+export default connect(mapStateToProps, { fetchCourses, deleteCourses })(Courses);

@@ -40,6 +40,13 @@ class Courses extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    // let { category, id, page_token } = nextProps.match.params;
+    // let { course_type } = this.state;
+    // this.props.deleteCourses();
+    // this.props.fetchCourses(category, id, page_token, course_type);
+  }
+
   handleDropdownChange = (e, { value }) => {
     let { category, id, page_token } = this.props.match.params;
     let { course_type } = this.state;
@@ -70,15 +77,17 @@ class Courses extends Component {
         course_type = 'video';
       }
       return (
-        <Item
-          as={Link}
-          to={{
-            pathname: `/classroom/${course_type}/${course.id}`,
-            state: { fromCourses: true }
-          }}
-          >
+        <Item>
           <Item.Content>
-            <Item.Header as='a'>{course.title}</Item.Header>
+            <Item.Header
+              as={Link}
+              to={{
+                pathname: `/classroom/${course_type}/${course.id}`,
+                state: { fromCourses: true }
+              }}
+              >
+              {course.title}
+            </Item.Header>
             <Item.Meta>
               <span className='cinema'>skill level: {this.renderSkillLevel(course.skill_level)}</span>
             </Item.Meta>
@@ -123,6 +132,11 @@ class Courses extends Component {
             <Loader size='medium' />
           </Dimmer>
         </Segment>
+      )
+    }
+    if(!this.props.courses.results.length) {
+      return (
+        <div>no results found</div>
       )
     }
     return (

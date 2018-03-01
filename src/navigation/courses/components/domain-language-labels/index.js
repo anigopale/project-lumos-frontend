@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Label } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import { domain_api, language_api } from '../../../../common-services/api-endpoints';
 
 // DomainLanguageLabels component fetches domains/languages from id list passed down as props
@@ -11,7 +12,7 @@ export default class DomainLanguageLabels extends Component {
   componentDidMount() {
     this.fetchData();
   }
-
+  
   fetchData = () => {
     // updating state on fetching data
     this.props.domains.map(id => {
@@ -41,7 +42,15 @@ export default class DomainLanguageLabels extends Component {
       if(this.state.domains.length === this.props.domains.length
         && this.state.languages.length === this.props.languages.length)
         return this.state.domains.map(domain => {
-          return <Label color='blue'>{domain.domain_name}</Label>
+          return (
+            <Label
+              color='blue'
+              as={Link}
+              to={`/courses/domain/${domain.id}/0`}
+              >
+              {domain.domain_name}
+            </Label>
+          )
         })
     }
   }
@@ -50,7 +59,15 @@ export default class DomainLanguageLabels extends Component {
       if(this.state.domains.length === this.props.domains.length
         && this.state.languages.length === this.props.languages.length)
         return this.state.languages.map(language => {
-          return <Label color='purple'>{language.language_name}</Label>
+          return (
+            <Label
+              color='purple'
+              as={Link}
+              to={`/courses/language/${language.id}/0`}
+              >
+              {language.language_name}
+            </Label>
+          )
         })
         return <div>Loading...</div>
     }

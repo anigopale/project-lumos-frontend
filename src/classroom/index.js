@@ -93,6 +93,8 @@ class Classroom extends Component {
                   {this.renderBackButton()}
                   <h1>{this.props.course.title}</h1>
                   {this.renderBody()}
+                  <br />
+                  <p>{this.props.course.description}</p>
                 </Grid.Column>
                 <Grid.Column width={4} only='computer tablet'>
                   <Segment basic>

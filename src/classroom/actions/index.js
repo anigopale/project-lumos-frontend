@@ -1,17 +1,16 @@
+import { video_course_api, link_course_api } from '../../common-services/api-endpoints';
+
 export const FETCH_COURSE = 'fetch-course';
 export const ERROR_COURSE = 'error-course';
 
-const video_course_url = 'https://pl-backend-development.herokuapp.com/api/video';
-const link_course_url = 'https://pl-backend-development.herokuapp.com/api/externallink';
-
 export function fetchResource(course_id, course_type) {
-  let url = video_course_url;
+  let url = video_course_api;
   if(course_type === 'link') {
-    url = link_course_url;
+    url = link_course_api;
   }
 
   return function(dispatch) {
-    fetch(`${url}/${course_id}/`)
+    fetch(`${url}${course_id}/`)
     .then(response => {
       response.json()
       .then(data => {

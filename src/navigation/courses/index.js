@@ -46,7 +46,7 @@ class Courses extends Component {
     if(value !== course_type) {
       this.props.history.push(`/courses/${category}/${id}/0`);
       this.props.deleteCourses();
-      this.props.fetchCourses(category, id, page_token, course_type);
+      this.props.fetchCourses(category, id, page_token, value);
       this.setState({ course_type: value });
     }
   }
@@ -64,7 +64,7 @@ class Courses extends Component {
   }
 
   renderCourses() {
-    return this.props.courses.data.map((course) => {
+    return this.props.courses.results.map((course) => {
       let course_type = 'link';
       if(this.state.course_type === 'videos') {
         course_type = 'video';
@@ -84,7 +84,7 @@ class Courses extends Component {
             </Item.Meta>
             <Item.Description>{course.description}</Item.Description>
             <Item.Extra>
-              <DomainLanguageLabels languages={course.languages_fk} domains={course.domains_fk} />
+              <DomainLanguageLabels languages={course.languages} domains={course.domains} />
             </Item.Extra>
           </Item.Content>
         </Item>
@@ -116,7 +116,7 @@ class Courses extends Component {
   }
 
   renderBody() {
-    if(!this.props.courses.data) {
+    if(!this.props.courses.results) {
       return (
         <Segment basic>
           <Dimmer inverted active>

@@ -1,11 +1,11 @@
+import { language_api } from '../../../common-services/api-endpoints';
+
 export const FETCH_LANGUAGES = 'fetch-languages';
 
-// API endpoint for languages
-const language_url = 'https://pl-backend-development.herokuapp.com/api/language/?languages_for=TS';
-
 export function fetchLanguages() {
+  let url = `${language_api}?languages_for=TS`;
   return function(dispatch) {
-    fetch(language_url)
+    fetch(url)
     .then(response => {
       response.json()
       .then(data => {

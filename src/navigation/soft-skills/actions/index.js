@@ -1,11 +1,11 @@
+import { domain_api } from '../../../common-services/api-endpoints';
+
 export const FETCH_SOFT_SKILLS = 'fetch-soft-skills';
 
-// API endpoint for soft-skills
-const softskills_url = 'https://pl-backend-development.herokuapp.com/api/domain/?domain_for=SS';
-
 export function fetchSoftSkills() {
+  let url = `${domain_api}?domains_for=SS`;
   return function(dispatch) {
-    fetch(softskills_url)
+    fetch(url)
     .then(response => {
       response.json()
       .then(data => {

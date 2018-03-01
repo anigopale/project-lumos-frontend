@@ -1,11 +1,11 @@
+import { domain_api } from '../../../common-services/api-endpoints';
+
 export const FETCH_DOMAINS = 'fetch-domains';
 
-// API endpoint for domains
-const domain_url = 'https://pl-backend-development.herokuapp.com/api/domain/?domain_for=TS';
-
 export function fetchDomains() {
+  let url = `${domain_api}?domains_for=TS`;
   return function(dispatch) {
-    fetch(domain_url)
+    fetch(url)
     .then(response => {
       response.json()
       .then(data => {

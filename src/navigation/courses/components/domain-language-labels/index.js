@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Label } from 'semantic-ui-react';
+import { domain_api, language_api } from '../../../../common-services/api-endpoints';
 
 // DomainLanguageLabels component fetches domains/languages from id list passed down as props
 // and renders Labels for Courses component
@@ -14,21 +15,21 @@ export default class DomainLanguageLabels extends Component {
   fetchData = () => {
     // updating state on fetching data
     this.props.domains.map(id => {
-      fetch(`https://private-eb08cd-plbackendmockup.apiary-mock.com/api/v1/domains/tech/${id}`)
+      fetch(`${domain_api}${id}`)
       .then(response => {
         response.json()
         .then(data => {
-          let domain = data[0];
+          let domain = data;
           this.setState({ domains: [...this.state.domains, domain] })
         })
       })
     })
     this.props.languages.map(id => {
-      fetch(`https://private-eb08cd-plbackendmockup.apiary-mock.com/api/v1/languages/${id}`)
+      fetch(`${language_api}${id}`)
       .then(response => {
         response.json()
         .then(data => {
-          let language = data[0];
+          let language = data;
           this.setState({ languages: [...this.state.languages, language] })
         })
       })

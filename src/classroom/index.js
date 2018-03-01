@@ -11,7 +11,7 @@ class Classroom extends Component {
   componentDidMount() {
     let { course_type, course_id } = this.props.match.params;
 
-    // push to home, if course_type doesn't match 'video' or 'external'
+    // push to 404, if course_type doesn't match 'video' or 'external'
     if(course_type !== 'video' && course_type !== 'link') {
       this.props.history.push('/classroom');
     }
@@ -21,15 +21,15 @@ class Classroom extends Component {
   componentDidUpdate() {
     let { course_type, course_id } = this.props.match.params;
 
-    // push to home, if course_type doesn't match 'video' or 'external'
+    // push to 404, if course_type doesn't match 'video' or 'external'
     if(course_type !== 'video' && course_type !== 'link') {
       this.props.history.push('/classroom');
     }
   }
 
   renderBackButton() {
-    // checks if location.state exists, as passed by Courses component
-    // renders back button only if user reaches Classroom through Courses page
+    // check if location.state exists, as passed by Courses component
+    // render back button only if user reaches Classroom through Courses page
     if(this.props.location.state) {
       let { fromCourses } = this.props.location.state;
       if(fromCourses)

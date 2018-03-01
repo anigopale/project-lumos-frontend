@@ -20,11 +20,13 @@ class Courses extends Component {
   ]
 
   componentDidMount() {
+    this.props.deleteCourses();
     let { category, id, page_token } = this.props.match.params;
     let { course_type } = this.state;
 
-    // push to home, if category doesn't match 'domain' or 'language'
+    // push to 404, if category doesn't match 'domain' or 'language'
     if(category !== 'domain' && category !== 'language') {
+      this.props.deleteCourses();
       this.props.history.push('/courses');
     }
     this.props.fetchCourses(category, id, page_token, course_type);
@@ -34,17 +36,28 @@ class Courses extends Component {
   componentDidUpdate() {
     let { category, id, page_token } = this.props.match.params;
 
-    // push to home, if category doesn't match 'domain' or 'language'
+    // push to 404, if category doesn't match 'domain' or 'language'
     if(category !== 'domain' && category !== 'language') {
       //this.props.history.push('/');
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    // let { category, id, page_token } = nextProps.match.params;
-    // let { course_type } = this.state;
-    // this.props.deleteCourses();
-    // this.props.fetchCourses(category, id, page_token, course_type);
+    let { category, id, page_token } = nextProps.match.params;
+    let { course_type } = this.state;
+
+    // erase and fetch data only either if id is same but category is different
+    // or the id is different
+    if(id === this.props.match.params.id) {
+      if(category !== this.props.match.params.category) {
+        this.props.deleteCourses();
+        this.props.fetchCourses(category, id, page_token, course_type);
+      }
+    }
+    else {
+      this.props.deleteCourses();
+      this.props.fetchCourses(category, id, page_token, course_type);
+    }
   }
 
   handleDropdownChange = (e, { value }) => {
@@ -70,6 +83,13 @@ class Courses extends Component {
     }
   }
 
+  openLink(course_type, url) {
+    // open external link url
+    if(course_type === 'link') {
+      window.open(url);
+    }
+  }
+
   renderCourses() {
     return this.props.courses.results.map((course) => {
       let course_type = 'link';
@@ -80,6 +100,7 @@ class Courses extends Component {
         <Item>
           <Item.Content>
             <Item.Header
+              onClick={() => {this.openLink(course_type, course.link_url)}}
               as={Link}
               to={{
                 pathname: `/classroom/${course_type}/${course.id}`,

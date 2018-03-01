@@ -1,4 +1,4 @@
-import { video_course_api, link_course_api } from '../../../common-services/api-endpoints';
+import { video_course_api, link_course_api, domain_api, language_api } from '../../../common-services/api-endpoints';
 
 export const FETCH_COURSES = 'fetch-courses';
 export const DELETE_COURSES = 'delete-courses';
@@ -17,6 +17,7 @@ export function fetchCourses(category, id, page_token, course_type) {
       category = 'languages';
     }
 
+    // api url for fetching courses
     url = `${url}?${category}=${id}`;
 
     fetch(`${url}`)

@@ -9,21 +9,21 @@ import Wiktionary from './components/wiktionary-search';
 class Classroom extends Component {
 
   componentDidMount() {
-    let { resource_type, resource_id } = this.props.match.params;
+    let { course_type, course_id } = this.props.match.params;
 
-    // push to home, if resource_type doesn't match 'video' or 'external'
-    if(resource_type !== 'video' && resource_type !== 'external') {
-      this.props.history.push('/');
+    // push to home, if course_type doesn't match 'video' or 'external'
+    if(course_type !== 'video' && course_type !== 'link') {
+      this.props.history.push('/classroom');
     }
-    this.props.fetchResource(resource_id, resource_type);
+    this.props.fetchResource(course_id, course_type);
   }
 
   componentDidUpdate() {
-    let { resource_type, resource_id } = this.props.match.params;
+    let { course_type, course_id } = this.props.match.params;
 
-    // push to home, if resource_type doesn't match 'video' or 'external'
-    if(resource_type !== 'video' && resource_type !== 'external') {
-      this.props.history.push('/');
+    // push to home, if course_type doesn't match 'video' or 'external'
+    if(course_type !== 'video' && course_type !== 'link') {
+      this.props.history.push('/classroom');
     }
   }
 
@@ -47,25 +47,25 @@ class Classroom extends Component {
   }
 
   renderBody() {
-    if(this.props.resource.error) {
+    if(this.props.course.error) {
       return (
-        <div>this.props.resource.error</div>
+        <div>this.props.course.error</div>
       )
     }
-    if(this.props.resource.id) {
-      if(this.props.resource.video_url) {
+    if(this.props.course.id) {
+      if(this.props.course.video_url) {
         let type = 'yt_video';
-        if(this.props.resource.video_url.includes('vimeo')) {
+        if(this.props.course.video_url.includes('vimeo')) {
           type = 'vimeo';
         }
-        if(this.props.resource.video_url.includes('list=')) {
+        if(this.props.course.video_url.includes('list=')) {
           type='yt_playlist';
         }
-        return <Resource url={this.props.resource.video_url} type={type} />
+        return <Resource url={this.props.course.video_url} type={type} />
        }
       return (
         <div>
-          <a href={this.props.resource.link_url} target='_blank' rel='noopener'>
+          <a href={this.props.course.link_url} target='_blank' rel='noopener'>
             <Button size='massive' fluid>Go to course</Button>
           </a>
         </div>
@@ -91,7 +91,7 @@ class Classroom extends Component {
                 </Grid.Column>
                 <Grid.Column width={8}>
                   {this.renderBackButton()}
-                  <h1>{this.props.resource.title}</h1>
+                  <h1>{this.props.course.title}</h1>
                   {this.renderBody()}
                 </Grid.Column>
                 <Grid.Column width={4} only='computer tablet'>
@@ -109,8 +109,8 @@ class Classroom extends Component {
   }
 }
 
-function mapStateToProps({ resource }) {
-  return { resource };
+function mapStateToProps({ course }) {
+  return { course };
 }
 
 export default connect(mapStateToProps, { fetchResource })(Classroom);

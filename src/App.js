@@ -23,7 +23,7 @@ class App extends Component {
             <Route exact path='/technical' component={Technical} />
             <Route exact path='/signin' component={Signin} />
             <Route exact path='/' component={Home} />
-            <Route exact path='/classroom/:resource_type/:resource_id' component={ClassroomPage} />
+            <Route exact path='/classroom/:course_type/:course_id' component={ClassroomPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </HashRouter>

@@ -1,26 +1,29 @@
-import resources from './json/resources.json';
-import resources_new from './json/resources_new.json';
+export const FETCH_COURSE = 'fetch-course';
+export const ERROR_COURSE = 'error-course';
 
-export const FETCH_RESOURCE = 'fetch-resource';
-export const ERROR_RESOURCE = 'error-resource';
+const video_course_url = 'https://pl-backend-development.herokuapp.com/api/video';
+const link_course_url = 'https://pl-backend-development.herokuapp.com/api/externallink';
 
-const url = 'https://private-eb08cd-plbackendmockup.apiary-mock.com/api/v1/courses';
+export function fetchResource(course_id, course_type) {
+  let url = video_course_url;
+  if(course_type === 'link') {
+    url = link_course_url;
+  }
 
-export function fetchResource(resource_id) {
   return function(dispatch) {
-    fetch(`${url}/${resource_id}`)
+    fetch(`${url}/${course_id}/`)
     .then(response => {
       response.json()
       .then(data => {
         dispatch({
-          type: FETCH_RESOURCE,
-          payload: data[0]
+          type: FETCH_COURSE,
+          payload: data
         });
       })
     })
     .catch(error => {
       dispatch({
-        type: ERROR_RESOURCE
+        type: ERROR_COURSE
       })
     })
   }

@@ -61,7 +61,7 @@ class Domains extends Component {
             to={`/courses/domain/${domain.id}/0`}
             fluid
             >
-            <Image src='https://cdn.dribbble.com/users/1643824/screenshots/3429154/untitled-4.gif' width='100%' height='100%' />
+            <Image src={domain.icon} alt='' />
             <Card.Content extra>
               {domain.domain_name}
             </Card.Content>

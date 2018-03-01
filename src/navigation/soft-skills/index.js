@@ -61,7 +61,7 @@ class SoftSkills extends Component {
             to={`/courses/domain/${skill.id}/0`}
             fluid
             >
-            <Image src='https://st2.depositphotos.com/1001599/11761/v/950/depositphotos_117615774-stock-illustration-man-during-tv-interview.jpg' />
+            <Image src={skill.icon} alt='' />
             <Card.Content extra>
               {skill.domain_name}
             </Card.Content>

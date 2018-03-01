@@ -43,10 +43,12 @@ class Courses extends Component {
   handleDropdownChange = (e, { value }) => {
     let { category, id, page_token } = this.props.match.params;
     let { course_type } = this.state;
+    if(value !== course_type) {
       this.props.history.push(`/courses/${category}/${id}/0`);
-    this.props.deleteCourses();
-    this.props.fetchCourses(category, id, page_token, course_type);
-    this.setState({ course_type: value });
+      this.props.deleteCourses();
+      this.props.fetchCourses(category, id, page_token, course_type);
+      this.setState({ course_type: value });
+    }
   }
 
   renderSkillLevel(skill_level) {
@@ -63,9 +65,9 @@ class Courses extends Component {
 
   renderCourses() {
     return this.props.courses.data.map((course) => {
-      let course_type = 'external';
-      if(course.video_url) {
-        course_type = 'video'
+      let course_type = 'link';
+      if(this.state.course_type === 'videos') {
+        course_type = 'video';
       }
       return (
         <Item
@@ -148,7 +150,7 @@ class Courses extends Component {
             selection
             options={this.dropdownOptions}
             onChange={this.handleDropdownChange}
-            placeholder='Videos'
+            value={this.state.course_type}
             />
           <Divider />
           {this.renderBody()}

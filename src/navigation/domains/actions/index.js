@@ -1,11 +1,11 @@
 export const FETCH_DOMAINS = 'fetch-domains';
 
 // API endpoint for domains
-const url = 'https://private-eb08cd-plbackendmockup.apiary-mock.com/api/v1/domains/tech';
+const domain_url = 'https://pl-backend-development.herokuapp.com/api/domain/?domain_for=TS';
 
 export function fetchDomains() {
   return function(dispatch) {
-    fetch(url)
+    fetch(domain_url)
     .then(response => {
       response.json()
       .then(data => {

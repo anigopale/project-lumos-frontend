@@ -61,7 +61,7 @@ class Languages extends Component {
             to={`/courses/language/${language.id}/0`}
             fluid
             >
-            <Image src='https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png' width='100%' height='100%' />
+            <Image src={language.icon} alt='' />
             <Card.Content extra>
               {language.language_name}
             </Card.Content>

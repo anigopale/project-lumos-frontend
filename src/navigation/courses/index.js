@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Divider, Item, Header, Button, Segment, Label, Loader, Dimmer, Dropdown } from 'semantic-ui-react';
+import {
+  Container,
+  Divider,
+  Item,
+  Header,
+  Button,
+  Segment,
+  Label,
+  Loader,
+  Dimmer,
+  Dropdown
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchCourses, deleteCourses } from './actions';
 import DomainLanguageLabels from './components/domain-language-labels';
+import Filters from './components/domain-language-labels';
 
 class Courses extends Component {
+  // dropdown value, for passing course_type as an argument in fetchCourses
   state = { course_type: 'videos' };
 
   dropdownOptions = [
@@ -46,7 +59,7 @@ class Courses extends Component {
     let { category, id, page_token } = nextProps.match.params;
     let { course_type } = this.state;
 
-    // erase and fetch data only either if id is same but category is different
+    // erases and fetchs data only either if id is same but category is different
     // or the id is different
     if(id === this.props.match.params.id) {
       if(category !== this.props.match.params.category) {
@@ -60,6 +73,7 @@ class Courses extends Component {
     }
   }
 
+  // fetches links/video courses depending upon value of dropdown menu
   handleDropdownChange = (e, { value }) => {
     let { category, id, page_token } = this.props.match.params;
     let { course_type } = this.state;
@@ -84,12 +98,13 @@ class Courses extends Component {
   }
 
   openLink(course_type, url) {
-    // open external link url
+    // opens external link url in new tab
     if(course_type === 'link') {
       window.open(url);
     }
   }
 
+  // renders fetched courses
   renderCourses() {
     return this.props.courses.results.map((course) => {
       let course_type = 'link';
@@ -110,7 +125,7 @@ class Courses extends Component {
               {course.title}
             </Item.Header>
             <Item.Meta>
-              <span className='cinema'>skill level: {this.renderSkillLevel(course.skill_level)}</span>
+              <span>skill level: {this.renderSkillLevel(course.skill_level)}</span>
             </Item.Meta>
             <Item.Description>{course.description}</Item.Description>
             <Item.Extra>
@@ -145,6 +160,7 @@ class Courses extends Component {
     )
   }
 
+  // renders loader or results
   renderBody() {
     if(!this.props.courses.results) {
       return (
@@ -187,6 +203,7 @@ class Courses extends Component {
             onChange={this.handleDropdownChange}
             value={this.state.course_type}
             />
+          <Filters />
           <Divider />
           {this.renderBody()}
         </Container>

@@ -11,20 +11,33 @@ class Classroom extends Component {
   componentDidMount() {
     let { course_type, course_id } = this.props.match.params;
 
-    // push to 404, if course_type doesn't match 'video' or 'external'
-    if(course_type !== 'video' && course_type !== 'link') {
+    // push to 404, if course_type doesn't match these
+    if(course_type !== 'knowledge-base' && course_type !== 'soft-skills' && course_type !== 'random') {
       this.props.history.push('/classroom');
     }
-    this.props.fetchResource(course_id, course_type);
+    if(this.props.course.id != course_id)
+      this.props.fetchResource(course_id, course_type);
   }
 
   componentDidUpdate() {
     let { course_type, course_id } = this.props.match.params;
 
-    // push to 404, if course_type doesn't match 'video' or 'external'
-    if(course_type !== 'video' && course_type !== 'link') {
+    // push to 404, if course_type doesn't match these
+    if(course_type !== 'knowledge-base' && course_type !== 'soft-skills' && course_type !== 'random') {
       this.props.history.push('/classroom');
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let { course_type, course_id } = nextProps.match.params;
+
+    // push to 404, if course_type doesn't match these
+    if(course_type !== 'knowledge-base' && course_type !== 'soft-skills' && course_type !== 'random') {
+      this.props.history.push('/classroom');
+    }
+    if(this.props.course.id != course_id)
+      this.props.fetchResource(course_id, course_type);
+
   }
 
   renderBackButton() {
@@ -35,7 +48,6 @@ class Classroom extends Component {
       if(fromCourses)
       return (
         <Button
-
           onClick={() => this.props.history.goBack()}
           >
           <Icon name='left arrow' />
@@ -53,15 +65,17 @@ class Classroom extends Component {
       )
     }
     if(this.props.course.id) {
-      if(this.props.course.video_url) {
+      // to check if course type is 'VI'(video) or not
+      if(this.props.course.data_type === 'VI') {
         let type = 'yt_video';
-        if(this.props.course.video_url.includes('vimeo')) {
+        if(this.props.course.link_url.includes('vimeo')) {
           type = 'vimeo';
         }
-        if(this.props.course.video_url.includes('list=')) {
+        if(this.props.course.link_url.includes('list=')) {
           type='yt_playlist';
         }
-        return <Resource url={this.props.course.video_url} type={type} />
+        // passing url and type props to Resource
+        return <Resource url={this.props.course.link_url} type={type} />
        }
       return (
         <div>

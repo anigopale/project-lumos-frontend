@@ -1,12 +1,14 @@
-import { video_course_api, link_course_api } from '../../common-services/api-endpoints';
+import { knowledge_base, soft_skills_data, random_data } from '../../common-services/api-endpoints';
 
 export const FETCH_COURSE = 'fetch-course';
 export const ERROR_COURSE = 'error-course';
 
 export function fetchResource(course_id, course_type) {
-  let url = video_course_api;
-  if(course_type === 'link') {
-    url = link_course_api;
+  let url = knowledge_base;
+  if(course_type === 'soft-skills') {
+    url = soft_skills_data;
+  } else if (course_type === 'random') {
+    url = random_data;
   }
 
   return function(dispatch) {

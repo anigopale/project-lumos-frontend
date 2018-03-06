@@ -15,7 +15,7 @@ import {
 import { Link } from 'react-router-dom';
 import { fetchCourses, deleteCourses } from './actions';
 import CourseLabels from './components/course-labels';
-//import Filters from './components/domain-language-labels';
+import Filters from './components/filters';
 
 class Courses extends Component {
 
@@ -29,6 +29,7 @@ class Courses extends Component {
         this.props.history.push('/courses');
       }
     }
+    this.props.deleteCourses();
     this.props.fetchCourses(course_type, page_token, category, category_id);
   }
 
@@ -47,10 +48,25 @@ class Courses extends Component {
   componentWillReceiveProps(nextProps) {
     let { category, category_id, page_token, course_type } = nextProps.match.params;
     if(this.props.match.params !== nextProps.match.params) {
+      // fetch data only if url parameters are different
       this.props.deleteCourses();
       this.props.fetchCourses(course_type, page_token, category, category_id);
     }
 
+  }
+
+  filterCourses = (filters) => {
+    // filter courses using 'filters' props passed up by <Filters />
+    let { course_type, category, category_id } = this.props.match.params;
+    // let category_params = "";
+    // if(category && category_id) {
+    //   category_params = `/${category}/${category_id}`
+    // }
+    //
+    // //push to first page on filter
+    // this.props.history.push(`/courses/${course_type}/1${category_params}`);
+    this.props.deleteCourses();
+    this.props.fetchCourses(course_type, '1', category, category_id, filters);
   }
 
   renderSkillLevel(skill_level) {
@@ -108,7 +124,7 @@ class Courses extends Component {
     let { course_type, category, category_id } = this.props.match.params;
 
     if(this.props.courses.results.length) {
-
+      // grabbing previous and next page number off of 'previous' and 'next' attribute
       if(this.props.courses.previous) {
         if(this.props.courses.previous.includes('page='))
           previousPageToken = this.props.courses.previous.split(/page=(.+)/)[1].charAt(0);
@@ -185,6 +201,7 @@ class Courses extends Component {
           <Divider hidden />
           <Header as='h1'>Courses</Header>
           page {this.props.match.params.page_token}
+          <Filters getFilters={this.filterCourses} />
           <Divider />
           {this.renderBody()}
         </Container>

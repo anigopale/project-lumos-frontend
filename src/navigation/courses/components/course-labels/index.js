@@ -58,43 +58,50 @@ export default class CourseLabels extends Component {
 
   renderDomainLabels() {
     if(this.props.domains) {
-      if(this.state.domains.length === this.props.domains.length
-        && this.state.languages.length === this.props.languages.length)
-        return this.state.domains.map(domain => {
-          return (
-            <Label
-              color='blue'
-              as={Link}
-              to={`/courses/knowledge-base/1/domain/${domain.id}/`}
-              >
-              {domain.domain_name}
-            </Label>
-          )
-        })
-    }
+      if(this.props.domains.length) {
+        if(this.state.domains.length === this.props.domains.length
+          && this.state.languages.length === this.props.languages.length)
+          return this.state.domains.map(domain => {
+            return (
+              <Label
+                color='blue'
+                as={Link}
+                to={`/courses/knowledge-base/1/domain/${domain.id}/`}
+                >
+                {domain.domain_name}
+              </Label>
+            )
+          })
+        }
+      }
   }
   renderLanguageLabels() {
     if(this.props.languages) {
-      if(this.state.domains.length === this.props.domains.length
-        && this.state.languages.length === this.props.languages.length)
-        return this.state.languages.map(language => {
-          return (
-            <Label
-              color='purple'
-              as={Link}
-              to={`/courses/knowledge-base/1/language/${language.id}/`}
-              >
-              {language.language_name}
-            </Label>
-          )
-        })
-        return <div>Loading...</div>
-    }
+      if(this.props.languages.length) {
+
+        if(this.state.domains.length === this.props.domains.length
+          && this.state.languages.length === this.props.languages.length)
+          return this.state.languages.map(language => {
+            return (
+              <Label
+                color='purple'
+                as={Link}
+                to={`/courses/knowledge-base/1/language/${language.id}/`}
+                >
+                {language.language_name}
+              </Label>
+            )
+          })
+          return <div>Loading...</div>
+        }
+      }
   }
 
   renderSoftSkillLabels() {
     if(this.props.softskills) {
-      if(this.state.softskills.length === this.props.softskills.length)
+      if(this.props.softskills.length) {
+
+        if(this.state.softskills.length === this.props.softskills.length)
         return this.state.softskills.map(softskill => {
           return (
             <Label
@@ -107,7 +114,8 @@ export default class CourseLabels extends Component {
           )
         })
         return <div>Loading...</div>
-    }
+      }
+      }
   }
 
   render() {

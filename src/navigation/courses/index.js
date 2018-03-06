@@ -14,108 +14,72 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchCourses, deleteCourses } from './actions';
-import DomainLanguageLabels from './components/domain-language-labels';
-import Filters from './components/domain-language-labels';
+import CourseLabels from './components/course-labels';
+//import Filters from './components/domain-language-labels';
 
 class Courses extends Component {
-  // dropdown value, for passing course_type as an argument in fetchCourses
-  state = { course_type: 'videos' };
-
-  dropdownOptions = [
-    {
-      text: "Videos",
-      value: "videos"
-    },
-    {
-      text: "Links",
-      value: "links"
-    }
-  ]
 
   componentDidMount() {
     this.props.deleteCourses();
-    let { category, id, page_token } = this.props.match.params;
-    let { course_type } = this.state;
+    let { course_type, page_token, category, category_id } = this.props.match.params;
 
     // push to 404, if category doesn't match 'domain' or 'language'
-    if(category !== 'domain' && category !== 'language') {
-      this.props.deleteCourses();
-      this.props.history.push('/courses');
+    if(course_type) {
+      if(course_type !== 'knowledge-base' && course_type !== 'soft-skills' && course_type !== 'random') {
+        this.props.history.push('/courses');
+      }
     }
-    this.props.fetchCourses(category, id, page_token, course_type);
+    this.props.fetchCourses(course_type, page_token, category, category_id);
   }
 
 
   componentDidUpdate() {
-    let { category, id, page_token } = this.props.match.params;
+    let { course_type } = this.props.match.params;
 
     // push to 404, if category doesn't match 'domain' or 'language'
-    if(category !== 'domain' && category !== 'language') {
-      //this.props.history.push('/');
+    if(course_type) {
+      if(course_type !== 'knowledge-base' && course_type !== 'soft-skills' && course_type !== 'random') {
+        this.props.history.push('/courses');
+      }
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    let { category, id, page_token } = nextProps.match.params;
-    let { course_type } = this.state;
-
-    // erases and fetchs data only either if id is same but category is different
-    // or the id is different
-    if(id === this.props.match.params.id) {
-      if(category !== this.props.match.params.category) {
-        this.props.deleteCourses();
-        this.props.fetchCourses(category, id, page_token, course_type);
-      }
-    }
-    else {
+    let { category, category_id, page_token, course_type } = nextProps.match.params;
+    if(this.props.match.params !== nextProps.match.params) {
       this.props.deleteCourses();
-      this.props.fetchCourses(category, id, page_token, course_type);
+      this.props.fetchCourses(course_type, page_token, category, category_id);
     }
-  }
 
-  // fetches links/video courses depending upon value of dropdown menu
-  handleDropdownChange = (e, { value }) => {
-    let { category, id, page_token } = this.props.match.params;
-    let { course_type } = this.state;
-    if(value !== course_type) {
-      this.props.history.push(`/courses/${category}/${id}/0`);
-      this.props.deleteCourses();
-      this.props.fetchCourses(category, id, page_token, value);
-      this.setState({ course_type: value });
-    }
   }
 
   renderSkillLevel(skill_level) {
     if(skill_level === 'BG') {
-      return 'Beginner';
+      return 'skill level: Beginner';
     }
     if(skill_level === 'IT') {
-      return 'Intermediate'
+      return 'skill level: Intermediate'
     }
     if(skill_level === 'AD') {
-      return 'Advanced'
+      return 'skill level: Advanced'
     }
   }
 
-  openLink(course_type, url) {
+  openLink(url, type) {
     // opens external link url in new tab
-    if(course_type === 'link') {
+    if(type !== 'VI')
       window.open(url);
-    }
   }
 
   // renders fetched courses
   renderCourses() {
     return this.props.courses.results.map((course) => {
-      let course_type = 'link';
-      if(this.state.course_type === 'videos') {
-        course_type = 'video';
-      }
+      let { course_type } = this.props.match.params;
       return (
         <Item>
           <Item.Content>
             <Item.Header
-              onClick={() => {this.openLink(course_type, course.link_url)}}
+              onClick={() => {this.openLink(course.link_url, course.data_type)}}
               as={Link}
               to={{
                 pathname: `/classroom/${course_type}/${course.id}`,
@@ -125,11 +89,11 @@ class Courses extends Component {
               {course.title}
             </Item.Header>
             <Item.Meta>
-              <span>skill level: {this.renderSkillLevel(course.skill_level)}</span>
+              <span>{this.renderSkillLevel(course.skill_level)}</span>
             </Item.Meta>
             <Item.Description>{course.description}</Item.Description>
             <Item.Extra>
-              <DomainLanguageLabels languages={course.languages} domains={course.domains} />
+              <CourseLabels languages={course.languages} domains={course.domains} softskills={course.soft_skill} />
             </Item.Extra>
           </Item.Content>
         </Item>
@@ -138,21 +102,44 @@ class Courses extends Component {
   }
 
   renderPaginationButtons() {
+    let previousPageToken = "1";
+    let nextPageToken = "1";
+    let category_params = "";
+    let { course_type, category, category_id } = this.props.match.params;
+
+    if(this.props.courses.results.length) {
+
+      if(this.props.courses.previous) {
+        if(this.props.courses.previous.includes('page='))
+          previousPageToken = this.props.courses.previous.split(/page=(.+)/)[1].charAt(0);
+      }
+      if(this.props.courses.next) {
+        if(this.props.courses.next.includes('page='))
+          nextPageToken = this.props.courses.next.split(/page=(.+)/)[1].charAt(0);
+      }
+      if(category && category_id) {
+        category_params = `/${category}/${category_id}`;
+      }
+    }
+
+
     return (
       <Button.Group>
         <Button
+          disabled={!this.props.courses.previous}
           basic
           color='teal'
           as={Link}
-          to={`${this.props.courses.previous_page}`}
+          to={`/courses/${course_type}/${previousPageToken}${category_params}`}
           >
           Prev
         </Button>
         <Button
+          disabled={!this.props.courses.next}
           basic
           color='teal'
           as={Link}
-          to={`${this.props.courses.next_page}`}
+          to={`/courses/${course_type}/${nextPageToken}${category_params}`}
           >
           Next
         </Button>
@@ -197,13 +184,7 @@ class Courses extends Component {
         <Container text>
           <Divider hidden />
           <Header as='h1'>Courses</Header>
-          <Dropdown
-            selection
-            options={this.dropdownOptions}
-            onChange={this.handleDropdownChange}
-            value={this.state.course_type}
-            />
-          <Filters />
+          page {this.props.match.params.page_token}
           <Divider />
           {this.renderBody()}
         </Container>

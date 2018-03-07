@@ -9,6 +9,7 @@ import CoursesPage from './scenes/courses';
 import SoftSkillsPage from './scenes/soft-skills-page';
 import NotFoundPage from './scenes/not-found-page';
 import ClassroomPage from './scenes/classroom-page';
+import KnowledgeBase from './scenes/knowledge-base';
 
 class App extends Component {
   render() {
@@ -18,8 +19,9 @@ class App extends Component {
           <Switch>
             <Route exact path='/soft-skills' component={SoftSkillsPage} />
             <Route exact path='/courses/:course_type/:page_token/:category?/:category_id?' component={CoursesPage} />
-            <Route exact path='/technical/language' component={LanguagePage} />
-            <Route exact path='/technical/domain' component={DomainPage} />
+            <Route exact path='/technical/knowledge-base' component={KnowledgeBase} />
+            <Route exact path='/technical/knowledge-base/domains' component={DomainPage} />
+              <Route exact path='/technical/knowledge-base/languages' component={LanguagePage} />
             <Route exact path='/technical' component={Technical} />
             <Route exact path='/signin' component={Signin} />
             <Route exact path='/' component={Home} />

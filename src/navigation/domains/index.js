@@ -8,7 +8,7 @@ class Domains extends Component {
   state = { activePage: 1 };
 
   componentDidMount() {
-    this.props.fetchDomains();
+    this.props.fetchDomains(this.state.activePage);
   }
 
   handlePageChange = (activePage) => {
@@ -18,12 +18,14 @@ class Domains extends Component {
   previousPage = () => {
     if(this.state.activePage > 1) {
       this.setState({ activePage: this.state.activePage - 1 })
+      this.props.fetchDomains(this.state.activePage - 1);
     }
   }
 
   nextPage = () => {
-    if(this.state.activePage < this.props.domains.length) {
-      this.setState({ activePage: this.state.activePage + 1 })
+    if(this.state.activePage) {
+      this.setState({ activePage: this.state.activePage + 1 });
+      this.props.fetchDomains(this.state.activePage + 1);
     }
   }
 
@@ -41,24 +43,36 @@ class Domains extends Component {
   }
 
   renderPagination() {
-    if(this.props.domains.length > 1 ) {
-      return (
-        <Menu pagination>
-          <Menu.Item onClick={this.previousPage} icon='angle left'></Menu.Item>
-          {this.renderPageNumbers()}
-          <Menu.Item onClick={this.nextPage} icon='angle right'></Menu.Item>
-        </Menu>
-      )
+    if(this.props.domains.count) {
+      if(this.props.domains.results.length < this.props.domains.count ) {
+        return (
+          <Menu pagination>
+            <Menu.Item
+              onClick={this.previousPage}
+              icon='angle left'
+              disabled={!this.props.domains.previous}
+              />
+            <Menu.Item>
+              {this.state.activePage}
+            </Menu.Item>
+            <Menu.Item
+              onClick={this.nextPage}
+              icon='angle right'
+              disabled={!this.props.domains.next}
+              />
+          </Menu>
+        )
+      }
     }
   }
 
   renderDomains() {
-    return this.props.domains[this.state.activePage - 1].map((domain) => {
+    return this.props.domains.results.map((domain) => {
       return (
         <Grid.Column>
           <Card
             as={Link}
-            to={`/courses/domain/${domain.id}/0`}
+            to={`/courses/knowledge-base/1/domain/${domain.id}`}
             fluid
             >
             <Image src={domain.icon} alt='' />
@@ -72,19 +86,19 @@ class Domains extends Component {
   }
 
   renderBody() {
-    if(!this.props.domains.length) {
+    if(this.props.domains.count) {
       return (
-        <Segment basic>
-          <Dimmer active inverted>
-            <Loader size='medium' />
-          </Dimmer>
-        </Segment>
+        <Grid columns={3} stretched doubling centered padded relaxed='very'>
+          {this.renderDomains()}
+        </Grid>
       )
     }
     return (
-      <Grid columns={3} stretched doubling centered padded relaxed='very'>
-        {this.renderDomains()}
-      </Grid>
+      <Segment basic>
+        <Dimmer active inverted>
+          <Loader size='medium' />
+        </Dimmer>
+      </Segment>
     )
   }
 
@@ -96,7 +110,7 @@ class Domains extends Component {
             <Divider hidden />
             <Header as='h1' textAlign='center'>
               <Header sub>Browse courses by</Header>
-              Domain
+              Domains
             </Header>
             <Divider />
             {this.renderBody()}

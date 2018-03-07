@@ -8,22 +8,20 @@ class SoftSkills extends Component {
   state = { activePage: 1 };
 
   componentDidMount() {
-    this.props.fetchSoftSkills();
-  }
-
-  handlePageChange = (activePage) => {
-    this.setState({ activePage })
+    this.props.fetchSoftSkills(this.state.activePage);
   }
 
   previousPage = () => {
     if(this.state.activePage > 1) {
       this.setState({ activePage: this.state.activePage - 1 })
+      this.props.fetchSoftSkills(this.state.activePage - 1);
     }
   }
 
   nextPage = () => {
-    if(this.state.activePage < this.props.softskills.length) {
-      this.setState({ activePage: this.state.activePage + 1 })
+    if(this.state.activePage) {
+      this.setState({ activePage: this.state.activePage + 1 });
+      this.props.fetchSoftSkills(this.state.activePage + 1);
     }
   }
 
@@ -41,29 +39,41 @@ class SoftSkills extends Component {
   }
 
   renderPagination() {
-    if(this.props.softskills.length > 1 ) {
-      return (
-        <Menu pagination>
-          <Menu.Item onClick={this.previousPage} icon='angle left'></Menu.Item>
-          {this.renderPageNumbers()}
-          <Menu.Item onClick={this.nextPage} icon='angle right'></Menu.Item>
-        </Menu>
-      )
+    if(this.props.softskills.count) {
+      if(this.props.softskills.results.length < this.props.softskills.count ) {
+        return (
+          <Menu pagination>
+            <Menu.Item
+              onClick={this.previousPage}
+              icon='angle left'
+              disabled={!this.props.softskills.previous}
+              />
+            <Menu.Item>
+              {this.state.activePage}
+            </Menu.Item>
+            <Menu.Item
+              onClick={this.nextPage}
+              icon='angle right'
+              disabled={!this.props.softskills.next}
+              />
+          </Menu>
+        )
+      }
     }
   }
 
   renderSoftSkills() {
-    return this.props.softskills[this.state.activePage - 1].map((skill) => {
+    return this.props.softskills.results.map((skill) => {
       return (
         <Grid.Column>
           <Card
             as={Link}
-            to={`/courses/domain/${skill.id}/0`}
+            to={`/courses/soft-skills/1/soft-skill/${skill.id}`}
             fluid
             >
             <Image src={skill.icon} alt='' />
             <Card.Content extra>
-              {skill.domain_name}
+              {skill.soft_skill_category}
             </Card.Content>
           </Card>
         </Grid.Column>
@@ -72,23 +82,25 @@ class SoftSkills extends Component {
   }
 
   renderBody() {
-    if(!this.props.softskills.length) {
+    if(this.props.softskills.count) {
       return (
-        <Segment basic>
-          <Dimmer active inverted>
-            <Loader size='medium' />
-          </Dimmer>
-        </Segment>
+        <Grid columns={3} stretched doubling centered padded relaxed='very'>
+          {this.renderSoftSkills()}
+        </Grid>
       )
     }
     return (
-      <Grid columns={3} stretched doubling centered padded relaxed='very'>
-        {this.renderSoftSkills()}
-      </Grid>
+      <Segment basic>
+        <Dimmer active inverted>
+          <Loader size='medium' />
+        </Dimmer>
+      </Segment>
     )
+
   }
 
   render() {
+    console.log(this.props.softskills);
     return (
       <div>
         <Container>

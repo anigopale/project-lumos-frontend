@@ -2,8 +2,8 @@ import { language_api } from '../../../common-services/api-endpoints';
 
 export const FETCH_LANGUAGES = 'fetch-languages';
 
-export function fetchLanguages() {
-  let url = `${language_api}?languages_for=TS`;
+export function fetchLanguages(page_token) {
+  let url = `${language_api}?page_size=9&page=${page_token}`;
   return function(dispatch) {
     fetch(url)
     .then(response => {

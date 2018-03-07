@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Container, Segment, Grid, Header, Button, Divider, Card, Breadcrumb } from 'semantic-ui-react';
 import NavBar from '../../common-components/navbar';
 
-export default class Technical extends Component {
+export default class KnowledgeBase extends Component {
   render() {
     return (
       <div>
@@ -13,13 +13,16 @@ export default class Technical extends Component {
           <Breadcrumb>
             <Breadcrumb.Section as={Link} to='/'>Home</Breadcrumb.Section>
             <Breadcrumb.Divider icon='right angle' />
-            <Breadcrumb.Section active>Technical Skills</Breadcrumb.Section>
+            <Breadcrumb.Section as={Link} to='/technical'>Technical Skills</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right angle' />
+            <Breadcrumb.Section active>Knowledge Base</Breadcrumb.Section>
           </Breadcrumb>
         </Container>
+
         <Container textAlign='center'>
           <Segment basic>
             <Divider hidden />
-            <Header size='huge'>TECHNICAL SKILLS</Header>
+            <Header size='huge'>KNOWLEDGE BASE</Header>
             <Divider hidden />
             <Header size='big'>Choose a Category</Header>
             <Divider hidden />
@@ -27,14 +30,14 @@ export default class Technical extends Component {
               <Grid.Row>
                 <Grid.Column>
 
-                  <Link to='/technical/knowledge-base'>
+                  <Link to='/technical/knowledge-base/domains'>
                     <Card fluid>
                       <Card.Content>
                         <Card.Header>
-                          Knowledge Base
+                          Domains
                         </Card.Header>
                         <Card.Description>
-                          Description
+                          Browse courses by domain
                         </Card.Description>
                       </Card.Content>
                     </Card>
@@ -42,14 +45,14 @@ export default class Technical extends Component {
                 </Grid.Column>
 
                 <Grid.Column>
-                  <Link to='/courses/random/1'>
+                  <Link to='/technical/knowledge-base/languages'>
                     <Card fluid>
                       <Card.Content>
                         <Card.Header>
-                          Random
+                          Languages
                         </Card.Header>
                         <Card.Description>
-                          Description
+                          Browse courses by language
                         </Card.Description>
                       </Card.Content>
                     </Card>

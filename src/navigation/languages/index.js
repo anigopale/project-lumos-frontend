@@ -8,57 +8,54 @@ class Languages extends Component {
   state = { activePage: 1 };
 
   componentDidMount() {
-    this.props.fetchLanguages();
-  }
-
-  handlePageChange = (activePage) => {
-    this.setState({ activePage })
+    this.props.fetchLanguages(this.state.activePage);
   }
 
   previousPage = () => {
     if(this.state.activePage > 1) {
       this.setState({ activePage: this.state.activePage - 1 })
+      this.props.fetchLanguages(this.state.activePage - 1);
     }
   }
 
   nextPage = () => {
-    if(this.state.activePage < this.props.languages.length) {
-      this.setState({ activePage: this.state.activePage + 1 })
+    if(this.state.activePage) {
+      this.setState({ activePage: this.state.activePage + 1 });
+      this.props.fetchLanguages(this.state.activePage + 1);
     }
-  }
-
-  renderPageNumbers() {
-    return this.props.languages.map((domain, index) => {
-      return (
-        <Menu.Item
-          onClick={() => {this.handlePageChange(index + 1)}}
-          active={this.state.activePage === index + 1}
-          >
-          {index + 1}
-        </Menu.Item>
-      )
-    })
   }
 
   renderPagination() {
-    if(this.props.languages.length > 1 ) {
-      return (
-        <Menu pagination>
-          <Menu.Item onClick={this.previousPage} icon='angle left'></Menu.Item>
-          {this.renderPageNumbers()}
-          <Menu.Item onClick={this.nextPage} icon='angle right'></Menu.Item>
-        </Menu>
-      )
+    if(this.props.languages.count) {
+      if(this.props.languages.count > this.props.languages.results.length)
+        return (
+          <Menu pagination>
+            <Menu.Item
+              onClick={this.previousPage}
+              icon='angle left'
+              disabled={!this.props.languages.previous}
+              />
+            <Menu.Item>
+              {this.state.activePage}
+            </Menu.Item>
+            <Menu.Item
+              onClick={this.nextPage}
+              icon='angle right'
+              disabled={!this.props.languages.next}
+              />
+          </Menu>
+        )
     }
   }
 
+
   renderLanguages() {
-    return this.props.languages[this.state.activePage - 1].map((language) => {
+    return this.props.languages.results.map((language) => {
       return (
         <Grid.Column>
           <Card
             as={Link}
-            to={`/courses/language/${language.id}/0`}
+            to={`/courses/knowledge-base/1/language/${language.id}`}
             fluid
             >
             <Image src={language.icon} alt='' />
@@ -72,19 +69,20 @@ class Languages extends Component {
   }
 
   renderBody() {
-    if(!this.props.languages.length) {
+    if(this.props.languages.count) {
       return (
-        <Segment basic>
-          <Dimmer active inverted>
-            <Loader size='medium' />
-          </Dimmer>
-        </Segment>
+        <Grid columns={3} stretched doubling centered padded relaxed='very'>
+          {this.renderLanguages()}
+        </Grid>
       )
     }
+
     return (
-      <Grid columns={3} stretched doubling centered padded relaxed='very'>
-        {this.renderLanguages()}
-      </Grid>
+      <Segment basic>
+        <Dimmer active inverted>
+          <Loader size='medium' />
+        </Dimmer>
+      </Segment>
     )
   }
 
@@ -96,7 +94,7 @@ class Languages extends Component {
             <Divider hidden />
             <Header as='h1' textAlign='center'>
               <Header sub>Browse courses by</Header>
-              Language
+              Languages
             </Header>
             <Divider />
             {this.renderBody()}

@@ -201,7 +201,7 @@ class Courses extends Component {
           <Divider hidden />
           <Header as='h1'>Courses</Header>
           page {this.props.match.params.page_token}
-          <Filters getFilters={this.filterCourses} />
+          <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
           <Divider />
           {this.renderBody()}
         </Container>

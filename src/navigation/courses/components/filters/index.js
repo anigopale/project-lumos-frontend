@@ -78,11 +78,20 @@ class Filters extends Component {
   ]
 
 
+  componentWillReceiveProps(nextProps) {
+    // reset state on url change
+    if(nextProps.urlParams !== this.props.urlParams) {
+      this.setState({ skill_level: '', data_type: '', paid: '', project: '' })
+    }
+  }
+
   handleFilter = (filters) => {
     // passes filters as props
     this.props.getFilters(filters);
   }
 
+
+  // for changing app state and passing filters as props
   changeProjectFilter = (e, { value }) => {
     this.setState({ project: value });
     let { skill_level, data_type, paid } = this.state;
@@ -106,6 +115,8 @@ class Filters extends Component {
     this.handleFilter({ skill_level: value, data_type, paid, project });
   }
 
+
+  // for rendering filters
   renderProjectFilters() {
     return this.project_filters.map(filter => {
       return (
@@ -171,7 +182,6 @@ class Filters extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <Segment>
         <h3>Filters</h3>

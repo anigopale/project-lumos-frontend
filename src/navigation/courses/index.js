@@ -107,7 +107,7 @@ class Courses extends Component {
             <Item.Meta>
               <span>{this.renderSkillLevel(course.skill_level)}</span>
             </Item.Meta>
-            <Item.Description>{course.description}</Item.Description>
+            <Item.Description></Item.Description>
             <Item.Extra>
               <CourseLabels languages={course.languages} domains={course.domains} softskills={course.soft_skill} />
             </Item.Extra>

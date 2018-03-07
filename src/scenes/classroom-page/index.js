@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../../common-components/navbar';
 import Classroom from '../../classroom';
 
-export default class ClassroomPage extends Component {
+class ClassroomPage extends Component {
   render() {
     return (
       <div>
@@ -12,3 +12,5 @@ export default class ClassroomPage extends Component {
     )
   }
 }
+
+export default ClassroomPage;

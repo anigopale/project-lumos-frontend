@@ -64,7 +64,7 @@ class Wikipedia extends Component {
             <p style={{ textAlign: 'justify' }}>
               {summary_content}
             </p>
-            <a href={url}>
+            <a href={url} target='_blank' rel='noopener'>
               [Full Article
               <Icon name='external' />]
             </a>

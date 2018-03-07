@@ -27,6 +27,9 @@ export default class Resource extends Component {
     if(this.state.url) {
       return (
         <Embed
+          iframe={{
+            allowFullScreen: true
+          }}
           url={this.state.url}
           icon='youtube play'
           active={true}

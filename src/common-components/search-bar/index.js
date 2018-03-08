@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Form, Input, Modal, Responsive, Icon, Popup } from 'semantic-ui-react';
+import { fetchCourses } from './actions';
 
 class SearchBar extends Component {
   state = { term: "", openModal: false };
@@ -7,6 +9,7 @@ class SearchBar extends Component {
   handleSearch = () => {
     if(this.state.term) {
       this.setState({ openModal: true });
+      this.props.fetchCourses(this.state.term);
     }
   }
 
@@ -50,4 +53,4 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+export default connect(null, { fetchCourses })(SearchBar);

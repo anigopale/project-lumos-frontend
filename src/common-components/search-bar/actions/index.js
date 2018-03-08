@@ -16,53 +16,51 @@ const soft_skill = 'soft_skill';
 const languages = 'languages';
 const domains = 'domains';
 
-
 export function fetchCourses(term) {
   term = term.trim();
   term = term.replace(/[^a-zA-Z0-9]/g, "-");
 
   return function(dispatch) {
+    let requests = [];
+    requests.push(fetch(`${domain_api}?slug=${term}`))
+    requests.push(fetch(`${language_api}?slug=${term}`))
+    requests.push(fetch(`${soft_skill_api}?slug=${term}`))
 
-    // chaining 'if else' for checking if term is present in 'domain', 'language', or 'softskills'
-    fetch(`${domain_api}?slug=${term}`)
-    .then(response => {
-      response.json()
-      .then(data => {
-        if(data.count) {
-          fetchData(dispatch, knowledge_base, domains, data.results[0].id);
+
+    Promise.all(requests)
+    .then(responses => {
+      let count = 0;
+      let fetched = false;
+      responses.map((response, index) => {
+
+        //setting up url and course_type filter for fetching courses
+        let url = knowledge_base;
+        let category = domains;
+        if(response.url.includes('api/language')) {
+          category = languages;
         }
-        else {
-          fetch(`${language_api}?slug=${term}`)
-          .then(response => {
-            response.json()
-            .then(data => {
-              if(data.count) {
-                fetchData(dispatch, knowledge_base, languages, data.results[0].id);
-              }
-              else {
-                fetch(`${soft_skill_api}?slug=${term}`)
-                .then(response => {
-                  response.json()
-                  .then(data => {
-                    if(data.count) {
-                      fetchData(dispatch, soft_skills_data, soft_skill, data.results[0].id);
-                    }
-                    else {
-                      dispatch({
-                        type: NO_SEARCH_RESULTS
-                      })
-                    }
-                  })
-                })
-              }
+        if(response.url.includes('api/soft-skills')) {
+          category = soft_skill;
+          url = soft_skills_data;
+        }
+
+        response.json()
+        .then(data => {
+          count += 1;
+          if(data.count) {
+            fetchData(dispatch, url, category, data.results[0].id);
+            fetched = true;
+            return;
+          }
+          else if(count === 3 && fetched === false) {
+            // checking if all 3 responses have been mapped && data isn't fetched
+            dispatch({
+              type: NO_SEARCH_RESULTS
             })
-          })
-        }
+          }
+        })
       })
     })
-
-
-
   }
 }
 

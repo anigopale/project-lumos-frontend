@@ -6,6 +6,7 @@ import softskills from '../navigation/soft-skills/reducers/softskills-reducer';
 import course from '../classroom/reducers/course-reducer';
 import wiktionaryData from '../classroom/components/wiktionary-search/reducers/wiktionary-reducer';
 import wikipediaData from '../classroom/components/wikipedia-search/reducers/wikipedia-reducer';
+import searchResults from '../common-components/search-bar/reducers/search-results-reducer';
 
 const rootReducer = combineReducers({
   domains,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   softskills,
   course,
   wiktionaryData,
-  wikipediaData
+  wikipediaData,
+  searchResults
 });
 
 export default rootReducer;

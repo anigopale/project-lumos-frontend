@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Input, Modal, Responsive, Icon, Popup } from 'semantic-ui-react';
 import { fetchCourses } from './actions';
+import CourseItem from '../course-item';
 
 class SearchBar extends Component {
   state = { term: "", openModal: false };
@@ -17,7 +18,17 @@ class SearchBar extends Component {
     this.setState({ openModal: false, term: "" });
   }
 
+  renderSearchResults() {
+    if(this.props.searchResults.results.length) {
+      return this.props.searchResults.results.map(course => {
+        let { course_type } = this.props.searchResults;
+        return <CourseItem course={course} courseType={course_type} />
+      })
+    }
+  }
+
   render() {
+    console.log(this.props.searchResults);
     return (
       <div>
         <Responsive minWidth='480'>
@@ -45,7 +56,7 @@ class SearchBar extends Component {
             Results for "{this.state.term}":
           </Modal.Header>
           <Modal.Content>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br /> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            {this.renderSearchResults()}
           </Modal.Content>
         </Modal>
       </div>
@@ -53,4 +64,9 @@ class SearchBar extends Component {
   }
 }
 
-export default connect(null, { fetchCourses })(SearchBar);
+function mapStateToProps({ searchResults }) {
+  console.log(searchResults);
+  return { searchResults };
+}
+
+export default connect(mapStateToProps, { fetchCourses })(SearchBar);

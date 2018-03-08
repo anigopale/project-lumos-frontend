@@ -6,6 +6,7 @@ import {
   language_api,
   soft_skill_api
 } from '../../../common-services/api-endpoints';
+import { KNOWLEDGE_BASE, SOFT_SKILLS, RANDOM } from '../../../common-services/course_types';
 
 export const DELETE_SEARCH_RESULTS = 'delete-search-results';
 export const FETCH_SEARCH_RESULTS = 'fetch-search-results';
@@ -16,9 +17,10 @@ const domains = 'domains';
 
 
 export function fetchCourses(term) {
+  term = term.trim();
+  term = term.replace(/[^a-zA-Z0-9]/g, "-");
+
   return function(dispatch) {
-    term = term.trim();
-    term = term.replace(/[^a-zA-Z0-9]/g, "-");
 
     fetch(`${domain_api}?slug=${term}`)
     .then(response => {
@@ -52,18 +54,24 @@ export function fetchCourses(term) {
   }
 }
 
-function fetchData(dispatch, api_url, category, category_id) {
-  fetch(`${api_url}?${category}=${category_id}`)
-  .then(response => {
-    response.json()
-    .then(data => {
-      console.log(data);
-      dispatch({
-        type: FETCH_SEARCH_RESULTS,
-        payload: data
+function fetchData (dispatch, api_url, category, category_id) {
+  let course_type = KNOWLEDGE_BASE;
+  if(api_url === soft_skills_data) {
+    course_type = SOFT_SKILLS;
+  }
+    fetch(`${api_url}?${category}=${category_id}&page_size=`)
+    .then(response => {
+      response.json()
+      .then(data => {
+        dispatch({
+          type: FETCH_SEARCH_RESULTS,
+          payload: {
+            data,
+            course_type
+          }
+        })
       })
     })
-  })
 }
 
 

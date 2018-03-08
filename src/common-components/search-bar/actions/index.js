@@ -10,6 +10,7 @@ import { KNOWLEDGE_BASE, SOFT_SKILLS, RANDOM } from '../../../common-services/co
 
 export const DELETE_SEARCH_RESULTS = 'delete-search-results';
 export const FETCH_SEARCH_RESULTS = 'fetch-search-results';
+export const NO_SEARCH_RESULTS = 'no-search-results';
 
 const soft_skill = 'soft_skill';
 const languages = 'languages';
@@ -22,6 +23,7 @@ export function fetchCourses(term) {
 
   return function(dispatch) {
 
+    // chaining 'if else' for checking if term is present in 'domain', 'language', or 'softskills'
     fetch(`${domain_api}?slug=${term}`)
     .then(response => {
       response.json()
@@ -29,28 +31,38 @@ export function fetchCourses(term) {
         if(data.count) {
           fetchData(dispatch, knowledge_base, domains, data.results[0].id);
         }
-      })
-    })
-
-    fetch(`${language_api}?slug=${term}`)
-    .then(response => {
-      response.json()
-      .then(data => {
-        if(data.count) {
-          fetchData(dispatch, knowledge_base, languages, data.results[0].id);
+        else {
+          fetch(`${language_api}?slug=${term}`)
+          .then(response => {
+            response.json()
+            .then(data => {
+              if(data.count) {
+                fetchData(dispatch, knowledge_base, languages, data.results[0].id);
+              }
+              else {
+                fetch(`${soft_skill_api}?slug=${term}`)
+                .then(response => {
+                  response.json()
+                  .then(data => {
+                    if(data.count) {
+                      fetchData(dispatch, soft_skills_data, soft_skill, data.results[0].id);
+                    }
+                    else {
+                      dispatch({
+                        type: NO_SEARCH_RESULTS
+                      })
+                    }
+                  })
+                })
+              }
+            })
+          })
         }
       })
     })
 
-    fetch(`${soft_skill_api}?slug=${term}`)
-    .then(response => {
-      response.json()
-      .then(data => {
-        if(data.count) {
-          fetchData(dispatch, soft_skills_data, soft_skill, data.results[0].id);
-        }
-      })
-    })
+
+
   }
 }
 
@@ -74,7 +86,27 @@ function fetchData (dispatch, api_url, category, category_id) {
     })
 }
 
+export function fetchMoreCourses(api_url, course_type) {
+  return function(dispatch) {
+    fetch(`${api_url}`)
+    .then(response => {
+      response.json()
+      .then(data => {
+        dispatch({
+          type: FETCH_SEARCH_RESULTS,
+          payload: {
+            data,
+            course_type
+          }
+        })
+      })
+    })
+  }
+}
+
 
 export function deleteCourses() {
-  return DELETE_SEARCH_RESULTS
+  return {
+    type: DELETE_SEARCH_RESULTS
+  }
 }

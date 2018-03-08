@@ -64,7 +64,6 @@ export default class CourseLabels extends Component {
           return this.state.domains.map(domain => {
             return (
               <Label
-                color='blue'
                 as={Link}
                 to={`/courses/knowledge-base/1/domain/${domain.id}/`}
                 >
@@ -84,7 +83,6 @@ export default class CourseLabels extends Component {
           return this.state.languages.map(language => {
             return (
               <Label
-                color='purple'
                 as={Link}
                 to={`/courses/knowledge-base/1/language/${language.id}/`}
                 >
@@ -105,7 +103,6 @@ export default class CourseLabels extends Component {
         return this.state.softskills.map(softskill => {
           return (
             <Label
-              color='red'
               as={Link}
               to={`/courses/soft-skills/1/soft-skill/${softskill.id}`}
               >

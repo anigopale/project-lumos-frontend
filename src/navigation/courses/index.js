@@ -14,8 +14,8 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchCourses, deleteCourses } from './actions';
-import CourseLabels from './components/course-labels';
 import Filters from './components/filters';
+import CourseItem from '../../common-components/course-item';
 
 class Courses extends Component {
 
@@ -69,50 +69,13 @@ class Courses extends Component {
     this.props.fetchCourses(course_type, '1', category, category_id, filters);
   }
 
-  renderSkillLevel(skill_level) {
-    if(skill_level === 'BG') {
-      return 'skill level: Beginner';
-    }
-    if(skill_level === 'IT') {
-      return 'skill level: Intermediate'
-    }
-    if(skill_level === 'AD') {
-      return 'skill level: Advanced'
-    }
-  }
-
-  openLink(url, type) {
-    // opens external link url in new tab
-    if(type !== 'VI')
-      window.open(url);
-  }
 
   // renders fetched courses
   renderCourses() {
     return this.props.courses.results.map((course) => {
       let { course_type } = this.props.match.params;
       return (
-        <Item>
-          <Item.Content>
-            <Item.Header
-              onClick={() => {this.openLink(course.link_url, course.data_type)}}
-              as={Link}
-              to={{
-                pathname: `/classroom/${course_type}/${course.id}`,
-                state: { fromCourses: true }
-              }}
-              >
-              {course.title}
-            </Item.Header>
-            <Item.Meta>
-              <span>{this.renderSkillLevel(course.skill_level)}</span>
-            </Item.Meta>
-            <Item.Description></Item.Description>
-            <Item.Extra>
-              <CourseLabels languages={course.languages} domains={course.domains} softskills={course.soft_skill} />
-            </Item.Extra>
-          </Item.Content>
-        </Item>
+        <CourseItem course={course} courseType={course_type} />
       )
     })
   }
@@ -181,11 +144,10 @@ class Courses extends Component {
     }
     return (
       <div>
-        <Segment>
-          <Item.Group divided>
-            {this.renderCourses()}
-          </Item.Group>
-        </Segment>
+
+
+          {this.renderCourses()}
+
         <Divider />
         <Segment basic textAlign='center'>
           {this.renderPaginationButtons()}

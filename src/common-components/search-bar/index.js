@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Input, Modal, Responsive, Icon, Popup } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Form, Input, Modal, Responsive, Icon, Popup, Button, Dimmer, Loader, Segment } from 'semantic-ui-react';
+import { fetchCourses, fetchMoreCourses, deleteCourses } from './actions';
+import CourseItem from '../course-item';
 
 class SearchBar extends Component {
   state = { term: "", openModal: false };
@@ -7,19 +10,64 @@ class SearchBar extends Component {
   handleSearch = () => {
     if(this.state.term) {
       this.setState({ openModal: true });
+      this.props.deleteCourses();
+      this.props.fetchCourses(this.state.term);
     }
   }
 
   handleCloseModal = () => {
     this.setState({ openModal: false, term: "" });
+    this.props.deleteCourses();
+  }
+
+  handleClick = () => {
+    let { next, course_type } = this.props.searchResults;
+    this.props.fetchMoreCourses(next, course_type);
+  }
+
+  renderShowMoreButton() {
+    if(this.props.searchResults.next) {
+      return (
+        <Button
+          onClick={this.handleClick}
+          >
+          show more
+        </Button>
+      )
+    }
+  }
+
+  renderSearchResults() {
+    if(this.props.searchResults.course_type === 'none') {
+      return (
+        <Dimmer active inverted>
+          <Loader >Please Wait</Loader>
+        </Dimmer>
+      )
+    }
+    if(this.props.searchResults.results.length) {
+      return this.props.searchResults.results.map(course => {
+        let { course_type } = this.props.searchResults;
+        return <CourseItem course={course} courseType={course_type} />
+      })
+    }
+    return (
+      <div>no results found</div>
+    )
+
   }
 
   render() {
+    console.log(this.props.searchResults);
     return (
       <div>
         <Responsive minWidth='480'>
           <Form onSubmit={this.handleSearch}>
-            <Input icon='search' onChange={(event) => {this.setState({ term: event.target.value })}} />
+            <Input
+              value={this.state.term}
+              icon='search'
+              onChange={(event) => {this.setState({ term: event.target.value })}}
+              />
           </Form>
         </Responsive>
         <Responsive maxWidth='480'>
@@ -42,7 +90,10 @@ class SearchBar extends Component {
             Results for "{this.state.term}":
           </Modal.Header>
           <Modal.Content>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br /> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            {this.renderSearchResults()}
+            <Segment basic textAlign='center'>
+              {this.renderShowMoreButton()}
+            </Segment>
           </Modal.Content>
         </Modal>
       </div>
@@ -50,4 +101,9 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+function mapStateToProps({ searchResults }) {
+  console.log(searchResults);
+  return { searchResults };
+}
+
+export default connect(mapStateToProps, { fetchCourses, fetchMoreCourses, deleteCourses })(SearchBar);

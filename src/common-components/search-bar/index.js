@@ -54,11 +54,9 @@ class SearchBar extends Component {
     return (
       <div>no results found</div>
     )
-
   }
 
   render() {
-    console.log(this.props.searchResults);
     return (
       <div>
         <Responsive minWidth='480'>
@@ -102,7 +100,6 @@ class SearchBar extends Component {
 }
 
 function mapStateToProps({ searchResults }) {
-  console.log(searchResults);
   return { searchResults };
 }
 

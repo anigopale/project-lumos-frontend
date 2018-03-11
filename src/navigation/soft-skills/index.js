@@ -68,7 +68,7 @@ class SoftSkills extends Component {
         <Grid.Column>
           <Card
             as={Link}
-            to={`/soft-skills/${skill.id}/1/`}
+            to={`/soft-skills/${skill.id}/`}
             fluid
             >
             <Image src={skill.icon} alt='' />

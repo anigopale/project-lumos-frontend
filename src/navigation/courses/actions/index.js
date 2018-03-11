@@ -6,6 +6,10 @@ export const DELETE_COURSES = 'delete-courses';
 
 export function fetchCourses(course_type, category_id, page_token, filters) {
   return function(dispatch) {
+    if(!page_token) {
+      page_token = '1';
+    }
+
     // choosing appropriate endpoint for courses
     let category_params = "";
     let url = knowledge_base;
@@ -37,7 +41,6 @@ export function fetchCourses(course_type, category_id, page_token, filters) {
     .then(response => {
       response.json()
       .then(data => {
-        console.log(data);
         dispatch({
           type: FETCH_COURSES,
           payload: data

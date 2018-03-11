@@ -18,16 +18,16 @@ class App extends Component {
         <HashRouter>
           <Switch>
             <Route exact path='/soft-skills' component={SoftSkillsPage} />
-            <Route exact path='/soft-skills/:category_id/:page_token/'
+            <Route exact path='/soft-skills/:category_id/:page_token?/'
               render={props => <CoursesPage courseType='soft-skills' {...props} />}
               />
-            <Route exact path='/technical/knowledge-base/domains/:category_id/:page_token/'
+            <Route exact path='/technical/knowledge-base/domains/:category_id/:page_token?/'
               render={props => <CoursesPage courseType='domains' {...props} />}
               />
-            <Route exact path='/technical/knowledge-base/languages/:category_id/:page_token/'
+            <Route exact path='/technical/knowledge-base/languages/:category_id/:page_token?/'
               render={props => <CoursesPage courseType='languages' {...props} />}
               />
-            <Route exact path='/technical/misc/:page_token/'
+            <Route exact path='/technical/misc/:page_token?/'
               render={props => <CoursesPage courseType='random' {...props} />}
               />
             <Route exact path='/technical/knowledge-base' component={KnowledgeBase} />

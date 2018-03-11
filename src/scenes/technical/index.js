@@ -42,7 +42,7 @@ export default class Technical extends Component {
                 </Grid.Column>
 
                 <Grid.Column>
-                  <Link to='/technical/misc/1/'>
+                  <Link to='/technical/misc/'>
                     <Card fluid>
                       <Card.Content>
                         <Card.Header>

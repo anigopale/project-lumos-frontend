@@ -1,0 +1,144 @@
+import React, { Component } from 'react';
+import { Breadcrumb } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { domain_api, language_api, soft_skill_api } from '../../../../common-services/api-endpoints';
+
+export default class CourseBreadcrumbs extends Component {
+  state = { categoryName: '' };
+
+  technical_breadcrumb = [
+    {
+      name: 'Technial Skills',
+      path: '/technical',
+      active: false
+    }
+  ];
+
+  random_data_breadcrumbs = [
+    ...this.technical_breadcrumb,
+    {
+      name: 'Miscellaneous',
+      path: '/technical/misc',
+      active: true
+    }
+  ]
+
+  knowledege_base_breadcrumbs = [
+    ...this.technical_breadcrumb,
+    {
+      name: 'Knowledge Base',
+      path: '/technical/knowledge-base',
+      active: false
+    }
+  ];
+
+  domain_breadcrumbs = [
+    ...this.knowledege_base_breadcrumbs,
+    {
+      name: 'Domains',
+      path: '/technical/knowledge-base/domains',
+      active: false
+    }
+  ]
+  language_breadcrumbs = [
+    ...this.knowledege_base_breadcrumbs,
+    {
+      name: 'Languages',
+      path: '/technical/knowledge-base/languages',
+      active: false
+    }
+  ]
+  soft_skills_breadcrumbs = [
+    {
+      name: 'Soft Skills',
+      path: '/soft-skills'
+    }
+  ]
+
+  componentDidMount() {
+    let { courseType, categoryId } = this.props;
+    this.fetchCourseType(courseType, categoryId);
+  }
+  componentWillReceiveProps(nextProps) {
+    let { courseType, categoryId } = nextProps;
+    if(courseType !== this.props.courseType || categoryId !== this.props.categoryId) {
+      this.fetchCourseType(courseType, categoryId);
+    }
+  }
+
+  fetchCourseType = (courseType, categoryId) => {
+    this.setState({ categoryName: ''});
+    // courseType & courseId passed down as props;
+    let url = '';
+    let name_attribute = '';
+    let categoryName = '';
+
+    if(courseType === 'domains') {
+      url = domain_api;
+      categoryName = 'domain_name';
+    }
+    if(courseType === 'languages') {
+      url = language_api;
+      categoryName = 'language_name';
+    }
+    if(courseType === 'soft-skills') {
+      url = soft_skill_api;
+      categoryName = 'soft_skill_category';
+    }
+    fetch(`${url}${categoryId}`)
+    .then(response => {
+      response.json()
+      .then(data => {
+        if(data[categoryName]) {
+          this.setState({ categoryName: data[categoryName] });
+        }
+      })
+    })
+  }
+
+
+  renderBreadcrumbs() {
+    let { courseType } = this.props;
+    let breadcrumbData = [];
+
+    if(courseType === 'domains') {
+      breadcrumbData = this.domain_breadcrumbs;
+    }
+    if(courseType === 'languages') {
+      breadcrumbData = this.language_breadcrumbs;
+    }
+    if(courseType === 'random') {
+      breadcrumbData = this.random_data_breadcrumbs;
+    }
+    if(courseType === 'soft-skills') {
+      breadcrumbData = this.soft_skills_breadcrumbs;
+    }
+
+    if(breadcrumbData.length) {
+      return breadcrumbData.map(breadcrumb => {
+        if(breadcrumb.active) {
+          return (
+            <Breadcrumb.Section active>{breadcrumb.name}</Breadcrumb.Section>
+            )
+        }
+        return [
+          <Breadcrumb.Section as={Link} to={breadcrumb.path}>{breadcrumb.name}</Breadcrumb.Section>,
+            <Breadcrumb.Divider icon='right angle' />
+          ]
+        })
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <Breadcrumb>
+          <Breadcrumb.Section as={Link} to='/'>Home</Breadcrumb.Section>
+          <Breadcrumb.Divider icon='right angle' />
+          {this.renderBreadcrumbs()}
+          <Breadcrumb.Section active>{this.state.categoryName}</Breadcrumb.Section>
+        </Breadcrumb>
+      </div>
+    )
+  }
+}

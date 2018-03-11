@@ -65,7 +65,7 @@ export default class CourseLabels extends Component {
             return (
               <Label
                 as={Link}
-                to={`/courses/knowledge-base/1/domain/${domain.id}/`}
+                to={`/technical/knowledge-base/domains/${domain.id}/1/`}
                 >
                 {domain.domain_name}
               </Label>
@@ -84,7 +84,7 @@ export default class CourseLabels extends Component {
             return (
               <Label
                 as={Link}
-                to={`/courses/knowledge-base/1/language/${language.id}/`}
+                to={`/technical/knowledge-base/languages/${language.id}/1/`}
                 >
                 {language.language_name}
               </Label>
@@ -104,7 +104,7 @@ export default class CourseLabels extends Component {
           return (
             <Label
               as={Link}
-              to={`/courses/soft-skills/1/soft-skill/${softskill.id}`}
+              to={`/soft-skills/${softskill.id}/1/`}
               >
               {softskill.soft_skill_category}
             </Label>

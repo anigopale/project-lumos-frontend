@@ -72,7 +72,7 @@ class Domains extends Component {
         <Grid.Column>
           <Card
             as={Link}
-            to={`/courses/knowledge-base/1/domain/${domain.id}`}
+            to={`/technical/knowledge-base/domains/${domain.id}/1/`}
             fluid
             >
             <Image src={domain.icon} alt='' />

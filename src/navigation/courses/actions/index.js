@@ -4,7 +4,7 @@ export const FETCH_COURSES = 'fetch-courses';
 export const DELETE_COURSES = 'delete-courses';
 
 
-export function fetchCourses(course_type, page_token, category, category_id, filters) {
+export function fetchCourses(course_type, category_id, page_token, filters) {
   return function(dispatch) {
     // choosing appropriate endpoint for courses
     let category_params = "";
@@ -17,11 +17,11 @@ export function fetchCourses(course_type, page_token, category, category_id, fil
     }
 
     // choosing appropriate category
-    if(category === 'domain')
+    if(course_type === 'domains')
       category_params = `&domains=${category_id}`
-    if(category === 'language')
+    if(course_type === 'languages')
       category_params = `&languages=${category_id}`
-    if(category === 'soft-skill')
+    if(course_type === 'soft-skills')
       category_params = `&soft_skill=${category_id}`
 
     // api url for fetching courses

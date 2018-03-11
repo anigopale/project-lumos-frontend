@@ -20,17 +20,17 @@ import CourseItem from '../../common-components/course-item';
 class Courses extends Component {
 
   componentDidMount() {
+    console.log("props",this.props);
     this.props.deleteCourses();
-    let { course_type, page_token, category, category_id } = this.props.match.params;
+    let { page_token, category_id } = this.props.match.params;
+    let { courseType } = this.props;
 
     // push to 404, if category doesn't match 'domain' or 'language'
-    if(course_type) {
-      if(course_type !== 'knowledge-base' && course_type !== 'soft-skills' && course_type !== 'random') {
-        this.props.history.push('/courses');
-      }
+    if(page_token < '1' || category_id < '1') {
+        this.props.history.push('/404');
     }
     this.props.deleteCourses();
-    this.props.fetchCourses(course_type, page_token, category, category_id);
+    this.props.fetchCourses(courseType, category_id, page_token);
   }
 
 
@@ -57,7 +57,8 @@ class Courses extends Component {
 
   filterCourses = (filters) => {
     // filter courses using 'filters' props passed up by <Filters />
-    let { course_type, category, category_id } = this.props.match.params;
+    let { category_id } = this.props.match.params;
+    let { courseType } = this.props;
     // let category_params = "";
     // if(category && category_id) {
     //   category_params = `/${category}/${category_id}`
@@ -66,7 +67,7 @@ class Courses extends Component {
     // //push to first page on filter
     // this.props.history.push(`/courses/${course_type}/1${category_params}`);
     this.props.deleteCourses();
-    this.props.fetchCourses(course_type, '1', category, category_id, filters);
+    this.props.fetchCourses(courseType, category_id, 1, filters);
   }
 
 

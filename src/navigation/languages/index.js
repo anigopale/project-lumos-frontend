@@ -55,7 +55,7 @@ class Languages extends Component {
         <Grid.Column>
           <Card
             as={Link}
-            to={`/courses/knowledge-base/1/language/${language.id}`}
+            to={`/technical/knowledge-base/languages/${language.id}/1/`}
             fluid
             >
             <Image src={language.icon} alt='' />

@@ -1,4 +1,4 @@
-import { FETCH_COURSE, ERROR_COURSE } from '../actions';
+import { FETCH_COURSE, ERROR_COURSE, DELETE_COURSE } from '../actions';
 
 export default function(state = {}, action) {
 
@@ -10,6 +10,9 @@ export default function(state = {}, action) {
       return {
         error: 'An error occured'
       }
+      break;
+    case DELETE_COURSE:
+      return {};
       break;
   }
   return state;

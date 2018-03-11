@@ -3,6 +3,7 @@ import { RANDOM, SOFT_SKILLS } from '../../common-services/course_types';
 
 export const FETCH_COURSE = 'fetch-course';
 export const ERROR_COURSE = 'error-course';
+export const DELETE_COURSE = 'delete-course';
 
 export function fetchResource(course_id, course_type) {
   let url = knowledge_base;
@@ -28,5 +29,12 @@ export function fetchResource(course_id, course_type) {
         type: ERROR_COURSE
       })
     })
+  }
+}
+
+
+export function deleteResource() {
+  return {
+    type: DELETE_COURSE
   }
 }

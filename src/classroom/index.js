@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Segment, Button, Container, Divider, Grid, Loader, Dimmer, Icon } from 'semantic-ui-react';
-import { fetchResource } from './actions';
+import { fetchResource, deleteResource } from './actions';
 import Resource from './components/embed-resource';
 import Wikipedia from './components/wikipedia-search';
 import Wiktionary from './components/wiktionary-search';
@@ -14,7 +14,7 @@ class Classroom extends Component {
 
     // push to 404, if course_type doesn't match these
     if(course_type !== KNOWLEDGE_BASE && course_type !== SOFT_SKILLS && course_type !== RANDOM) {
-      this.props.history.push('/classroom');
+      this.props.history.push('/404');
     }
     if(this.props.course.id != course_id)
       this.props.fetchResource(course_id, course_type);
@@ -25,7 +25,7 @@ class Classroom extends Component {
 
     // push to 404, if course_type doesn't match these
     if(course_type !== KNOWLEDGE_BASE && course_type !== SOFT_SKILLS && course_type !== RANDOM) {
-      this.props.history.push('/classroom');
+      this.props.history.push('/404');
     }
   }
 
@@ -34,10 +34,12 @@ class Classroom extends Component {
 
     // push to 404, if course_type doesn't match these
     if(course_type !== KNOWLEDGE_BASE && course_type !== SOFT_SKILLS && course_type !== RANDOM) {
-      this.props.history.push('/classroom');
+      this.props.history.push('/404');
     }
-    if(this.props.course.id != course_id)
+    if(this.props.match.params !== nextProps.match.params) {
+      this.props.deleteResource();
       this.props.fetchResource(course_id, course_type);
+    }
 
   }
 
@@ -130,4 +132,4 @@ function mapStateToProps({ course }) {
   return { course };
 }
 
-export default connect(mapStateToProps, { fetchResource })(Classroom);
+export default connect(mapStateToProps, { fetchResource, deleteResource })(Classroom);

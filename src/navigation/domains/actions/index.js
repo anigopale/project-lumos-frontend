@@ -1,9 +1,11 @@
 import { domain_api } from '../../../common-services/api-endpoints';
+import { NAV_CARDS_PER_PAGE } from '../../../common-services/page-size';
 
 export const FETCH_DOMAINS = 'fetch-domains';
+export const DELETE_DOMAINS = 'delete-domains';
 
 export function fetchDomains(page_token) {
-  let url = `${domain_api}?page_size=9&page=${page_token}`;
+  let url = `${domain_api}?page_size=${NAV_CARDS_PER_PAGE}&page=${page_token}`;
   return function(dispatch) {
     fetch(url)
     .then(response => {
@@ -15,5 +17,11 @@ export function fetchDomains(page_token) {
         })
       })
     })
+  }
+}
+
+export function deleteDomains() {
+  return {
+    type: DELETE_DOMAINS
   }
 }

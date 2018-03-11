@@ -30,7 +30,6 @@ class Courses extends Component {
     if(page_token < '1' || category_id < '1') {
         this.props.history.push('/404');
     }
-    this.props.deleteCourses();
     this.props.fetchCourses(courseType, category_id, page_token);
   }
 
@@ -46,13 +45,17 @@ class Courses extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('component received props');
+    console.log(this.props.match.params, nextProps.match.params);
     let { category_id, page_token } = nextProps.match.params;
     let { courseType } = nextProps;
     if(page_token < '1' || category_id < '1') {
         this.props.history.push('/404');
     }
-    if(this.props.match.params !== nextProps.match.params) {
-      // fetch data only if url parameters are different
+    if(this.props.match.params.category_id !== category_id
+      || this.props.courseType !== courseType
+      || this.props.match.params.page_token !== page_token) {
+      // fetch data only if url parameters and courseType props are different
       this.props.deleteCourses();
       this.props.fetchCourses(courseType, category_id, page_token);
     }
@@ -62,7 +65,6 @@ class Courses extends Component {
     // filter courses using 'filters' props passed up by <Filters />
     let { category_id } = this.props.match.params;
     let { courseType } = this.props;
-
     this.props.deleteCourses();
     this.props.fetchCourses(courseType, category_id, 1, filters);
   }

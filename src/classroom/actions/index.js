@@ -1,13 +1,14 @@
 import { knowledge_base, soft_skills_data, random_data } from '../../common-services/api-endpoints';
+import { RANDOM, SOFT_SKILLS } from '../../common-services/course_types';
 
 export const FETCH_COURSE = 'fetch-course';
 export const ERROR_COURSE = 'error-course';
 
 export function fetchResource(course_id, course_type) {
   let url = knowledge_base;
-  if(course_type === 'soft-skills') {
+  if(course_type === SOFT_SKILLS) {
     url = soft_skills_data;
-  } else if (course_type === 'random') {
+  } else if (course_type === RANDOM) {
     url = random_data;
   }
 

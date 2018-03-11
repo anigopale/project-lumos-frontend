@@ -7,6 +7,7 @@ import {
   soft_skill_api
 } from '../../../common-services/api-endpoints';
 import { KNOWLEDGE_BASE, SOFT_SKILLS, RANDOM } from '../../../common-services/course_types';
+import { SEARCH_RESULTS_PER_PAGE } from '../../../common-services/page-size';
 
 export const DELETE_SEARCH_RESULTS = 'delete-search-results';
 export const FETCH_SEARCH_RESULTS = 'fetch-search-results';
@@ -69,7 +70,7 @@ function fetchData (dispatch, api_url, category, category_id) {
   if(api_url === soft_skills_data) {
     course_type = SOFT_SKILLS;
   }
-    fetch(`${api_url}?${category}=${category_id}&page_size=`)
+    fetch(`${api_url}?${category}=${category_id}&page_size=${SEARCH_RESULTS_PER_PAGE}`)
     .then(response => {
       response.json()
       .then(data => {

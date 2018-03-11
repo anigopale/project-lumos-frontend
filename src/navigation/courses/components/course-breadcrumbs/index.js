@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Breadcrumb } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { domain_api, language_api, soft_skill_api } from '../../../../common-services/api-endpoints';
+import { DOMAINS, LANGUAGES, SOFT_SKILLS } from '../../../../common-services/course_types';
 
 export default class CourseBreadcrumbs extends Component {
   state = { categoryName: '' };
@@ -73,15 +74,15 @@ export default class CourseBreadcrumbs extends Component {
     let name_attribute = '';
     let categoryName = '';
 
-    if(courseType === 'domains') {
+    if(courseType === DOMAINS) {
       url = domain_api;
       categoryName = 'domain_name';
     }
-    if(courseType === 'languages') {
+    if(courseType === LANGUAGES) {
       url = language_api;
       categoryName = 'language_name';
     }
-    if(courseType === 'soft-skills') {
+    if(courseType === SOFT_SKILLS) {
       url = soft_skill_api;
       categoryName = 'soft_skill_category';
     }

@@ -48,7 +48,7 @@ export default class CourseItem extends Component {
           as={Link}
           to={{
             pathname: `/classroom/${this.props.courseType}/${this.props.course.id}`,
-            state: { fromCourses: true }
+            state: { fromCourses: this.props.fromCourses }
           }}
           >
           {this.props.course.title}

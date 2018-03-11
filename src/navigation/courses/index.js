@@ -18,6 +18,7 @@ import { fetchCourses, deleteCourses } from './actions';
 import Filters from './components/filters';
 import CourseItem from '../../common-components/course-item';
 import CourseBreadcrumbs from './components/course-breadcrumbs';
+import { DOMAINS, LANGUAGES, SOFT_SKILLS, KNOWLEDGE_BASE, RANDOM } from '../../common-services/course_types';
 
 class Courses extends Component {
 
@@ -71,19 +72,19 @@ class Courses extends Component {
   renderCourses() {
     let { courseType } = this.props;
     let course_type = '';
-    if(courseType === 'domains' || courseType === 'languages') {
-      course_type = 'knowledge-base';
+    if(courseType === DOMAINS || courseType === LANGUAGES) {
+      course_type = KNOWLEDGE_BASE;
     }
-    if(courseType === 'random') {
-      course_type = 'random';
+    if(courseType === RANDOM) {
+      course_type = RANDOM;
     }
-    if(courseType === 'soft_skills') {
-      course_type = 'soft_skills';
+    if(courseType === SOFT_SKILLS) {
+      course_type = SOFT_SKILLS;
     }
 
     return this.props.courses.results.map((course) => {
       return (
-        <CourseItem course={course} courseType={course_type} />
+        <CourseItem course={course} courseType={course_type} fromCourses={true} />
       )
     })
   }
@@ -97,11 +98,11 @@ class Courses extends Component {
     let { courseType } = this.props;
 
     // setting up url
-    if(courseType === 'domains' || courseType === 'languages')
+    if(courseType === DOMAINS || courseType === LANGUAGES)
       url = `/technical/knowledge-base/${courseType}/${category_id}`;
-    if(courseType === 'soft-skills')
+    if(courseType === SOFT_SKILLS)
       url = `/${courseType}/${category_id}`;
-    if(courseType === 'random')
+    if(courseType === RANDOM)
       url = `/technical/misc`;
 
     if(this.props.courses.results.length) {

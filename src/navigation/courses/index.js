@@ -22,7 +22,6 @@ import CourseBreadcrumbs from './components/course-breadcrumbs';
 class Courses extends Component {
 
   componentDidMount() {
-    this.props.deleteCourses();
     let { page_token, category_id } = this.props.match.params;
     let { courseType } = this.props;
 
@@ -36,13 +35,12 @@ class Courses extends Component {
 
 
   componentDidUpdate() {
-    let { course_type } = this.props.match.params;
+    let { page_token, category_id } = this.props.match.params;
+    let { courseType } = this.props;
 
-    // push to 404, if category doesn't match 'domain' or 'language'
-    if(course_type) {
-      if(course_type !== 'knowledge-base' && course_type !== 'soft-skills' && course_type !== 'random') {
-        this.props.history.push('/courses');
-      }
+    // push to 404, if category_id and page_token is invalid
+    if(page_token < '1' || category_id < '1') {
+        this.props.history.push('/404');
     }
   }
 
@@ -71,8 +69,19 @@ class Courses extends Component {
 
   // renders fetched courses
   renderCourses() {
+    let { courseType } = this.props;
+    let course_type = '';
+    if(courseType === 'domains' || courseType === 'languages') {
+      course_type = 'knowledge-base';
+    }
+    if(courseType === 'random') {
+      course_type = 'random';
+    }
+    if(courseType === 'soft_skills') {
+      course_type = 'soft_skills';
+    }
+
     return this.props.courses.results.map((course) => {
-      let { course_type } = this.props.match.params;
       return (
         <CourseItem course={course} courseType={course_type} />
       )
@@ -83,8 +92,17 @@ class Courses extends Component {
   renderPaginationButtons() {
     let previousPageToken = "1";
     let nextPageToken = "1";
-    let category_params = "";
-    let { course_type, category, category_id } = this.props.match.params;
+    let url = "";
+    let { category_id } = this.props.match.params;
+    let { courseType } = this.props;
+
+    // setting up url
+    if(courseType === 'domains' || courseType === 'languages')
+      url = `/technical/knowledge-base/${courseType}/${category_id}`;
+    if(courseType === 'soft-skills')
+      url = `/${courseType}/${category_id}`;
+    if(courseType === 'random')
+      url = `/technical/misc`;
 
     if(this.props.courses.results.length) {
       // grabbing previous and next page number off of 'previous' and 'next' attribute
@@ -96,9 +114,6 @@ class Courses extends Component {
         if(this.props.courses.next.includes('page='))
           nextPageToken = this.props.courses.next.split(/page=(.+)/)[1].charAt(0);
       }
-      if(category && category_id) {
-        category_params = `/${category}/${category_id}`;
-      }
     }
 
 
@@ -109,7 +124,7 @@ class Courses extends Component {
           basic
           color='teal'
           as={Link}
-          to={`/courses/${course_type}/${previousPageToken}${category_params}`}
+          to={`${url}/${previousPageToken}`}
           >
           Prev
         </Button>
@@ -118,7 +133,7 @@ class Courses extends Component {
           basic
           color='teal'
           as={Link}
-          to={`/courses/${course_type}/${nextPageToken}${category_params}`}
+          to={`${url}/${nextPageToken}`}
           >
           Next
         </Button>

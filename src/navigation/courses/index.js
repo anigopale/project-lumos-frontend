@@ -11,10 +11,11 @@ import {
   Loader,
   Dimmer,
   Dropdown,
-  Breadcrumb
+  Breadcrumb,
+  Visibility
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { fetchCourses, deleteCourses } from './actions';
+import { fetchCourses, deleteCourses, fetchMoreCourses } from './actions';
 import Filters from './components/filters';
 import CourseItem from '../../common-components/course-item';
 import CourseBreadcrumbs from './components/course-breadcrumbs';
@@ -23,39 +24,38 @@ import { DOMAINS, LANGUAGES, SOFT_SKILLS, KNOWLEDGE_BASE, RANDOM } from '../../c
 class Courses extends Component {
 
   componentDidMount() {
-    let { page_token, category_id } = this.props.match.params;
+    let { category_id } = this.props.match.params;
     let { courseType } = this.props;
 
-    // push to 404, if category_id and page_token is invalid
-    if(page_token < '1' || category_id < '1') {
+    // push to 404, if category_id
+    if(category_id < '1') {
         this.props.history.push('/404');
     }
-    this.props.fetchCourses(courseType, category_id, page_token);
+    this.props.fetchCourses(courseType, category_id, 1);
   }
 
 
   componentDidUpdate() {
-    let { page_token, category_id } = this.props.match.params;
+    let { category_id } = this.props.match.params;
     let { courseType } = this.props;
 
     // push to 404, if category_id and page_token is invalid
-    if(page_token < '1' || category_id < '1') {
+    if(category_id < '1') {
         this.props.history.push('/404');
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    let { category_id, page_token } = nextProps.match.params;
+    let { category_id } = nextProps.match.params;
     let { courseType } = nextProps;
-    if(page_token < '1' || category_id < '1') {
+    if(category_id < '1') {
         this.props.history.push('/404');
     }
     if(this.props.match.params.category_id !== category_id
-      || this.props.courseType !== courseType
-      || this.props.match.params.page_token !== page_token) {
+      || this.props.courseType !== courseType) {
       // fetch data only if url parameters and courseType props are different
       this.props.deleteCourses();
-      this.props.fetchCourses(courseType, category_id, page_token);
+      this.props.fetchCourses(courseType, category_id, 1);
     }
   }
 
@@ -89,57 +89,41 @@ class Courses extends Component {
     })
   }
 
+  handleVisibilityUpdate = (calculations) => {
+    // auto fetch next page data once load more button is visible
+    if(calculations.bottomVisible) {
+      this.props.fetchMoreCourses(this.props.courses.next);
+    }
+  }
+
+  handleLoadMoreClick = () => {
+    // fetch next page data on 'load more' button click
+    this.props.fetchMoreCourses(this.props.courses.next);
+  }
 
   renderPaginationButtons() {
-    let previousPageToken = "1";
-    let nextPageToken = "1";
-    let url = "";
-    let { category_id } = this.props.match.params;
-    let { courseType } = this.props;
-
-    // setting up url
-    if(courseType === DOMAINS || courseType === LANGUAGES)
-      url = `/technical/knowledge-base/${courseType}/${category_id}`;
-    if(courseType === SOFT_SKILLS)
-      url = `/${courseType}/${category_id}`;
-    if(courseType === RANDOM)
-      url = `/technical/misc`;
-
-    if(this.props.courses.results.length) {
-      // grabbing previous and next page number off of 'previous' and 'next' attribute
-      if(this.props.courses.previous) {
-        if(this.props.courses.previous.includes('page='))
-          previousPageToken = this.props.courses.previous.split(/page=(.+)/)[1].charAt(0);
+    if(this.props.courses.next) {
+      if(this.props.courses.loading) {
+        return (
+          <Segment basic>
+            <Dimmer inverted active>
+              <Loader size='medium' />
+            </Dimmer>
+          </Segment>
+        )
       }
-      if(this.props.courses.next) {
-        if(this.props.courses.next.includes('page='))
-          nextPageToken = this.props.courses.next.split(/page=(.+)/)[1].charAt(0);
-      }
+      return (
+        <Visibility onUpdate={(e, { calculations }) => {this.handleVisibilityUpdate(calculations)}}>
+          <Button
+            basic
+            color='teal'
+            onClick={this.handleLoadMoreClick}
+            >
+            load more
+          </Button>
+        </Visibility>
+      )
     }
-
-
-    return (
-      <Button.Group>
-        <Button
-          disabled={!this.props.courses.previous}
-          basic
-          color='teal'
-          as={Link}
-          to={`${url}/${previousPageToken}`}
-          >
-          Prev
-        </Button>
-        <Button
-          disabled={!this.props.courses.next}
-          basic
-          color='teal'
-          as={Link}
-          to={`${url}/${nextPageToken}`}
-          >
-          Next
-        </Button>
-      </Button.Group>
-    )
   }
 
   // renders loader or results
@@ -196,4 +180,4 @@ function mapStateToProps({ courses }) {
   return { courses };
 }
 
-export default connect(mapStateToProps, { fetchCourses, deleteCourses })(Courses);
+export default connect(mapStateToProps, { fetchCourses, deleteCourses, fetchMoreCourses })(Courses);

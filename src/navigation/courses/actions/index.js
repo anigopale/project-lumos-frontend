@@ -5,6 +5,9 @@ import { DOMAINS, LANGUAGES, RANDOM, SOFT_SKILLS } from '../../../common-service
 export const FETCH_COURSES = 'fetch-courses';
 export const DELETE_COURSES = 'delete-courses';
 export const ERROR_COURSES = 'error-courses';
+export const APPEND_COURSES = 'append-courses';
+export const LOADING_APPEND_COURSES = 'loading-append-courses';
+export const ERROR_APPEND_COURSES = 'error-append-courses';
 
 
 export function fetchCourses(course_type, category_id, page_token, filters) {
@@ -65,6 +68,32 @@ export function fetchCourses(course_type, category_id, page_token, filters) {
     })
   }
 }
+
+export function fetchMoreCourses(url) {
+  // for fetching next page data
+  return function(dispatch) {
+    dispatch({
+      type: LOADING_APPEND_COURSES
+    })
+    fetch(url)
+    .then(response => {
+      response.json()
+      .then(data => {
+        dispatch({
+          type: APPEND_COURSES,
+          payload: data
+        })
+      })
+    })
+    .catch(error => {
+      dispatch({
+        type: ERROR_APPEND_COURSES
+      })
+    })
+  }
+}
+
+
 
 export function deleteCourses() {
   return {

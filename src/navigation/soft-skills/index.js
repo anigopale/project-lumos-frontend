@@ -84,6 +84,10 @@ class SoftSkills extends Component {
   }
 
   renderBody() {
+    if(this.props.error) {
+      this.props.history.push('/404');
+      return;
+    }
     if(this.props.softskills.count) {
       return (
         <Grid columns={3} stretched doubling centered padded relaxed='very'>

@@ -4,6 +4,7 @@ import { DOMAINS, LANGUAGES, RANDOM, SOFT_SKILLS } from '../../../common-service
 
 export const FETCH_COURSES = 'fetch-courses';
 export const DELETE_COURSES = 'delete-courses';
+export const ERROR_COURSES = 'error-courses';
 
 
 export function fetchCourses(course_type, category_id, page_token, filters) {
@@ -41,12 +42,25 @@ export function fetchCourses(course_type, category_id, page_token, filters) {
 
     fetch(`${url}`)
     .then(response => {
-      response.json()
-      .then(data => {
+      if(response.status !== 200) {
+        // dispatching error if status code is != 200
         dispatch({
-          type: FETCH_COURSES,
-          payload: data
+          type: ERROR_COURSES
         })
+      }
+      else {
+        response.json()
+        .then(data => {
+          dispatch({
+            type: FETCH_COURSES,
+            payload: data
+          })
+        })
+      }
+      })
+    .catch(error => {
+      dispatch({
+        type: ERROR_COURSES
       })
     })
   }

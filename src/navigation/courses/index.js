@@ -45,8 +45,6 @@ class Courses extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('component received props');
-    console.log(this.props.match.params, nextProps.match.params);
     let { category_id, page_token } = nextProps.match.params;
     let { courseType } = nextProps;
     if(page_token < '1' || category_id < '1') {
@@ -146,6 +144,11 @@ class Courses extends Component {
 
   // renders loader or results
   renderBody() {
+    if(this.props.courses.error) {
+      // can be pushed to any error page if response status isn't 200
+      this.props.history.push('/404');
+      return;
+    }
     if(!this.props.courses.results) {
       return (
         <Segment basic>

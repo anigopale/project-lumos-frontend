@@ -8,26 +8,26 @@ export default class Resource extends Component {
   state = { url: "" };
 
   componentDidMount() {
-    let { type } = this.props;
-    this.setEmbedUrl(type);
+    let { type, url } = this.props;
+    this.setEmbedUrl(type, url);
   }
   componentWillReceiveProps(nextProps) {
-    let { type } = nextProps;
-    this.setEmbedUrl(type);
+    let { type, url } = nextProps;
+    this.setEmbedUrl(type, url);
   }
 
-  setEmbedUrl(type) {
+  setEmbedUrl(type, url) {
     if(type === 'vimeo') {
-      let id = this.props.url.split('/').slice(-1)[0].split('?')[0];
+      let id = url.split('/').slice(-1)[0].split('?')[0];
       this.setState({ url: `https://player.vimeo.com/video/${id}`});
     }
     else if(type === 'yt_playlist') {
-      let id = this.props.url.split('list=')[1];
+      let id = url.split('list=')[1];
       this.setState({ url: `https://www.youtube.com/embed/videoseries?list=${id}` });
 
     }
     else {
-      let id = this.props.url.split('v=')[1];
+      let id = url.split('v=')[1];
       this.setState({ url: `https://www.youtube.com/embed/${id}` });
     }
   }

@@ -1,6 +1,7 @@
 import { knowledge_base, soft_skills_data, random_data } from '../../../common-services/api-endpoints';
 import { RESULTS_PER_PAGE } from '../../../common-services/page-size';
 import { DOMAINS, LANGUAGES, RANDOM, SOFT_SKILLS } from '../../../common-services/course_types';
+import { apiCall } from '../../../common-services/api-call';
 
 export const FETCH_COURSES = 'fetch-courses';
 export const DELETE_COURSES = 'delete-courses';
@@ -43,16 +44,10 @@ export function fetchCourses(course_type, category_id, page_token, filters) {
       url = `${url}&paid=${paid}&data_type=${data_type}&project=${project}&skill_level=${skill_level}`;
     }
 
-    fetch(`${url}`)
-    .then(response => {
-      if(response.status !== 200) {
-        // dispatching error if status code is != 200
-        dispatch({
-          type: ERROR_COURSES
-        })
-      }
-      else {
-        response.json()
+    apiCall(url, 'get')
+    .then(result => {
+      if(result.response) {
+        result.response.json()
         .then(data => {
           dispatch({
             type: FETCH_COURSES,
@@ -60,11 +55,11 @@ export function fetchCourses(course_type, category_id, page_token, filters) {
           })
         })
       }
-      })
-    .catch(error => {
-      dispatch({
-        type: ERROR_COURSES
-      })
+      if(result.error) {
+        dispatch({
+          type: ERROR_COURSES
+        })
+      }
     })
   }
 }
@@ -75,20 +70,23 @@ export function fetchMoreCourses(url) {
     dispatch({
       type: LOADING_APPEND_COURSES
     })
-    fetch(url)
-    .then(response => {
-      response.json()
-      .then(data => {
-        dispatch({
-          type: APPEND_COURSES,
-          payload: data
+
+    apiCall(url, 'get')
+    .then(result => {
+      if(result.response) {
+        result.response.json()
+        .then(data => {
+          dispatch({
+            type: APPEND_COURSES,
+            payload: data
+          })
         })
-      })
-    })
-    .catch(error => {
-      dispatch({
-        type: ERROR_APPEND_COURSES
-      })
+      }
+      if(result.error) {
+        dispatch({
+          type: ERROR_APPEND_COURSES
+        })
+      }
     })
   }
 }

@@ -27,6 +27,15 @@ class SearchBar extends Component {
 
   renderShowMoreButton() {
     if(this.props.searchResults.next) {
+      if(this.props.searchResults.loading) {
+        return (
+          <Segment basic>
+            <Dimmer active inverted>
+              <Loader />
+            </Dimmer>
+          </Segment>
+        )
+      }
       return (
         <Button
           onClick={this.handleClick}

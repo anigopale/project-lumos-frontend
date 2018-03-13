@@ -71,7 +71,7 @@ class Languages extends Component {
   }
 
   renderBody() {
-    if(this.props.error) {
+    if(this.props.languages.error) {
       this.props.history.push('/404');
       return;
     }

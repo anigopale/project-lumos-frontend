@@ -84,7 +84,7 @@ class SoftSkills extends Component {
   }
 
   renderBody() {
-    if(this.props.error) {
+    if(this.props.softskills.error) {
       this.props.history.push('/404');
       return;
     }

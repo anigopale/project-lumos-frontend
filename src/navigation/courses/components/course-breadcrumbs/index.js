@@ -3,6 +3,7 @@ import { Breadcrumb } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { domain_api, language_api, soft_skill_api } from '../../../../common-services/api-endpoints';
 import { DOMAINS, LANGUAGES, SOFT_SKILLS } from '../../../../common-services/course_types';
+import { apiCall } from '../../../../common-services/api-call';
 
 export default class CourseBreadcrumbs extends Component {
   state = { categoryName: '' };
@@ -86,14 +87,19 @@ export default class CourseBreadcrumbs extends Component {
       url = soft_skill_api;
       categoryName = 'soft_skill_category';
     }
-    fetch(`${url}${categoryId}`)
-    .then(response => {
-      response.json()
-      .then(data => {
-        if(data[categoryName]) {
-          this.setState({ categoryName: data[categoryName] });
-        }
-      })
+    apiCall(`${url}${categoryId}`, 'get')
+    .then(result => {
+      if(result.response) {
+        result.response.json()
+        .then(data => {
+          if(data[categoryName]) {
+            this.setState({ categoryName: data[categoryName] });
+          }
+        })
+      }
+      if(result.error) {
+        this.setState({ categoryName: '' });
+      }
     })
   }
 

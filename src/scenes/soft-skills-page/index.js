@@ -17,7 +17,7 @@ export default class SoftSkillsPage extends Component {
             <Breadcrumb.Section active>Soft Skills</Breadcrumb.Section>
           </Breadcrumb>
         </Container>
-        <SoftSkills />
+        <SoftSkills {...this.props} />
       </div>
     )
   }

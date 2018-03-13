@@ -88,7 +88,7 @@ class Domains extends Component {
   }
 
   renderBody() {
-    if(this.props.error) {
+    if(this.props.domains.error) {
       this.props.history.push('/404');
       return;
     }

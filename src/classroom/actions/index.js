@@ -1,5 +1,6 @@
 import { knowledge_base, soft_skills_data, random_data } from '../../common-services/api-endpoints';
 import { RANDOM, SOFT_SKILLS } from '../../common-services/course_types';
+import { apiCall } from '../../common-services/api-call';
 
 export const FETCH_COURSE = 'fetch-course';
 export const ERROR_COURSE = 'error-course';
@@ -14,20 +15,22 @@ export function fetchResource(course_id, course_type) {
   }
 
   return function(dispatch) {
-    fetch(`${url}${course_id}/`)
-    .then(response => {
-      response.json()
-      .then(data => {
+    apiCall(`${url}${course_id}/`, 'get')
+    .then(result => {
+      if(result.response) {
+        result.response.json()
+        .then(data => {
+          dispatch({
+            type: FETCH_COURSE,
+            payload: data
+          })
+        })
+      }
+      if(result.error) {
         dispatch({
-          type: FETCH_COURSE,
-          payload: data
-        });
-      })
-    })
-    .catch(error => {
-      dispatch({
-        type: ERROR_COURSE
-      })
+          type: ERROR_COURSE
+        })
+      }
     })
   }
 }

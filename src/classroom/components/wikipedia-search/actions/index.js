@@ -1,3 +1,5 @@
+import { apiCall } from '../../../../common-services/api-call';
+
 export const FETCH_WIKIPEDIA = 'fetch-wikipedia';
 export const EMPTY_WIKIPEDIA = 'empty-wikipedia';
 export const ERROR_WIKIPEDIA = 'error-wikipedia';
@@ -9,20 +11,22 @@ export function wikipediaSearch(term) {
     term = term.trim();
     term = term.replace(/[^a-zA-Z0-9]/g, "_");
 
-    fetch(url + term)
-    .then(response => {
-      response.json()
-      .then(data => {
-        dispatch({
-          type: FETCH_WIKIPEDIA,
-          payload: data
+    apiCall(`${url}${term}/`, 'get')
+    .then(result => {
+      if(result.response) {
+        result.response.json()
+        .then(data => {
+          dispatch({
+            type: FETCH_WIKIPEDIA,
+            payload: data
+          })
         })
-      })
-      .catch(error => {
+      }
+      if(result.error) {
         dispatch({
           type: ERROR_WIKIPEDIA
         })
-      })
+      }
     })
   }
 }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Segment, Button, Container, Divider, Grid, Loader, Dimmer, Icon } from 'semantic-ui-react';
-import { fetchResource } from './actions';
+import { fetchResource, deleteResource } from './actions';
 import Resource from './components/embed-resource';
 import Wikipedia from './components/wikipedia-search';
 import Wiktionary from './components/wiktionary-search';
+import { KNOWLEDGE_BASE, RANDOM, SOFT_SKILLS } from '../common-services/course_types';
 
 class Classroom extends Component {
 
@@ -12,8 +13,8 @@ class Classroom extends Component {
     let { course_type, course_id } = this.props.match.params;
 
     // push to 404, if course_type doesn't match these
-    if(course_type !== 'knowledge-base' && course_type !== 'soft-skills' && course_type !== 'random') {
-      this.props.history.push('/classroom');
+    if(course_type !== KNOWLEDGE_BASE && course_type !== SOFT_SKILLS && course_type !== RANDOM) {
+      this.props.history.push('/404');
     }
     if(this.props.course.id != course_id)
       this.props.fetchResource(course_id, course_type);
@@ -23,8 +24,8 @@ class Classroom extends Component {
     let { course_type, course_id } = this.props.match.params;
 
     // push to 404, if course_type doesn't match these
-    if(course_type !== 'knowledge-base' && course_type !== 'soft-skills' && course_type !== 'random') {
-      this.props.history.push('/classroom');
+    if(course_type !== KNOWLEDGE_BASE && course_type !== SOFT_SKILLS && course_type !== RANDOM) {
+      this.props.history.push('/404');
     }
   }
 
@@ -32,11 +33,13 @@ class Classroom extends Component {
     let { course_type, course_id } = nextProps.match.params;
 
     // push to 404, if course_type doesn't match these
-    if(course_type !== 'knowledge-base' && course_type !== 'soft-skills' && course_type !== 'random') {
-      this.props.history.push('/classroom');
+    if(course_type !== KNOWLEDGE_BASE && course_type !== SOFT_SKILLS && course_type !== RANDOM) {
+      this.props.history.push('/404');
     }
-    if(this.props.course.id != course_id)
+    if(this.props.match.params !== nextProps.match.params) {
+      this.props.deleteResource();
       this.props.fetchResource(course_id, course_type);
+    }
 
   }
 
@@ -129,4 +132,4 @@ function mapStateToProps({ course }) {
   return { course };
 }
 
-export default connect(mapStateToProps, { fetchResource })(Classroom);
+export default connect(mapStateToProps, { fetchResource, deleteResource })(Classroom);

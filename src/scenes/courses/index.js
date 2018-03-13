@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import NavBar from '../../common-components/navbar';
 import Courses from '../../navigation/courses';
 
@@ -8,7 +8,7 @@ export default class CoursesPage extends Component {
     return (
       <div>
         <NavBar />
-        <Route exact path='/courses/:course_type/:page_token/:category?/:category_id?' component={Courses} />
+        <Courses {...this.props} />
       </div>
     )
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Segment, Header, Container, Divider, Loader, Dimmer, Menu, Card, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { fetchLanguages } from './actions';
+import { fetchLanguages, deleteLanguages } from './actions';
 
 class Languages extends Component {
   state = { activePage: 1 };
@@ -13,7 +13,8 @@ class Languages extends Component {
 
   previousPage = () => {
     if(this.state.activePage > 1) {
-      this.setState({ activePage: this.state.activePage - 1 })
+      this.setState({ activePage: this.state.activePage - 1 });
+      this.props.deleteLanguages();
       this.props.fetchLanguages(this.state.activePage - 1);
     }
   }
@@ -21,6 +22,7 @@ class Languages extends Component {
   nextPage = () => {
     if(this.state.activePage) {
       this.setState({ activePage: this.state.activePage + 1 });
+      this.props.deleteLanguages();
       this.props.fetchLanguages(this.state.activePage + 1);
     }
   }
@@ -55,7 +57,7 @@ class Languages extends Component {
         <Grid.Column>
           <Card
             as={Link}
-            to={`/courses/knowledge-base/1/language/${language.id}`}
+            to={`/technical/knowledge-base/languages/${language.id}/`}
             fluid
             >
             <Image src={language.icon} alt='' />
@@ -69,6 +71,10 @@ class Languages extends Component {
   }
 
   renderBody() {
+    if(this.props.languages.error) {
+      this.props.history.push('/404');
+      return;
+    }
     if(this.props.languages.count) {
       return (
         <Grid columns={3} stretched doubling centered padded relaxed='very'>
@@ -111,4 +117,4 @@ function mapStateToProps({ languages }) {
   return { languages };
 }
 
-export default connect(mapStateToProps, { fetchLanguages })(Languages);
+export default connect(mapStateToProps, { fetchLanguages, deleteLanguages })(Languages);

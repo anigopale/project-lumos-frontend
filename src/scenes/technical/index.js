@@ -42,11 +42,11 @@ export default class Technical extends Component {
                 </Grid.Column>
 
                 <Grid.Column>
-                  <Link to='/courses/random/1'>
+                  <Link to='/technical/misc/'>
                     <Card fluid>
                       <Card.Content>
                         <Card.Header>
-                          Random
+                          Miscellaneous
                         </Card.Header>
                         <Card.Description>
                           Description

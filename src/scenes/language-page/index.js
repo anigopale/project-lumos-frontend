@@ -21,7 +21,7 @@ export default class LanguagePage extends Component {
             <Breadcrumb.Section active>Languages</Breadcrumb.Section>
           </Breadcrumb>
         </Container>
-        <Languages />
+        <Languages {...this.props} />
       </div>
     )
   }

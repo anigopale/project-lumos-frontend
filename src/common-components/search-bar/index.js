@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Input, Modal, Responsive, Icon, Popup, Button, Dimmer, Loader, Segment } from 'semantic-ui-react';
+import { Form, Input, Modal, Responsive, Icon, Popup, Button, Dimmer, Loader, Segment, Container } from 'semantic-ui-react';
 import { fetchCourses, fetchMoreCourses, deleteCourses } from './actions';
 import CourseItem from '../course-item';
 
@@ -27,6 +27,15 @@ class SearchBar extends Component {
 
   renderShowMoreButton() {
     if(this.props.searchResults.next) {
+      if(this.props.searchResults.loading) {
+        return (
+          <Segment basic>
+            <Dimmer active inverted>
+              <Loader />
+            </Dimmer>
+          </Segment>
+        )
+      }
       return (
         <Button
           onClick={this.handleClick}
@@ -48,17 +57,15 @@ class SearchBar extends Component {
     if(this.props.searchResults.results.length) {
       return this.props.searchResults.results.map(course => {
         let { course_type } = this.props.searchResults;
-        return <CourseItem course={course} courseType={course_type} />
+        return <CourseItem course={course} courseType={course_type} fromCourses={false} />
       })
     }
     return (
       <div>no results found</div>
     )
-
   }
 
   render() {
-    console.log(this.props.searchResults);
     return (
       <div>
         <Responsive minWidth='480'>
@@ -90,7 +97,9 @@ class SearchBar extends Component {
             Results for "{this.state.term}":
           </Modal.Header>
           <Modal.Content>
-            {this.renderSearchResults()}
+            <Container text>
+              {this.renderSearchResults()}
+            </Container>
             <Segment basic textAlign='center'>
               {this.renderShowMoreButton()}
             </Segment>
@@ -102,7 +111,6 @@ class SearchBar extends Component {
 }
 
 function mapStateToProps({ searchResults }) {
-  console.log(searchResults);
   return { searchResults };
 }
 

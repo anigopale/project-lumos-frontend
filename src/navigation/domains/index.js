@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Segment, Grid, Divider, Header, Dimmer, Loader, Menu, Card, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { fetchDomains } from './actions';
+import { fetchDomains, deleteDomains } from './actions';
 
 class Domains extends Component {
   state = { activePage: 1 };
@@ -18,6 +18,7 @@ class Domains extends Component {
   previousPage = () => {
     if(this.state.activePage > 1) {
       this.setState({ activePage: this.state.activePage - 1 })
+      this.props.deleteDomains();
       this.props.fetchDomains(this.state.activePage - 1);
     }
   }
@@ -25,6 +26,7 @@ class Domains extends Component {
   nextPage = () => {
     if(this.state.activePage) {
       this.setState({ activePage: this.state.activePage + 1 });
+      this.props.deleteDomains();
       this.props.fetchDomains(this.state.activePage + 1);
     }
   }
@@ -72,7 +74,7 @@ class Domains extends Component {
         <Grid.Column>
           <Card
             as={Link}
-            to={`/courses/knowledge-base/1/domain/${domain.id}`}
+            to={`/technical/knowledge-base/domains/${domain.id}/`}
             fluid
             >
             <Image src={domain.icon} alt='' />
@@ -86,6 +88,10 @@ class Domains extends Component {
   }
 
   renderBody() {
+    if(this.props.domains.error) {
+      this.props.history.push('/404');
+      return;
+    }
     if(this.props.domains.count) {
       return (
         <Grid columns={3} stretched doubling centered padded relaxed='very'>
@@ -127,4 +133,4 @@ function mapStateToProps({ domains }) {
   return { domains };
 }
 
-export default connect(mapStateToProps, { fetchDomains })(Domains);
+export default connect(mapStateToProps, { fetchDomains, deleteDomains })(Domains);

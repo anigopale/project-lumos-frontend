@@ -21,7 +21,7 @@ export default class DomainPage extends Component {
             <Breadcrumb.Section active>Domains</Breadcrumb.Section>
           </Breadcrumb>
         </Container>
-        <Domains />
+        <Domains {...this.props} />
       </div>
     )
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Segment, Grid, Divider, Header, Loader, Dimmer, Menu, Card, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { fetchSoftSkills } from './actions';
+import { fetchSoftSkills, deleteSoftSkills } from './actions';
 
 class SoftSkills extends Component {
   state = { activePage: 1 };
@@ -13,7 +13,8 @@ class SoftSkills extends Component {
 
   previousPage = () => {
     if(this.state.activePage > 1) {
-      this.setState({ activePage: this.state.activePage - 1 })
+      this.setState({ activePage: this.state.activePage - 1 });
+      this.props.deleteSoftSkills();
       this.props.fetchSoftSkills(this.state.activePage - 1);
     }
   }
@@ -21,6 +22,7 @@ class SoftSkills extends Component {
   nextPage = () => {
     if(this.state.activePage) {
       this.setState({ activePage: this.state.activePage + 1 });
+      this.props.deleteSoftSkills();
       this.props.fetchSoftSkills(this.state.activePage + 1);
     }
   }
@@ -68,7 +70,7 @@ class SoftSkills extends Component {
         <Grid.Column>
           <Card
             as={Link}
-            to={`/courses/soft-skills/1/soft-skill/${skill.id}`}
+            to={`/soft-skills/${skill.id}/`}
             fluid
             >
             <Image src={skill.icon} alt='' />
@@ -82,6 +84,10 @@ class SoftSkills extends Component {
   }
 
   renderBody() {
+    if(this.props.softskills.error) {
+      this.props.history.push('/404');
+      return;
+    }
     if(this.props.softskills.count) {
       return (
         <Grid columns={3} stretched doubling centered padded relaxed='very'>
@@ -125,4 +131,4 @@ function mapStateToProps({ softskills }) {
   return { softskills };
 }
 
-export default connect(mapStateToProps, { fetchSoftSkills })(SoftSkills);
+export default connect(mapStateToProps, { fetchSoftSkills, deleteSoftSkills })(SoftSkills);

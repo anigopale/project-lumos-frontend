@@ -7,7 +7,7 @@ export default class NavBar extends Component {
   render() {
     return (
       <div>
-        <Segment basic inverted color='teal'>
+        <Segment>
           <Menu fixed='top' size='large' secondary inverted color='teal'>
             <Container>
               <Menu.Item

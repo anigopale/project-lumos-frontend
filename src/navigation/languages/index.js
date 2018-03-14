@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Segment, Header, Container, Divider, Loader, Dimmer, Menu, Card, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import NavItem from '../../common-components/nav-item';
 import { fetchLanguages, deleteLanguages } from './actions';
 
 class Languages extends Component {
@@ -53,18 +54,18 @@ class Languages extends Component {
 
   renderLanguages() {
     return this.props.languages.results.map((language) => {
+      let { id, language_name, slug, site_url, description, icon } = language;
+      let languageData = {
+        id,
+        slug,
+        name: language_name,
+        description,
+        icon
+      }
+      let coursesPageUrl = `/technical/knowledge-base/languages/${id}`;
       return (
         <Grid.Column>
-          <Card
-            as={Link}
-            to={`/technical/knowledge-base/languages/${language.id}/`}
-            fluid
-            >
-            <Image src={language.icon} alt='' />
-            <Card.Content extra>
-              {language.language_name}
-            </Card.Content>
-          </Card>
+          <NavItem data={languageData} coursesPageUrl={coursesPageUrl} />
         </Grid.Column>
       )
     })

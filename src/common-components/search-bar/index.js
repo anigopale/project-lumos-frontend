@@ -96,7 +96,7 @@ class SearchBar extends Component {
           <Modal.Header>
             Results for "{this.state.term}":
           </Modal.Header>
-          <Modal.Content>
+          <Modal.Content scrolling>
             <Container text>
               {this.renderSearchResults()}
             </Container>
@@ -104,6 +104,11 @@ class SearchBar extends Component {
               {this.renderShowMoreButton()}
             </Segment>
           </Modal.Content>
+          <Modal.Actions>
+           <Button color='blue' onClick={this.handleCloseModal}>
+             Close
+           </Button>
+         </Modal.Actions>
         </Modal>
       </div>
     )

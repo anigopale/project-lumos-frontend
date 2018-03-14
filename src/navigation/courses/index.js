@@ -114,13 +114,7 @@ class Courses extends Component {
       }
       return (
         <Visibility onUpdate={(e, { calculations }) => {this.handleVisibilityUpdate(calculations)}}>
-          <Button
-            basic
-            color='teal'
-            onClick={this.handleLoadMoreClick}
-            >
-            load more
-          </Button>
+          <Divider hidden />
         </Visibility>
       )
     }

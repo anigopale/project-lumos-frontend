@@ -8,7 +8,7 @@ export default class NavBar extends Component {
     return (
       <div>
         <Segment>
-          <Menu fixed='top' size='large' secondary inverted color='teal'>
+          <Menu fixed='top' secondary inverted color='teal'>
             <Container>
               <Menu.Item
                 as={Link}

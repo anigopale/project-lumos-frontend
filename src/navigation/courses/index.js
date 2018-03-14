@@ -160,7 +160,7 @@ class Courses extends Component {
           <CourseBreadcrumbs courseType={this.props.courseType} categoryId={this.props.match.params.category_id} />
         </Container>
         <Divider hidden />
-        <Container text>
+        <Container>
           <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
           <Divider />
           {this.renderBody()}

@@ -4,11 +4,13 @@ import NavBar from '../../common-components/navbar';
 import Courses from '../../navigation/courses';
 
 export default class CoursesPage extends Component {
+  state = { sidebar: false };
+
   render() {
     return (
       <div>
-        <NavBar />
-        <Courses {...this.props} />
+        <NavBar hamburger={true} getSideBar={(value) => this.setState({ sidebar: value })} />
+        <Courses {...this.props} sidebar={this.state.sidebar} />
       </div>
     )
   }

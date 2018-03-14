@@ -39,7 +39,7 @@ export default class CourseItem extends Component {
 
   render() {
     return (
-      <Segment clearing raised>
+      <Segment clearing>
         <div>
           <span>{this.renderSkillLevel(this.props.course.skill_level)}</span>
         </div>

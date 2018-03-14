@@ -21,27 +21,56 @@ import Filters from './components/filters';
 import CourseItem from '../../common-components/course-item';
 import CourseBreadcrumbs from './components/course-breadcrumbs';
 import { DOMAINS, LANGUAGES, SOFT_SKILLS, KNOWLEDGE_BASE, RANDOM } from '../../common-services/course_types';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
+
+const showSideBar = keyframes`
+0% {
+  transform: translateX(-100%);
+}
+100% {
+  transform: translateX(0);
+}
+`;
+const hideSideBar = keyframes`
+0% {
+  transform: translateX(0%);
+}
+100% {
+  transform: translateX(-100%);
+}
+`;
 
 const StyledFilter = styled.div`
   position: fixed;
   top: 80px;
   bottom: 20px;
-  box-shadow: 0px 1px 3px grey;
   overflow-y: auto;
   width: 250px;
+  z-index: 2 !important;
 
   @media only screen and (max-width: 600px) {
-    display: none;
-
+    animation: .5s ease-out 0s 1 ${props => props.sidebar ? `${showSideBar}` : `${hideSideBar}`};;
+    position: fixed;
+    top: 50px;
+    bottom: 0px;
+    left: -1px;
+    overflow-y: auto;
+    width: 100%;
+    transform: ${props => props.sidebar ? 'translateX(0%)' : 'translateX(-100%)'};
   }
 `;
 const StyledContent = styled.div`
+  position: relative;
   margin-left: 300px;
+  padding-left: 10px;
   @media only screen and (max-width: 600px) {
     margin-left: 0;
   }
+  body {
+    overflow-y: hidden !important;
+  }
 `;
+
 
 class Courses extends Component {
 
@@ -127,11 +156,9 @@ class Courses extends Component {
     if(this.props.courses.next) {
       if(this.props.courses.loading) {
         return (
-          <Segment basic>
             <Dimmer inverted active>
               <Loader size='medium' />
             </Dimmer>
-          </Segment>
         )
       }
       return (
@@ -179,7 +206,7 @@ class Courses extends Component {
       <div>
         <Divider hidden />
         <Container>
-          <StyledFilter>
+          <StyledFilter sidebar={this.props.sidebar}>
             <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
           </StyledFilter>
           <StyledContent>

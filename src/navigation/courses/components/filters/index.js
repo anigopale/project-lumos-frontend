@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Checkbox, Grid, Segment, Divider, Menu } from 'semantic-ui-react';
+import styled from 'styled-components';
+
 
 class Filters extends Component {
   state = { skill_level: '', data_type: '', paid: '', project: '' };
@@ -183,8 +185,7 @@ class Filters extends Component {
 
   render() {
     return (
-
-          <Menu vertical>
+          <Menu vertical fluid>
             <Menu.Item>
               <Menu.Header>
                 Skill level:
@@ -199,36 +200,36 @@ class Filters extends Component {
               <Menu.Header>
                 Paid:
               </Menu.Header>
-            <Menu.Item>
-              <Form>
-                {this.renderPaidFilters()}
-              </Form>
+              <Menu.Item>
+                <Form>
+                  {this.renderPaidFilters()}
+                </Form>
+              </Menu.Item>
             </Menu.Item>
-          </Menu.Item>
 
             <Menu.Item>
               <Menu.Header>
                 Type:
               </Menu.Header>
-            <Menu.Item>
-              <Form>
-                {this.renderDataTypeFilters()}
-              </Form>
+              <Menu.Item>
+                <Form>
+                  {this.renderDataTypeFilters()}
+                </Form>
+              </Menu.Item>
             </Menu.Item>
-          </Menu.Item>
 
             <Menu.Item>
               <Menu.Header>
                 Project
               </Menu.Header>
-            <Menu.Item>
-              <Form>
-                {this.renderProjectFilters()}
-              </Form>
+              <Menu.Item>
+                <Form>
+                  {this.renderProjectFilters()}
+                </Form>
+              </Menu.Item>
             </Menu.Item>
-          </Menu.Item>
 
-            </Menu>
+          </Menu>
 
 
 

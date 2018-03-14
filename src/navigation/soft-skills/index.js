@@ -91,7 +91,7 @@ class SoftSkills extends Component {
     }
     if(this.props.softskills.count) {
       return (
-        <Grid columns={3} stretched doubling centered padded relaxed='very'>
+        <Grid columns={3} stretched doubling centered>
           {this.renderSoftSkills()}
         </Grid>
       )

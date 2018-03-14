@@ -12,7 +12,8 @@ import {
   Dimmer,
   Dropdown,
   Breadcrumb,
-  Visibility
+  Visibility,
+  Grid
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchCourses, deleteCourses, fetchMoreCourses } from './actions';
@@ -20,6 +21,27 @@ import Filters from './components/filters';
 import CourseItem from '../../common-components/course-item';
 import CourseBreadcrumbs from './components/course-breadcrumbs';
 import { DOMAINS, LANGUAGES, SOFT_SKILLS, KNOWLEDGE_BASE, RANDOM } from '../../common-services/course_types';
+import styled from 'styled-components';
+
+const StyledFilter = styled.div`
+  position: fixed;
+  top: 80px;
+  bottom: 20px;
+  box-shadow: 0px 1px 3px grey;
+  overflow-y: auto;
+  width: 250px;
+
+  @media only screen and (max-width: 600px) {
+    display: none;
+
+  }
+`;
+const StyledContent = styled.div`
+  margin-left: 300px;
+  @media only screen and (max-width: 600px) {
+    margin-left: 0;
+  }
+`;
 
 class Courses extends Component {
 
@@ -157,13 +179,15 @@ class Courses extends Component {
       <div>
         <Divider hidden />
         <Container>
-          <CourseBreadcrumbs courseType={this.props.courseType} categoryId={this.props.match.params.category_id} />
-        </Container>
-        <Divider hidden />
-        <Container>
-          <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
-          <Divider />
-          {this.renderBody()}
+          <StyledFilter>
+            <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
+          </StyledFilter>
+          <StyledContent>
+            <CourseBreadcrumbs courseType={this.props.courseType} categoryId={this.props.match.params.category_id} />
+              <Divider hidden />
+            {this.renderBody()}
+          </StyledContent>
+
         </Container>
       </div>
     )

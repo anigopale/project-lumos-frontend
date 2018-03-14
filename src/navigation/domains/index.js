@@ -95,7 +95,7 @@ class Domains extends Component {
     }
     if(this.props.domains.count) {
       return (
-        <Grid columns={3} stretched doubling centered padded relaxed='very'>
+        <Grid columns={3} stretched doubling centered>
           {this.renderDomains()}
         </Grid>
       )

@@ -89,11 +89,7 @@ class Classroom extends Component {
       )
     }
     return (
-      <Segment basic>
-        <Dimmer inverted active>
-          <Loader />
-        </Dimmer>
-      </Segment>
+      <Loader active />
     )
   }
 
@@ -108,7 +104,7 @@ class Classroom extends Component {
                 </Grid.Column>
                 <Grid.Column width={8}>
                   {this.renderBackButton()}
-                  <h1>{this.props.course.title}</h1>
+                  <h2>{this.props.course.title}</h2>
                   {this.renderBody()}
                   <br />
                   <p>{this.props.course.description}</p>

@@ -32,7 +32,7 @@ const StyledCard = styled.div`
     &:hover {
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
       transition: .2s ease;
-      transform: translate(0% ,0%);
+      transform: translate(0, -1%);
       img {
         transition: 1s ease;
       }

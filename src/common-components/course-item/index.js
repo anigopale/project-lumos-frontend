@@ -73,7 +73,7 @@ export default class CourseItem extends Component {
 // renders description and [show more] trigger
   renderShowMoreTrigger() {
     let { description } = this.props.course;
-    let showText = this.state.description ? '[hide]' : '[show]'
+    let showText = this.state.description ? '[less]' : '[more]'
     if(description.length > 100) {
       return (
         <a onClick={() => this.setState({ description: !this.state.description })} style={{ cursor: 'pointer '}}> {showText}</a>
@@ -116,7 +116,6 @@ export default class CourseItem extends Component {
         <p>
           {this.renderDescription()}
         </p>
-        {this.renderPaidLabel()}
         <div style={{ float: 'right'}}>
           <CourseLabels languages={this.props.course.languages} domains={this.props.course.domains} softskills={this.props.course.soft_skill} />
         </div>

@@ -62,7 +62,7 @@ class Languages extends Component {
         description,
         icon
       }
-      let coursesPageUrl = `/technical/knowledge-base/languages/${id}`;
+      let coursesPageUrl = `/technical/languages/${id}`;
       return (
         <Grid.Column>
           <NavItem data={languageData} coursesPageUrl={coursesPageUrl} />

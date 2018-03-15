@@ -79,7 +79,7 @@ class Domains extends Component {
         description,
         icon
       }
-      let coursesPageUrl = `/technical/knowledge-base/domains/${id}`;
+      let coursesPageUrl = `/technical/domains/${id}`;
       return (
         <Grid.Column>
           <NavItem data={domainData} coursesPageUrl={coursesPageUrl} />

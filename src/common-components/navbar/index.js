@@ -28,13 +28,16 @@ export default class NavBar extends Component {
   }
 
   renderHamburgerButton() {
+    let iconName = 'sidebar';
     if(this.props.hamburger) {
+      if(this.state.sidebar)
+        iconName = 'left arrow'
       return (
         <Menu.Item
           className='hamburger'
           onClick={this.toggleSideBar}
           >
-          <Icon name='sidebar' />
+          <Icon name={iconName} />
         </Menu.Item>
       )
     }

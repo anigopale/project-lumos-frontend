@@ -41,7 +41,8 @@ const StyledCard = styled.div`
 
   @media only screen and (max-width: 600px) {
     .my-card {
-      height: 200px;
+      height: 250px;
+      font-size: 10px;
 
       .nav-name {
         background-color: white;

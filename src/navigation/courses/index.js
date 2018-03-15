@@ -179,9 +179,7 @@ class Courses extends Component {
     if(!this.props.courses.results) {
       return (
         <Segment basic>
-          <Dimmer inverted active>
-            <Loader size='medium' />
-          </Dimmer>
+          <Loader active style={{ zIndex: -1 }} />
         </Segment>
       )
     }

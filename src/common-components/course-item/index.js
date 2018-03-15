@@ -1,12 +1,40 @@
 import React, { Component } from 'react';
-import { Item, Header, Label, Segment, Icon } from 'semantic-ui-react';
+import { Item, Header, Label, Segment, Icon, Popup } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import CourseLabels from './components/course-labels';
 import { BG, IT, AD } from '../../common-services/skill-levels';
 
 export default class CourseItem extends Component {
 
-  state = { description: false }
+  state = { description: false };
+
+  course_data_types = [
+    {
+      name: 'VI',
+      display: 'video',
+      icon: 'youtube play'
+    },
+    {
+      name: 'CO',
+      display: 'course',
+      icon: 'code'
+    },
+    {
+      name: 'BL',
+      display: 'blog',
+      icon: 'book'
+    },
+    {
+      name: 'TU',
+      display: 'tutorial',
+      icon: 'lightbulb'
+    },
+    {
+      name: 'OT',
+      display: 'other',
+      icon: 'external'
+    }
+  ]
 
   renderSkillLevel(skill_level) {
     if(skill_level === BG) {
@@ -54,17 +82,23 @@ export default class CourseItem extends Component {
 
   renderIcon() {
     let { data_type } = this.props.course;
-    let iconName = 'external';
-    if(data_type === 'VI')
-      iconName = 'youtube play';
-    if(data_type === 'CO')
-      iconName = 'code';
-    if(data_type === 'BL')
-      iconName = 'book';
+    let iconName = '';
+    let popupContent = '';
+    this.course_data_types.map(type => {
+      if(type.name === data_type) {
+        iconName = type.icon;
+        popupContent = type.display
+      }
+    })
 
     return (
       <div style={{ float: 'right' }}>
-        <Icon name={iconName} />
+        <Popup
+          trigger={<Icon name={iconName} />}
+          content={popupContent}
+          position='left'
+          basic
+        />
       </div>
     )
   }

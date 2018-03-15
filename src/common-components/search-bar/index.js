@@ -78,15 +78,17 @@ class SearchBar extends Component {
           </Form>
         </Responsive>
         <Responsive maxWidth='480'>
-          <Popup
-            trigger={<Icon name='search' />}
-            on='click'
-            content={
-              <Form onSubmit={this.handleSearch}>
-                <Input icon='search' onChange={(event) => {this.setState({ term: event.target.value })}} />
-              </Form>
-            }
-            />
+          <Segment basic>
+            <Popup
+              trigger={<Icon name='search' />}
+              on='click'
+              content={
+                <Form onSubmit={this.handleSearch}>
+                  <Input icon='search' onChange={(event) => {this.setState({ term: event.target.value })}} />
+                </Form>
+              }
+              />
+          </Segment>
         </Responsive>
 
         <Modal

@@ -9,7 +9,6 @@ import CoursesPage from './scenes/courses';
 import SoftSkillsPage from './scenes/soft-skills-page';
 import NotFoundPage from './scenes/not-found-page';
 import ClassroomPage from './scenes/classroom-page';
-import KnowledgeBase from './scenes/knowledge-base';
 import { RANDOM, DOMAINS, LANGUAGES, SOFT_SKILLS } from './common-services/course_types';
 
 class App extends Component {

@@ -22,6 +22,7 @@ const domains = 'domains';
 export function fetchCourses(term) {
   term = term.trim();
   term = term.replace(/[^a-zA-Z0-9]/g, "-");
+  term = term.toLowerCase();
 
   return function(dispatch) {
     let requests = [];

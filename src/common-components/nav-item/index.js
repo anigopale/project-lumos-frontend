@@ -5,17 +5,15 @@ import styled from 'styled-components';
 
 const StyledCard = styled.div`
   .my-card {
-    border: 5px solid white;
     transition: .2s ease;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-    height: 300px;
+    box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.2);
+
     width: 100%;
     text-align: center;
     word-wrap: break-word;
     overflow: hidden;
     color: black;
-
-
+    padding: 50px;
 
     img {
       transition: 1s ease;
@@ -23,16 +21,13 @@ const StyledCard = styled.div`
       height: 80%;
     }
     .nav-name {
-      font-weight: 300;
-      background-color: white;
-
     }
 
 
     &:hover {
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
       transition: .2s ease;
-      transform: translate(0, -1%);
+      transform: translate(0, 2%);
       img {
         transition: 1s ease;
       }
@@ -58,13 +53,10 @@ export default class NavItem extends Component {
     return (
       <StyledCard>
         <Link to={this.props.coursesPageUrl}>
-
           <Card
-
             className='my-card'
             fluid
             >
-            <Image src={this.props.data.icon} alt='' />
             <Card.Content className='nav-name'>
               {this.props.data.name}
             </Card.Content>

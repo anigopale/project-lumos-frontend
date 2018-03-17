@@ -49,7 +49,17 @@ const StyledFilter = styled.div`
   z-index: 2 !important;
 
   @media only screen and (max-width: 600px) {
-    animation: .5s ease-out 0s 1 ${props => props.sidebar ? `${showSideBar}` : `${hideSideBar}`};;
+    animation: .5s ease-out 0s 1 ${props => {
+      if(props.sidebar == null)
+        return '';
+      if(props.sidebar)
+        return `${showSideBar}`
+      else
+        return `${hideSideBar}`
+    }};;
+    .menu {
+      padding: 20px;
+    }
     position: fixed;
     top: 50px;
     bottom: 0px;

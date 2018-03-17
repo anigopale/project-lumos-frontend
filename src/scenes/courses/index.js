@@ -4,7 +4,7 @@ import NavBar from '../../common-components/navbar';
 import Courses from '../../navigation/courses';
 
 export default class CoursesPage extends Component {
-  state = { sidebar: false };
+  state = { sidebar: null };
 
   render() {
     return (

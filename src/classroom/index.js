@@ -1,13 +1,63 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Button, Container, Divider, Grid, Loader, Dimmer, Icon } from 'semantic-ui-react';
+import { Segment, Button, Container, Divider, Grid, Loader, Dimmer, Icon, Sidebar, Responsive, Label } from 'semantic-ui-react';
 import { fetchResource, deleteResource } from './actions';
 import Resource from './components/embed-resource';
 import Wikipedia from './components/wikipedia-search';
 import Wiktionary from './components/wiktionary-search';
+import Ratings from './components/ratings';
 import { KNOWLEDGE_BASE, RANDOM, SOFT_SKILLS } from '../common-services/course_types';
+import styled from 'styled-components';
+
+const StyledRelatedSidebar = styled.div`
+  position: fixed;
+  top: 80px;
+  bottom: 0px;
+  overflow-y: auto;
+  width: 25%;
+  z-index: 2 !important;
+  visibility: visible;
+  @media only screen and (max-width: 768px) {
+    visibility: hidden;
+  }
+  .related-title {
+
+  }
+
+`;
+const StyledRightSidebar = styled.div`
+  position: fixed;
+  top: 80px;
+  right: 0px;
+  bottom: 0px;
+  overflow-y: auto;
+  width: 25%;
+  z-index: 2 !important;
+  visibility: visible;
+  @media only screen and (max-width: 768px) {
+    visibility: hidden;
+  }
+
+`;
+
+const MobileSidebar = styled.div`
+  position: fixed;
+  top: 50px;
+  bottom: 0px;
+  overflow-y: auto;
+  width: 100%;
+  z-index: 2 !important;
+
+button {
+  position: fixed;
+  top: 10px;
+  right: 0px;
+}
+`;
+
 
 class Classroom extends Component {
+  state = { visible: false };
 
   componentDidMount() {
     let { course_type, course_id } = this.props.match.params;
@@ -41,6 +91,14 @@ class Classroom extends Component {
       this.props.fetchResource(course_id, course_type);
     }
 
+  }
+  componentWillUnmount() {
+    this.props.deleteResource();
+  }
+
+  toggleSideBar = () => {
+    this.props.getSideBar(false);
+    document.body.style = 'overflow-y: auto';
   }
 
   renderBackButton() {
@@ -97,29 +155,92 @@ class Classroom extends Component {
 
   render() {
     return (
-      <Container fluid>
-          <Segment basic>
-              <Grid celled='internally' stackable>
-                <Grid.Column width={4} only='computer tablet'>
+      <div>
+        <StyledRelatedSidebar>
+          <Segment.Group>
+            <Segment basic inverted color='teal'>Related</Segment>
+            <Segment>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </Segment>
+          </Segment.Group>
+        </StyledRelatedSidebar>
+
+        <StyledRightSidebar>
+          <Segment.Group>
+            <Segment basic inverted color='teal'>
+              Wikipedia:
+            </Segment>
+            <Segment>
+              <Wikipedia />
+            </Segment>
+          </Segment.Group>
+
+          <Segment.Group>
+            <Segment basic inverted color='teal'>
+              Wiktionary:
+            </Segment>
+            <Segment>
+              <Wiktionary />
+            </Segment>
+          </Segment.Group>
+          <Segment.Group>
+            <Segment basic inverted color='teal'>Prerequisites</Segment>
+            <Segment>
+              <Label>resource name</Label>
+              <Label>resource name</Label>
+              <Label>resource name</Label>
+            </Segment>
+          </Segment.Group>
+
+        </StyledRightSidebar>
+        <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
+          <MobileSidebar>
+            <Button icon='remove' basic color='teal' onClick={this.toggleSideBar} />
+              <Segment.Group>
+                <Segment basic inverted color='teal'>Related</Segment>
+                <Segment>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </Segment>
+              </Segment.Group>
+              <Segment.Group>
+                <Segment basic inverted color='teal'>Prerequisites</Segment>
+                <Segment>
+                  <Label>resource name</Label>
+                  <Label>resource name</Label>
+                  <Label>resource name</Label>
+                </Segment>
+              </Segment.Group>
+            </MobileSidebar>
+        </Sidebar>
+
+
+
+            <Segment basic>
+              <Grid stackable>
+                <Grid.Column width={4}>
                 </Grid.Column>
-                <Grid.Column width={8}>
+                <Grid.Column computer={8}>
                   {this.renderBackButton()}
                   <h2>{this.props.course.title}</h2>
                   {this.renderBody()}
                   <br />
                   <p>{this.props.course.description}</p>
+                  <Ratings />
                 </Grid.Column>
                 <Grid.Column width={4} only='computer tablet'>
-                  <Segment basic>
-                    <Wikipedia />
-                  </Segment>
-                  <Segment basic>
-                    <Wiktionary />
-                  </Segment>
+
                 </Grid.Column>
               </Grid>
-          </Segment>
-      </Container>
+            </Segment>
+      </div>
     )
   }
 }

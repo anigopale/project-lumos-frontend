@@ -3,11 +3,12 @@ import NavBar from '../../common-components/navbar';
 import Classroom from '../../classroom';
 
 class ClassroomPage extends Component {
+  state = { sidebar: false };
   render() {
     return (
       <div>
-        <NavBar />
-        <Classroom {...this.props} />
+        <NavBar hamburger={true} sidebar={this.state.sidebar} getSideBar={(value) => this.setState({ sidebar: value })} />
+        <Classroom sidebar={this.state.sidebar} {...this.props} getSideBar={(value) => this.setState({ sidebar: value })} />
       </div>
     )
   }

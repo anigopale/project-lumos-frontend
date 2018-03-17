@@ -8,7 +8,7 @@ const StyledHamburger = styled.div`
   .hamburger {
     display: none !important;
   }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
   .hamburger {
     display: block !important;
   }
@@ -16,31 +16,22 @@ const StyledHamburger = styled.div`
 `;
 
 export default class NavBar extends Component {
-  state = { sidebar: false };
 
   toggleSideBar = () => {
-    this.props.getSideBar(!this.state.sidebar);
-    this.setState({ sidebar: !this.state.sidebar });
-    if(!this.state.sidebar)
-      document.body.style = 'overflow-y: hidden';
-    else
-      document.body.style = 'overflow-y: auto';
+    this.props.getSideBar(true);
+    document.body.style = 'overflow-y: hidden';
   }
 
   renderHamburgerButton() {
-    let iconName = 'sidebar';
-    if(this.props.hamburger) {
-      if(this.state.sidebar)
-        iconName = 'left arrow'
-      return (
-        <Menu.Item
-          className='hamburger'
-          onClick={this.toggleSideBar}
-          >
-          <Icon name={iconName} />
-        </Menu.Item>
-      )
-    }
+    return (
+      <Menu.Item
+        className='hamburger'
+        onClick={this.toggleSideBar}
+        >
+        <Icon name='sidebar' />
+      </Menu.Item>
+    )
+
   }
 
   render() {

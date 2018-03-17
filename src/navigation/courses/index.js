@@ -120,6 +120,10 @@ class Courses extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.deleteCourses();
+  }
+
   filterCourses = (filters) => {
     // filter courses using 'filters' props passed up by <Filters />
     let { category_id } = this.props.match.params;

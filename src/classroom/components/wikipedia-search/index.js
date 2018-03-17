@@ -106,6 +106,7 @@ class Wikipedia extends Component {
       <div>
         <Form onSubmit={this.handleSearch}>
           <Input
+            fluid
             onChange={(event) => {this.setState({ term: event.target.value })}}
             value={this.state.term}
             icon='wikipedia'

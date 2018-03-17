@@ -117,6 +117,7 @@ class Wiktionary extends Component {
       <div>
         <Form onSubmit={this.handleSubmit}>
           <Input
+            fluid
             value={this.state.term}
             type='text'
             onChange={(event) => {this.setState({ term: event.target.value })}}

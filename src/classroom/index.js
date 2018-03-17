@@ -156,47 +156,8 @@ class Classroom extends Component {
   render() {
     return (
       <div>
-        <StyledRelatedSidebar>
-          <Segment.Group>
-            <Segment basic inverted color='teal'>Related</Segment>
-            <Segment>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </Segment>
-          </Segment.Group>
-        </StyledRelatedSidebar>
 
-        <StyledRightSidebar>
-          <Segment.Group>
-            <Segment basic inverted color='teal'>
-              Wikipedia:
-            </Segment>
-            <Segment>
-              <Wikipedia />
-            </Segment>
-          </Segment.Group>
 
-          <Segment.Group>
-            <Segment basic inverted color='teal'>
-              Wiktionary:
-            </Segment>
-            <Segment>
-              <Wiktionary />
-            </Segment>
-          </Segment.Group>
-          <Segment.Group>
-            <Segment basic inverted color='teal'>Prerequisites</Segment>
-            <Segment>
-              <Label>resource name</Label>
-              <Label>resource name</Label>
-              <Label>resource name</Label>
-            </Segment>
-          </Segment.Group>
-
-        </StyledRightSidebar>
         <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
           <MobileSidebar>
             <Button icon='remove' basic color='teal' onClick={this.toggleSideBar} />
@@ -223,23 +184,61 @@ class Classroom extends Component {
 
 
 
+        <Grid stackable>
+          <Grid.Column width={4}>
+            <StyledRelatedSidebar>
+              <Segment.Group>
+                <Segment basic inverted color='teal'>Related</Segment>
+                <Segment>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </Segment>
+              </Segment.Group>
+            </StyledRelatedSidebar>
+          </Grid.Column>
+          <Grid.Column computer={8}>
             <Segment basic>
-              <Grid stackable>
-                <Grid.Column width={4}>
-                </Grid.Column>
-                <Grid.Column computer={8}>
-                  {this.renderBackButton()}
-                  <h2>{this.props.course.title}</h2>
-                  {this.renderBody()}
-                  <br />
-                  <p>{this.props.course.description}</p>
-                  <Ratings />
-                </Grid.Column>
-                <Grid.Column width={4} only='computer tablet'>
-
-                </Grid.Column>
-              </Grid>
+              {this.renderBackButton()}
+              <h2>{this.props.course.title}</h2>
+              {this.renderBody()}
+              <br />
+              <p>{this.props.course.description}</p>
+              <Ratings />
             </Segment>
+
+          </Grid.Column>
+          <Grid.Column width={4} only='computer tablet'>
+            <StyledRightSidebar>
+              <Segment.Group>
+                <Segment basic inverted color='teal'>
+                  Wikipedia:
+                </Segment>
+                <Segment>
+                  <Wikipedia />
+                </Segment>
+              </Segment.Group>
+              <Segment.Group>
+                <Segment basic inverted color='teal'>
+                  Wiktionary:
+                </Segment>
+                <Segment>
+                  <Wiktionary />
+                </Segment>
+              </Segment.Group>
+              <Segment.Group>
+                <Segment basic inverted color='teal'>Prerequisites</Segment>
+                <Segment>
+                  <Label>resource name</Label>
+                  <Label>resource name</Label>
+                  <Label>resource name</Label>
+                </Segment>
+              </Segment.Group>
+            </StyledRightSidebar>
+          </Grid.Column>
+        </Grid>
       </div>
     )
   }

@@ -13,7 +13,8 @@ import {
   Dropdown,
   Breadcrumb,
   Visibility,
-  Grid
+  Grid,
+  Sidebar
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchCourses, deleteCourses, fetchMoreCourses } from './actions';
@@ -43,42 +44,29 @@ const hideSideBar = keyframes`
 const StyledFilter = styled.div`
   position: fixed;
   top: 80px;
-  bottom: 20px;
+  bottom: 0px;
   overflow-y: auto;
-  width: 250px;
+  width: 25%;
   z-index: 2 !important;
 
-  @media only screen and (max-width: 600px) {
-    animation: .5s ease-out 0s 1 ${props => {
-      if(props.sidebar == null)
-        return '';
-      if(props.sidebar)
-        return `${showSideBar}`
-      else
-        return `${hideSideBar}`
-    }};;
-    .menu {
-      padding: 20px;
-    }
-    position: fixed;
-    top: 50px;
-    bottom: 0px;
-    left: -1px;
-    overflow-y: auto;
-    width: 100%;
-    transform: ${props => props.sidebar ? 'translateX(0%)' : 'translateX(-100%)'};
+  @media only screen and (max-width: 768px) {
+    display: none;
   }
 `;
-const StyledContent = styled.div`
-  position: relative;
-  margin-left: 300px;
-  padding-left: 10px;
-  @media only screen and (max-width: 600px) {
-    margin-left: 0;
-  }
-  body {
-    overflow-y: hidden !important;
-  }
+
+const MobileSidebar = styled.div`
+  position: fixed;
+  top: 50px;
+  bottom: 0px;
+  overflow-y: auto;
+  width: 100%;
+  z-index: 2 !important;
+
+button {
+  position: fixed;
+  top: 10px;
+  right: 0px;
+}
 `;
 
 
@@ -122,6 +110,11 @@ class Courses extends Component {
 
   componentWillUnmount() {
     this.props.deleteCourses();
+  }
+
+  toggleSideBar = () => {
+    this.props.getSideBar(false);
+    document.body.style = 'overflow-y: auto';
   }
 
   filterCourses = (filters) => {
@@ -216,18 +209,29 @@ class Courses extends Component {
   render() {
     return (
       <div>
-        <Divider hidden />
-        <Container>
-          <StyledFilter sidebar={this.props.sidebar}>
+        <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
+          <MobileSidebar>
+            <Button icon='remove' basic color='teal' onClick={this.toggleSideBar} />
             <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
-          </StyledFilter>
-          <StyledContent>
-            <CourseBreadcrumbs courseType={this.props.courseType} categoryId={this.props.match.params.category_id} />
-              <Divider hidden />
-            {this.renderBody()}
-          </StyledContent>
+          </MobileSidebar>
+        </Sidebar>
+        <Divider hidden />
+        <Grid stackable>
+          <Grid.Column width={4} only='computer tablet'>
+            <StyledFilter sidebar={this.props.sidebar}>
+              <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
+            </StyledFilter>
+          </Grid.Column>
+          <Grid.Column width={12}>
+            <Segment basic>
+              <CourseBreadcrumbs courseType={this.props.courseType} categoryId={this.props.match.params.category_id} />
+                <Divider hidden />
+              {this.renderBody()}
+            </Segment>
+          </Grid.Column>
+        </Grid>
 
-        </Container>
+
       </div>
     )
   }

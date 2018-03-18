@@ -14,7 +14,8 @@ import {
   Breadcrumb,
   Visibility,
   Grid,
-  Sidebar
+  Sidebar,
+  Icon
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchCourses, deleteCourses, fetchMoreCourses } from './actions';
@@ -43,7 +44,7 @@ const hideSideBar = keyframes`
 
 const StyledFilter = styled.div`
   position: fixed;
-  top: 80px;
+  top: 60px;
   bottom: 0px;
   overflow-y: auto;
   width: 25%;
@@ -56,13 +57,13 @@ const StyledFilter = styled.div`
 
 const MobileSidebar = styled.div`
   position: fixed;
-  top: 50px;
+  top: 45px;
   bottom: 0px;
   overflow-y: auto;
   width: 100%;
   z-index: 2 !important;
 
-button {
+i {
   position: fixed;
   top: 10px;
   right: 0px;
@@ -211,7 +212,7 @@ class Courses extends Component {
       <div>
         <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
           <MobileSidebar>
-            <Button icon='remove' basic color='teal' onClick={this.toggleSideBar} />
+            <Icon name='remove circle' size='big' color='teal' onClick={this.toggleSideBar} />
             <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
           </MobileSidebar>
         </Sidebar>

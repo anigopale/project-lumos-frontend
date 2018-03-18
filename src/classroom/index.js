@@ -7,6 +7,7 @@ import Wikipedia from './components/wikipedia-search';
 import Wiktionary from './components/wiktionary-search';
 import Ratings from './components/ratings';
 import Feedback from './components/feedback'
+import Related from './components/related';
 import { KNOWLEDGE_BASE, RANDOM, SOFT_SKILLS } from '../common-services/course_types';
 import styled, { keyframes } from 'styled-components';
 
@@ -157,7 +158,7 @@ class Classroom extends Component {
   renderBody() {
     if(this.props.course.error) {
       return (
-        <div>this.props.course.error</div>
+        <div>{this.props.course.error}</div>
       )
     }
     if(this.props.course.id) {
@@ -201,15 +202,7 @@ class Classroom extends Component {
         <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
           <MobileSidebar>
             <Icon name='remove circle' size='big' color='teal' onClick={this.toggleSideBar} />
-              <Segment.Group>
-                <Segment basic inverted color='teal'>Related</Segment>
-                <Segment>
-                  Python is an interpreted high-level programming language for general-purpose programming. Created by Guido van Rossum and first released in 1991, Python has a design philosophy that emphasizes code readability, and a syntax that allows programmers to express concepts in fewer lines of code,[26][27] notably using significant whitespace. It provides constructs that enable clear programming on both small and large scales.[28]
-
-  Python features a dynamic type system and automatic memory management. It supports multiple programming paradigms, including object-oriented, imperative, functional and procedural, and has a large and comprehensive standard library.[29]
-
-  Python interpreters are available for many operating systems. CPython, the reference implementation of Python, is open source software[30] and has a community-based development model, as do nearly all of its variant implementations. CPython is managed by the non-profit Python Software Foundation.</Segment>
-              </Segment.Group>
+              <Related course={this.props.course} />
               <Segment.Group>
                 <Segment basic inverted color='teal'>Prerequisites</Segment>
                 <Segment>
@@ -228,16 +221,7 @@ class Classroom extends Component {
             <LeftSideBar />
             <StyledRelatedSidebar>
               <Segment basic>
-                <Segment.Group>
-                  <Segment basic inverted color='teal'>Related</Segment>
-                  <Segment>
-                    Python is an interpreted high-level programming language for general-purpose programming. Created by Guido van Rossum and first released in 1991, Python has a design philosophy that emphasizes code readability, and a syntax that allows programmers to express concepts in fewer lines of code,[26][27] notably using significant whitespace. It provides constructs that enable clear programming on both small and large scales.[28]
-
-                    Python features a dynamic type system and automatic memory management. It supports multiple programming paradigms, including object-oriented, imperative, functional and procedural, and has a large and comprehensive standard library.[29]
-
-                    Python interpreters are available for many operating systems. CPython, the reference implementation of Python, is open source software[30] and has a community-based development model, as do nearly all of its variant implementations. CPython is managed by the non-profit Python Software Foundation.
-                  </Segment>
-                </Segment.Group>
+                <Related course={this.props.course} />
               </Segment>
             </StyledRelatedSidebar>
           </Grid.Column>

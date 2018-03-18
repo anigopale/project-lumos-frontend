@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Button, Container, Divider, Grid, Loader, Dimmer, Icon, Sidebar, Responsive, Label , Transition} from 'semantic-ui-react';
+import { Segment, Button, Container, Divider, Grid, Loader, Dimmer, Icon, Sidebar, Responsive, Label, Transition} from 'semantic-ui-react';
 import { fetchResource, deleteResource } from './actions';
 import Resource from './components/embed-resource';
 import Wikipedia from './components/wikipedia-search';
@@ -145,11 +145,9 @@ class Classroom extends Component {
       if(fromCourses)
       return (
         <Button
+          icon='left arrow'
           onClick={() => this.props.history.goBack()}
-          >
-          <Icon name='left arrow' />
-          Back to Courses
-        </Button>
+          />
 
       )
     }
@@ -231,13 +229,13 @@ class Classroom extends Component {
               {this.renderBody()}
               <br />
               <p>{this.props.course.description}</p>
-                <Button onClick={() => this.setState({ ratings: !this.state.ratings })} color={this.state.ratings ? 'teal' : ''}>Ratings</Button>
-                <Feedback />
-                   <Transition visible={this.state.ratings} animation='fade down' duration={500}>
-                     <Segment>
-                       <Ratings />
-                     </Segment>
-                   </Transition>
+              <Button onClick={() => this.setState({ ratings: !this.state.ratings })} color={this.state.ratings ? 'teal' : ''}>Ratings</Button>
+              <Feedback />
+              <Transition visible={this.state.ratings} animation='fade down' duration={500}>
+               <Segment>
+                 <Ratings />
+               </Segment>
+              </Transition>
             </Segment>
 
           </Grid.Column>

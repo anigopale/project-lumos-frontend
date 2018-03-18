@@ -47,7 +47,7 @@ const StyledFilter = styled.div`
   top: 60px;
   bottom: 0px;
   overflow-y: auto;
-  width: 25%;
+  width: 20%;
   z-index: 2 !important;
 
   @media only screen and (max-width: 768px) {
@@ -62,12 +62,36 @@ const MobileSidebar = styled.div`
   overflow-y: auto;
   width: 100%;
   z-index: 2 !important;
+  .menu {
+    padding: 0 20px 0 20px;
+  }
+  i {
+    position: fixed;
+    top: 10px;
+    right: 0px;
+  }
+`;
 
-i {
-  position: fixed;
-  top: 10px;
-  right: 0px;
-}
+const StyledCourses = styled.div`
+  padding-left: 40px;
+  padding-right: 30px;
+
+  .courses-loader {
+    position: relative !important;
+    text-align: center !important;
+    top 30vh !important;
+  }
+
+  .no-results {
+    position: relative;
+    text-align: center;
+    top 30vh;
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 `;
 
 
@@ -186,14 +210,14 @@ class Courses extends Component {
     }
     if(!this.props.courses.results) {
       return (
-        <Segment basic>
+        <Segment basic className='courses-loader'>
           <Loader active style={{ zIndex: -1 }} />
         </Segment>
       )
     }
     if(!this.props.courses.results.length) {
       return (
-        <div>
+        <div className='no-results'>
           <h1>No results found</h1>
           <p>
             Try something else
@@ -223,17 +247,17 @@ class Courses extends Component {
         </Sidebar>
         <Divider hidden />
         <Grid stackable>
-          <Grid.Column width={4} only='computer tablet'>
+          <Grid.Column width={3} only='computer tablet'>
             <StyledFilter sidebar={this.props.sidebar}>
               <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
             </StyledFilter>
           </Grid.Column>
-          <Grid.Column width={12}>
-            <Segment basic>
+          <Grid.Column width={13}>
+            <StyledCourses>
               <CourseBreadcrumbs courseType={this.props.courseType} categoryId={this.props.match.params.category_id} />
-                <Divider hidden />
+              <Divider hidden />
               {this.renderBody()}
-            </Segment>
+            </StyledCourses>
           </Grid.Column>
         </Grid>
 

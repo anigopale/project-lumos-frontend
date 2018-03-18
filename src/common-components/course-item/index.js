@@ -61,12 +61,6 @@ export default class CourseItem extends Component {
   }
 
 
-  openLink(url, type) {
-    // opens external link url in new tab
-    if(type !== 'VI')
-      window.open(url);
-  }
-
   renderPaidLabel() {
     let { paid } = this.props.course;
     let text = 'free';
@@ -138,7 +132,6 @@ export default class CourseItem extends Component {
         </div>
         <br />
         <Header
-          onClick={() => {this.openLink(this.props.course.link_url, this.props.course.data_type)}}
           as={Link}
           to={{
             pathname: `/classroom/${this.props.courseType}/${this.props.course.id}`,

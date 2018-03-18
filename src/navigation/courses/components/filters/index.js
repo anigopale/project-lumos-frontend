@@ -8,18 +8,18 @@ class Filters extends Component {
 
   project_filters = [
     {
-      label: 'all',
+      label: 'All',
       value: ''
     },
     {
-      label: 'projects only',
+      label: 'Projects only',
       value: 'true'
     }
   ]
 
   skill_levels = [
     {
-      label: 'all',
+      label: 'All',
       value: ''
     },
     {
@@ -38,22 +38,22 @@ class Filters extends Component {
 
   paid_filters = [
     {
-      label: 'all',
+      label: 'All',
       value: ''
     },
     {
-      label: 'paid',
+      label: 'Paid',
       value: 'true'
     },
     {
-      label: 'unpaid',
+      label: 'Free',
       value: 'false'
     }
   ]
 
   data_types = [
     {
-      label: 'all',
+      label: 'All',
       value: ''
     },
     {
@@ -198,7 +198,7 @@ class Filters extends Component {
             </Menu.Item>
             <Menu.Item>
               <Menu.Header>
-                Paid:
+                Price:
               </Menu.Header>
               <Menu.Item>
                 <Form>
@@ -209,7 +209,7 @@ class Filters extends Component {
 
             <Menu.Item>
               <Menu.Header>
-                Type:
+                Content type:
               </Menu.Header>
               <Menu.Item>
                 <Form>
@@ -220,7 +220,7 @@ class Filters extends Component {
 
             <Menu.Item>
               <Menu.Header>
-                Project
+                Resource type:
               </Menu.Header>
               <Menu.Item>
                 <Form>

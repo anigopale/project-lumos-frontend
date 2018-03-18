@@ -5,27 +5,23 @@ import { fetchRelatedData } from './actions';
 
 class Related extends Component {
 
-
-
-  fetchRelated = () => {
-    let data = [];
-    let type = '';
-    let { languages, soft_skill } = this.props.course;
-    data = languages ? languages : soft_skill;
-    type = languages ? 'languages' : 'soft_skill';
-    if(data)
-      this.props.fetchRelatedData(data[0], type);
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.course.languages && nextProps.course !== this.props.course) {
+      let { languages } = nextProps.course;
+      this.props.fetchRelatedData(languages[0], 'languges');
+    }
   }
 
   renderData() {
-    this.fetchRelated();
-    let length = Object.keys(this.props.relatedData).length;
-    if(length) {
-      return Object.keys(this.props.relatedData).map((key => {
-        return (
-          <Segment>{key}</Segment>
-        )
-      }))
+    if(this.props.relatedData) {
+      let length = Object.keys(this.props.relatedData).length;
+      if(length) {
+        return Object.keys(this.props.relatedData).map((key => {
+          return (
+            <Segment>{key}</Segment>
+          )
+        }))
+      }
     }
     return (
       <Segment>Hope you liked our site</Segment>

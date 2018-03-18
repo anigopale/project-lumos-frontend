@@ -10,12 +10,7 @@ export function fetchRelatedData(data, type) {
 
     let term = '';
 
-    if(type === 'languages') {
-      term = data['language_name']
-    }
-    if(type === 'soft_skill') {
-      term = data['soft_skill_category']
-    }
+    term = data.language_name;
 
     term = term.trim();
     term = term.replace(/[^a-zA-Z0-9]/g, "_");
@@ -25,6 +20,7 @@ export function fetchRelatedData(data, type) {
       if(result.response) {
         result.response.json()
         .then(data => {
+          if(data.summary_data.other_links)
           dispatch ({
             type: FETCH_RELATED,
             payload: data.summary_data.other_links

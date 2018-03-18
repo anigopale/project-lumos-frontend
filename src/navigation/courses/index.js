@@ -193,7 +193,12 @@ class Courses extends Component {
     }
     if(!this.props.courses.results.length) {
       return (
-        <div>no results found</div>
+        <div>
+          <h1>No results found</h1>
+          <p>
+            Try something else
+          </p>
+        </div>
       )
     }
     return (

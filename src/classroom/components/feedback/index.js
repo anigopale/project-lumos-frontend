@@ -65,9 +65,10 @@ export default class Feedback extends Component {
               {this.renderFeedbackSliders()}
             </Modal.Content>
             <Modal.Actions>
-             <Button color='blue' onClick={this.handleCloseModal}>
-               Close
-             </Button>
+              <Button color='blue' onClick={this.handleCloseModal}>
+                Close
+              </Button>
+              <Button color='blue'>Send</Button>
            </Modal.Actions>
           </Modal>
     ]

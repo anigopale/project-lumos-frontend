@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Button, Container, Divider, Grid, Loader, Dimmer, Icon, Sidebar, Responsive, Label } from 'semantic-ui-react';
+import { Segment, Button, Container, Divider, Grid, Loader, Dimmer, Icon, Sidebar, Responsive, Label , Transition} from 'semantic-ui-react';
 import { fetchResource, deleteResource } from './actions';
 import Resource from './components/embed-resource';
 import Wikipedia from './components/wikipedia-search';
@@ -92,7 +92,7 @@ i {
 
 
 class Classroom extends Component {
-  state = { ratings: '' };
+  state = { ratings: false };
 
   componentDidMount() {
     let { course_type, course_id } = this.props.match.params;
@@ -171,12 +171,18 @@ class Classroom extends Component {
           type='yt_playlist';
         }
         // passing url and type props to Resource
-        return <Resource url={this.props.course.link_url} type={type} />
+        return (
+          <div>
+            <h2>{this.props.course.title}</h2>
+            <Resource url={this.props.course.link_url} type={type} />
+          </div>
+        )
        }
       return (
         <div>
+          <br />
           <a href={this.props.course.link_url} target='_blank' rel='noopener'>
-            <Button size='massive' fluid>Go to course</Button>
+            <Button size='massive' fluid>{this.props.course.title}</Button>
           </a>
         </div>
       )
@@ -236,15 +242,18 @@ class Classroom extends Component {
             </StyledRelatedSidebar>
           </Grid.Column>
           <Grid.Column computer={8}>
-            <Segment basic>
+            <Segment basic style={{ minHeight: '100vh' }}>
               {this.renderBackButton()}
-              <h2>{this.props.course.title}</h2>
               {this.renderBody()}
               <br />
               <p>{this.props.course.description}</p>
-                <Button onClick={() => this.setState({ ratings: 'ratings-div' })}>Ratings</Button>
+                <Button onClick={() => this.setState({ ratings: !this.state.ratings })} color={this.state.ratings ? 'teal' : ''}>Ratings</Button>
                 <Feedback />
-                <Ratings />
+                   <Transition visible={this.state.ratings} animation='fade down' duration={500}>
+                     <Segment>
+                       <Ratings />
+                     </Segment>
+                   </Transition>
             </Segment>
 
           </Grid.Column>

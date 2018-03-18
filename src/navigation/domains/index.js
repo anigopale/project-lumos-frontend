@@ -102,9 +102,7 @@ class Domains extends Component {
     }
     return (
       <Segment basic>
-        <Dimmer active inverted>
-          <Loader size='medium' />
-        </Dimmer>
+        <Loader size='medium' active />
       </Segment>
     )
   }

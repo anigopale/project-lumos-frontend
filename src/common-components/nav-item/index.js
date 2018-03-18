@@ -4,44 +4,45 @@ import { Card, Image } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const StyledCard = styled.div`
-  .my-card {
+  .nav-card {
     transition: .2s ease;
-    box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.2);
-
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    height: 200px;
     width: 100%;
     text-align: center;
     word-wrap: break-word;
     overflow: hidden;
-    color: black;
-    padding: 50px;
+    font-size: 2em;
 
-    img {
-      transition: 1s ease;
-      object-fit: cover;
-      height: 80%;
-    }
+
     .nav-name {
     }
 
+    .nav-card-head {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100%;
+      {
+        span {
+          position: relative;
+          top: 50%;
+          font-weight: 300;
+        }
+      }
+    }
 
     &:hover {
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.2);
       transition: .2s ease;
-      transform: translate(0, 2%);
-      img {
-        transition: 1s ease;
-      }
+      transform: translate(0, -1%);
     }
   }
 
-  @media only screen and (max-width: 600px) {
-    .my-card {
-      height: 250px;
-      font-size: 10px;
-
-      .nav-name {
-        background-color: white;
-      }
+  @media only screen and (max-width: 480px) {
+    .nav-card {
+      font-size: 1em;
+      height: 100px;
     }
   }
 `;
@@ -54,12 +55,15 @@ export default class NavItem extends Component {
       <StyledCard>
         <Link to={this.props.coursesPageUrl}>
           <Card
-            className='my-card'
+            className='nav-card'
             fluid
             >
-            <Card.Content className='nav-name'>
-              {this.props.data.name}
-            </Card.Content>
+            <div className='nav-card-head'>
+              <span>
+                {this.props.data.name}
+              </span>
+            </div>
+
           </Card>
           </Link>
       </StyledCard>
@@ -67,3 +71,8 @@ export default class NavItem extends Component {
     )
   }
 }
+
+
+// <Card.Content className='nav-name'>
+//   {this.props.data.description}
+// </Card.Content>

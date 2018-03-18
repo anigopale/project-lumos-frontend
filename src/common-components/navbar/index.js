@@ -39,22 +39,20 @@ export default class NavBar extends Component {
       <StyledHamburger>
         <Segment>
           <Menu fixed='top' secondary inverted color='teal'>
-            <Container>
-              {this.renderHamburgerButton()}
-              <Menu.Item
-                as={Link}
-                to='/'
-                >
-                <Header as='h2' inverted>
-                  Project Lumos
-                </Header>
-              </Menu.Item>
-              <Menu.Item
-                position='right'
-                >
-                <SearchBar />
-              </Menu.Item>
-            </Container>
+            {this.renderHamburgerButton()}
+            <Menu.Item
+              as={Link}
+              to='/'
+              >
+              <Header as='h2' inverted>
+                Project Lumos
+              </Header>
+            </Menu.Item>
+            <Menu.Item
+              position='right'
+              >
+              <SearchBar />
+            </Menu.Item>
           </Menu>
         </Segment>
         <Divider hidden />

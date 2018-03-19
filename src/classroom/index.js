@@ -23,9 +23,16 @@ const StyledContent = styled.div`
     left: 20px;
     z-index: 2 !important;
   }
+  styled-content-div {
+    min-height: '100vh';
+  }
 
   @media only screen and (max-width: 768px) {
     padding: 0px;
+
+    styled-content-div {
+      min-height: '0vh';
+    }
   }
 `;
 
@@ -249,7 +256,7 @@ class Classroom extends Component {
           </Grid.Column>
           <Grid.Column computer={8}>
             <StyledContent>
-              <div style={{ minHeight: '100vh' }}>
+              <div className='styled-content-div'>
                 <h2>{this.props.course.title}</h2>
                 {this.renderBackButton()}
                 {this.renderBody()}

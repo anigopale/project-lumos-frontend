@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from '../../common-components/navbar';
 import Classroom from '../../classroom';
+import FeedbackForm from '../../common-components/feedback-form';
 
 class ClassroomPage extends Component {
   state = { sidebar: false };
@@ -18,6 +19,7 @@ class ClassroomPage extends Component {
           {...this.props}
           getSideBar={(value) => this.setState({ sidebar: value })}
           />
+        <FeedbackForm />
       </div>
     )
   }

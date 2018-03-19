@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Container, Segment, Grid, Header, Button, Divider, Card, Breadcrumb } from 'semantic-ui-react';
 import NavBar from '../../common-components/navbar';
 import styled from 'styled-components';
+import FeedbackForm from '../../common-components/feedback-form';
 
 const StyledTechnical = styled.div`
 
@@ -87,6 +88,7 @@ export default class Technical extends Component {
             </Grid>
           </Segment>
         </Container>
+        <FeedbackForm />
       </StyledTechnical>
     )
   }

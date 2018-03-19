@@ -43,8 +43,8 @@ export default class NavBar extends Component {
           <Menu fixed='top' secondary inverted color='teal'>
             {this.renderHamburgerButton()}
             <Menu.Item
-              as={Link}
-              to='/'
+              as='a'
+              href='https://projectlumos.github.io/project-lumos/'
               >
               <Header as='h2' inverted>
                 Project Lumos

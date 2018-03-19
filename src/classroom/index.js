@@ -18,6 +18,7 @@ const StyledContent = styled.div`
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   }
   .back-button {
+    visibility: hidden;
     position: fixed;
     bottom: 20px;
     left: 20px;
@@ -38,6 +39,13 @@ const StyledContent = styled.div`
 
     styled-content-div {
       min-height: '0vh';
+    }
+    .back-button {
+      visibility: visible;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 2 !important;
     }
   }
 `;

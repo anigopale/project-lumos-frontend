@@ -9,8 +9,16 @@ export default class CoursesPage extends Component {
   render() {
     return (
       <div>
-        <NavBar hamburger={true} sidebar={this.state.sidebar} getSideBar={(value) => this.setState({ sidebar: value })} />
-        <Courses sidebar={this.state.sidebar} {...this.props} getSideBar={(value) => this.setState({ sidebar: value })} />
+        <NavBar
+          urlParams={this.props.match.params}
+          hamburger={true} sidebar={this.state.sidebar}
+          getSideBar={(value) => this.setState({ sidebar: value })}
+          />
+        <Courses
+          sidebar={this.state.sidebar}
+          {...this.props}
+          getSideBar={(value) => this.setState({ sidebar: value })}
+          />
       </div>
     )
   }

@@ -7,6 +7,14 @@ import CourseItem from '../course-item';
 class SearchBar extends Component {
   state = { term: "", openModal: false };
 
+  componentWillReceiveProps(nextProps) {
+    // if url params changes, close the modal
+    let { urlParams } = this.props;
+    if(urlParams !== nextProps.urlParams) {
+      this.handleCloseModal();
+    }
+  }
+
   handleSearch = () => {
     if(this.state.term) {
       this.setState({ openModal: true });

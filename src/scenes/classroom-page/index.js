@@ -7,8 +7,17 @@ class ClassroomPage extends Component {
   render() {
     return (
       <div style={{ minHeight: '100vh'}}>
-        <NavBar hamburger={true} sidebar={this.state.sidebar} getSideBar={(value) => this.setState({ sidebar: value })} />
-        <Classroom sidebar={this.state.sidebar} {...this.props} getSideBar={(value) => this.setState({ sidebar: value })} />
+        <NavBar
+          urlParams={this.props.match.params}
+          hamburger={true}
+          sidebar={this.state.sidebar}
+          getSideBar={(value) => this.setState({ sidebar: value })}
+          />
+        <Classroom
+          sidebar={this.state.sidebar}
+          {...this.props}
+          getSideBar={(value) => this.setState({ sidebar: value })}
+          />
       </div>
     )
   }

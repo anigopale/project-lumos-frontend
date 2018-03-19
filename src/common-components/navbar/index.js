@@ -53,7 +53,7 @@ export default class NavBar extends Component {
             <Menu.Item
               position='right'
               >
-              <SearchBar />
+              <SearchBar urlParams={this.props.urlParams} />
             </Menu.Item>
           </Menu>
         </Segment>

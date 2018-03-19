@@ -228,6 +228,14 @@ class Classroom extends Component {
               <Button floated='right'>go to site <Icon name='right arrow' /></Button>
             </a>
           </Segment>
+          <Divider />
+          <Button onClick={() => this.setState({ ratings: !this.state.ratings })} color={this.state.ratings ? 'teal' : ''}>Ratings</Button>
+          <Feedback courseTitle={this.props.course.title} />
+          <Transition visible={this.state.ratings} animation='fade down' duration={500}>
+            <Segment className='ratings'>
+              <Ratings />
+            </Segment>
+          </Transition>
         </div>
       )
     }

@@ -9,6 +9,7 @@ import CoursesPage from './scenes/courses';
 import SoftSkillsPage from './scenes/soft-skills-page';
 import NotFoundPage from './scenes/not-found-page';
 import ClassroomPage from './scenes/classroom-page';
+import BadRequestPage from './scenes/bad-request-page';
 import { RANDOM, DOMAINS, LANGUAGES, SOFT_SKILLS } from './common-services/course_types';
 
 class App extends Component {
@@ -36,6 +37,7 @@ class App extends Component {
             <Route exact path='/signin' component={Signin} />
             <Route exact path='/' component={Home} />
             <Route exact path='/classroom/:course_type/:course_id' component={ClassroomPage} />
+            <Route exact path='/400' component={BadRequestPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </HashRouter>

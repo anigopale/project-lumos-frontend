@@ -23,14 +23,16 @@ export default class NavBar extends Component {
   }
 
   renderHamburgerButton() {
-    return (
-      <Menu.Item
-        className='hamburger'
-        onClick={this.toggleSideBar}
-        >
-        <Icon name='sidebar' />
-      </Menu.Item>
-    )
+    if(this.props.hamburger) {
+      return (
+        <Menu.Item
+          className='hamburger'
+          onClick={this.toggleSideBar}
+          >
+          <Icon name='sidebar' />
+        </Menu.Item>
+      )
+    }
 
   }
 

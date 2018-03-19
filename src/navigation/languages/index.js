@@ -73,7 +73,7 @@ class Languages extends Component {
 
   renderBody() {
     if(this.props.languages.error) {
-      this.props.history.push('/404');
+      this.props.history.push('/400');
       return;
     }
     if(this.props.languages.count) {

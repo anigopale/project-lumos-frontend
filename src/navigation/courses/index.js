@@ -206,7 +206,7 @@ class Courses extends Component {
   renderBody() {
     if(this.props.courses.error) {
       // can be pushed to any error page if response status isn't 200
-      this.props.history.push('/404');
+      this.props.history.push('/400');
       return;
     }
     if(!this.props.courses.results) {

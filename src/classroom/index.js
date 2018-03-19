@@ -27,6 +27,12 @@ const StyledContent = styled.div`
     min-height: '100vh';
   }
 
+  .courses-loader {
+    position: relative !important;
+    text-align: center !important;
+    top 30vh !important;
+  }
+
   @media only screen and (max-width: 768px) {
     padding: 0px;
 
@@ -185,9 +191,8 @@ class Classroom extends Component {
 
   renderBody() {
     if(this.props.course.error) {
-      return (
-        <div>{this.props.course.error}</div>
-      )
+      this.props.history.push('/400');
+      return;
     }
     if(this.props.course.id) {
       // to check if course type is 'VI'(video) or not
@@ -203,6 +208,14 @@ class Classroom extends Component {
         return (
           <div>
             <Resource url={this.props.course.link_url} type={type} />
+            <Divider />
+            <Button onClick={() => this.setState({ ratings: !this.state.ratings })} color={this.state.ratings ? 'teal' : ''}>Ratings</Button>
+            <Feedback courseTitle={this.props.course.title} />
+            <Transition visible={this.state.ratings} animation='fade down' duration={500}>
+              <Segment className='ratings'>
+                <Ratings />
+              </Segment>
+            </Transition>
           </div>
         )
        }
@@ -219,7 +232,9 @@ class Classroom extends Component {
       )
     }
     return (
-      <Loader active />
+      <Segment basic className='courses-loader'>
+        <Loader active style={{ zIndex: -1 }} />
+      </Segment>
     )
   }
 
@@ -260,14 +275,6 @@ class Classroom extends Component {
                 <h2>{this.props.course.title}</h2>
                 {this.renderBackButton()}
                 {this.renderBody()}
-                <Divider />
-                <Button onClick={() => this.setState({ ratings: !this.state.ratings })} color={this.state.ratings ? 'teal' : ''}>Ratings</Button>
-                <Feedback courseTitle={this.props.course.title} />
-                <Transition visible={this.state.ratings} animation='fade down' duration={500}>
-                  <Segment className='ratings'>
-                    <Ratings />
-                  </Segment>
-                </Transition>
               </div>
             </StyledContent>
 

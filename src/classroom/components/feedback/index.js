@@ -53,13 +53,13 @@ export default class Feedback extends Component {
 
   render() {
     return [
-        <Button floated='right' onClick={this.handleOpenModal}>Feedback</Button>,
+        <Button floated='right' onClick={this.handleOpenModal}>Rate</Button>,
           <Modal
             open={this.state.openModal}
             onClose={this.handleCloseModal}
             >
             <Modal.Header>
-              Feedback
+              {this.props.courseTitle}
             </Modal.Header>
             <Modal.Content>
               {this.renderFeedbackSliders()}
@@ -68,7 +68,7 @@ export default class Feedback extends Component {
               <Button color='blue' onClick={this.handleCloseModal}>
                 Close
               </Button>
-              <Button color='blue'>Send</Button>
+              <Button color='blue'>Submit</Button>
            </Modal.Actions>
           </Modal>
     ]

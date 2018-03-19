@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import { Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { domain_api, language_api, soft_skill_api } from '../../../../common-services/api-endpoints';
+import styled from 'styled-components';
+
+const StyledLabels = styled.div`
+  text-align: right;
+
+  .course-label {
+    margin: 2px;
+  }
+`;
 
 // DomainLanguageLabels component fetches domains/languages from id list passed down as props
 // and renders Labels for Courses component
@@ -13,6 +22,7 @@ export default class CourseLabels extends Component {
         return this.props.domains.map(domain => {
           return (
             <Label
+              className='course-label'
               as={Link}
               to={`/technical/domains/${domain.id}/`}
               >
@@ -30,6 +40,7 @@ export default class CourseLabels extends Component {
         return this.props.languages.map(language => {
           return (
             <Label
+              className='course-label'
               as={Link}
               to={`/technical/languages/${language.id}/`}
               >
@@ -47,6 +58,7 @@ export default class CourseLabels extends Component {
         return this.props.softskills.map(softskill => {
           return (
             <Label
+              className='course-label'
               as={Link}
               to={`/soft-skills/${softskill.id}/`}
               >
@@ -60,11 +72,11 @@ export default class CourseLabels extends Component {
 
   render() {
     return (
-      <div>
+      <StyledLabels>
         {this.renderDomainLabels()}
         {this.renderLanguageLabels()}
         {this.renderSoftSkillLabels()}
-      </div>
+      </StyledLabels>
     )
   }
 }

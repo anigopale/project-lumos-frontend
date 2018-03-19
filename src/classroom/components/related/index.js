@@ -24,7 +24,7 @@ class Related extends Component {
       }
     }
     return (
-      <Segment>Hope you liked our site</Segment>
+      <div>Hope you liked our site</div>
     )
   }
   render() {

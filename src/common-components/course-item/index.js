@@ -3,6 +3,25 @@ import { Item, Header, Label, Segment, Icon, Popup } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import CourseLabels from './components/course-labels';
 import { BG, IT, AD } from '../../common-services/skill-levels';
+import styled from 'styled-components';
+
+const StyledCourseItem = styled.div`
+  .course-item {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .description {
+    text-align: justify;
+    line-height: 1.5;
+    display: block;
+  }
+
+  .course-skill-level {
+    margin-bottom: 5px;
+  }
+
+  padding-bottom: 10px;
+`;
 
 export default class CourseItem extends Component {
 
@@ -125,28 +144,27 @@ export default class CourseItem extends Component {
   }
   render() {
     return (
-      <Segment clearing>
-        <div>
-          {this.renderIcon()}
-          <span>{this.renderSkillLevel(this.props.course.skill_level)}</span>
-        </div>
-        <br />
-        <Header
-          as={Link}
-          to={{
-            pathname: `/classroom/${this.props.courseType}/${this.props.course.id}`,
-            state: { fromCourses: this.props.fromCourses }
-          }}
-          >
-          {this.props.course.title}
-        </Header>
-        <p>
-          {this.renderDescription()}
-        </p>
-        <div style={{ float: 'right'}}>
+      <StyledCourseItem>
+        <Segment clearing className='course-item'>
+          <div className='course-skill-level'>
+            {this.renderIcon()}
+            <span>{this.renderSkillLevel(this.props.course.skill_level)}</span>
+          </div>
+          <Header
+            as={Link}
+            to={{
+              pathname: `/classroom/${this.props.courseType}/${this.props.course.id}`,
+              state: { fromCourses: this.props.fromCourses }
+            }}
+            >
+            {this.props.course.title}
+          </Header>
+          <p className='description'>
+            {this.renderDescription()}
+          </p>
           <CourseLabels languages={this.props.course.languages} domains={this.props.course.domains} softskills={this.props.course.soft_skill} />
-        </div>
-      </Segment>
+        </Segment>
+      </StyledCourseItem>
     )
   }
 }

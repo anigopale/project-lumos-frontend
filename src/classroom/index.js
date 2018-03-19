@@ -11,7 +11,25 @@ import Related from './components/related';
 import { KNOWLEDGE_BASE, RANDOM, SOFT_SKILLS } from '../common-services/course_types';
 import styled, { keyframes } from 'styled-components';
 
-const LeftSideBar = styled.div`
+const StyledContent = styled.div`
+  padding: 10px;
+
+  .ratings {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  .back-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 2 !important;
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding: 0px;
+  }
+`;
+
+const LeftSideBarBackground = styled.div`
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0px;
@@ -26,7 +44,7 @@ const LeftSideBar = styled.div`
   }
 `;
 
-const RightSideBar = styled.div`
+const RightSideBarBackground = styled.div`
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0px;
@@ -58,7 +76,7 @@ const StyledRelatedSidebar = styled.div`
   }
 
 `;
-const StyledRightSidebar = styled.div`
+const StyledWikiSidebar = styled.div`
   position: fixed;
   top: 60px;
   right: 0px;
@@ -76,6 +94,7 @@ const StyledRightSidebar = styled.div`
 const MobileSidebar = styled.div`
   padding-left: 10px;
   padding-right: 10px;
+  padding-bottom: 10px;
 
   position: fixed;
   top: 45px;
@@ -145,6 +164,10 @@ class Classroom extends Component {
       if(fromCourses)
       return (
         <Button
+          size='big'
+          basic
+          circular
+          className='back-button'
           icon='left arrow'
           onClick={() => this.props.history.goBack()}
           />
@@ -172,7 +195,6 @@ class Classroom extends Component {
         // passing url and type props to Resource
         return (
           <div>
-            <h2>{this.props.course.title}</h2>
             <Resource url={this.props.course.link_url} type={type} />
           </div>
         )
@@ -180,9 +202,12 @@ class Classroom extends Component {
       return (
         <div>
           <br />
-          <a href={this.props.course.link_url} target='_blank' rel='noopener'>
-            <Button size='massive' fluid>{this.props.course.title}</Button>
-          </a>
+          <p>{this.props.course.description}</p>
+          <Segment clearing basic>
+            <a href={this.props.course.link_url} target='_blank' rel='noopener'>
+              <Button floated='right'>go to site <Icon name='right arrow' /></Button>
+            </a>
+          </Segment>
         </div>
       )
     }
@@ -196,7 +221,6 @@ class Classroom extends Component {
   render() {
     return (
       <div>
-
         <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
           <MobileSidebar>
             <Icon name='remove circle' size='big' color='teal' onClick={this.toggleSideBar} />
@@ -216,7 +240,7 @@ class Classroom extends Component {
 
         <Grid stackable>
           <Grid.Column width={4}>
-            <LeftSideBar />
+            <LeftSideBarBackground />
             <StyledRelatedSidebar>
               <Segment basic>
                 <Related course={this.props.course} />
@@ -224,28 +248,30 @@ class Classroom extends Component {
             </StyledRelatedSidebar>
           </Grid.Column>
           <Grid.Column computer={8}>
-            <Segment basic style={{ minHeight: '100vh' }}>
-              {this.renderBackButton()}
-              {this.renderBody()}
-              <br />
-              <p>{this.props.course.description}</p>
-              <Button onClick={() => this.setState({ ratings: !this.state.ratings })} color={this.state.ratings ? 'teal' : ''}>Ratings</Button>
-              <Feedback />
-              <Transition visible={this.state.ratings} animation='fade down' duration={500}>
-               <Segment>
-                 <Ratings />
-               </Segment>
-              </Transition>
-            </Segment>
+            <StyledContent>
+              <div style={{ minHeight: '100vh' }}>
+                <h2>{this.props.course.title}</h2>
+                {this.renderBackButton()}
+                {this.renderBody()}
+                <Divider />
+                <Button onClick={() => this.setState({ ratings: !this.state.ratings })} color={this.state.ratings ? 'teal' : ''}>Ratings</Button>
+                <Feedback courseTitle={this.props.course.title} />
+                <Transition visible={this.state.ratings} animation='fade down' duration={500}>
+                  <Segment className='ratings'>
+                    <Ratings />
+                  </Segment>
+                </Transition>
+              </div>
+            </StyledContent>
 
           </Grid.Column>
           <Grid.Column width={4} only='computer tablet'>
-            <RightSideBar />
-            <StyledRightSidebar>
+            <RightSideBarBackground />
+            <StyledWikiSidebar>
               <Segment basic>
                 <Segment.Group>
                   <Segment basic inverted color='teal'>
-                    Wikipedia:
+                    Wikipedia
                   </Segment>
                   <Segment>
                     <Wikipedia />
@@ -253,7 +279,7 @@ class Classroom extends Component {
                 </Segment.Group>
                 <Segment.Group>
                   <Segment basic inverted color='teal'>
-                    Wiktionary:
+                    Wiktionary
                   </Segment>
                   <Segment>
                     <Wiktionary />
@@ -268,7 +294,7 @@ class Classroom extends Component {
                   </Segment>
                 </Segment.Group>
               </Segment>
-            </StyledRightSidebar>
+            </StyledWikiSidebar>
           </Grid.Column>
         </Grid>
       </div>

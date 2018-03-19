@@ -43,6 +43,7 @@ const hideSideBar = keyframes`
 `;
 
 const StyledFilter = styled.div`
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 60px;
   bottom: 0px;
@@ -228,7 +229,6 @@ class Courses extends Component {
     return (
       <div>
         {this.renderCourses()}
-        <Divider />
         <Segment basic textAlign='center'>
           {this.renderPaginationButtons()}
         </Segment>
@@ -260,8 +260,6 @@ class Courses extends Component {
             </StyledCourses>
           </Grid.Column>
         </Grid>
-
-
       </div>
     )
   }

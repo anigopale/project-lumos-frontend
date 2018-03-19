@@ -8,7 +8,7 @@ const StyledTechnical = styled.div`
 
   .technical-card {
     transition: .2s ease;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     img {
       height: 250px;
       object-fit: cover;
@@ -16,7 +16,7 @@ const StyledTechnical = styled.div`
 
     &:hover {
       transition: .2s ease;
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.2);
       transform: translate(0, -1%);
     }
   }
@@ -37,10 +37,8 @@ export default class Technical extends Component {
         </Container>
         <Container textAlign='center'>
           <Segment basic>
-            <Divider hidden />
             <Header size='huge'>TECHNICAL SKILLS</Header>
             <Divider hidden />
-            <Header size='big'>Choose a Category</Header>
             <Divider hidden />
             <Grid columns={3} stackable relaxed>
               <Grid.Row>
@@ -48,14 +46,11 @@ export default class Technical extends Component {
 
                   <Link to='/technical/domains'>
                     <Card fluid className='technical-card'>
-                      <img src='http://techcity.com/wp-content/uploads/2015/09/tech-support_tech-city-new-york-services2.jpg' />
+                      <img src='https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?w=940&h=650&auto=compress&cs=tinysrgb' />
                       <Card.Content>
                         <Card.Header>
                           Domains
                         </Card.Header>
-                        <Card.Description>
-                          Browse courses by domain
-                        </Card.Description>
                       </Card.Content>
                     </Card>
                   </Link>
@@ -64,14 +59,11 @@ export default class Technical extends Component {
                 <Grid.Column>
                   <Link to='/technical/languages'>
                     <Card fluid className='technical-card'>
-                      <img src='https://az616578.vo.msecnd.net/files/2016/10/31/636135297934836257-753844635_cs.jpg' />
+                      <img src='https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e5a31d03ddee66863a599421f792e07b&w=1000&q=80' />
                       <Card.Content>
                         <Card.Header>
                           Languages
                         </Card.Header>
-                        <Card.Description>
-                          Browse courses by language
-                        </Card.Description>
                       </Card.Content>
                     </Card>
                   </Link>
@@ -80,14 +72,11 @@ export default class Technical extends Component {
                 <Grid.Column>
                   <Link to='/technical/misc/'>
                     <Card fluid className='technical-card'>
-                      <img src='https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2016/04/Computer_Science_2-796x401.jpg' />
+                      <img src='https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?w=940&h=650&auto=compress&cs=tinysrgb' />
                       <Card.Content>
                         <Card.Header>
                           Miscellaneous
                         </Card.Header>
-                        <Card.Description>
-                          Description
-                        </Card.Description>
                       </Card.Content>
                     </Card>
                   </Link>

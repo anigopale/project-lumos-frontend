@@ -25,7 +25,7 @@ const StyledContent = styled.div`
     z-index: 2 !important;
   }
   styled-content-div {
-    min-height: '100vh';
+    min-height: 100vh;
   }
 
   .courses-loader {

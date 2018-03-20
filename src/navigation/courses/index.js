@@ -202,6 +202,31 @@ class Courses extends Component {
     }
   }
 
+  renderNotFoundContent() {
+    let { courseType } = this.props;
+    let type = '';
+    let url = '';
+    if(courseType === DOMAINS) {
+      url = '/technical/domains';
+      type = 'domain';
+    }
+    if(courseType === SOFT_SKILLS) {
+      url = '/soft-skills';
+      type = 'soft skill'
+    }
+    if(courseType === LANGUAGES) {
+      url = '/technical/languages';
+      type = 'language'
+    }
+    if(type) {
+      return (
+        <p>
+          Try another <Link to={url}>{type}</Link>
+      </p>
+    )
+    }
+  }
+
   // renders loader or results
   renderBody() {
     if(this.props.courses.error) {
@@ -220,9 +245,7 @@ class Courses extends Component {
       return (
         <div className='no-results'>
           <h1>No results found</h1>
-          <p>
-            Try something else
-          </p>
+          {this.renderNotFoundContent()}
         </div>
       )
     }

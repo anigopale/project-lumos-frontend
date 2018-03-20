@@ -13,7 +13,7 @@ const StyledCard = styled.div`
     word-wrap: break-word;
     overflow: hidden;
     font-size: 2em;
-
+    line-height: 1;
 
     .nav-name {
     }
@@ -26,7 +26,7 @@ const StyledCard = styled.div`
       {
         span {
           position: relative;
-          top: 50%;
+          top: 40%;
           font-weight: 300;
         }
       }

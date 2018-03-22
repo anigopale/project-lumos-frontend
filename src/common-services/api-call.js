@@ -11,7 +11,6 @@ export function apiCall(api_url, request_type, data) {
       }
     })
     .then(response => {
-      console.log(response);
       if(response.status === 201)
         return { response };
       else

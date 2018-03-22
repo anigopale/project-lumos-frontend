@@ -97,7 +97,7 @@ background: #2497E3;
 `;
 
 class Feedback extends Component {
-  state = { openModal: false, attribute_1: 1, attribute_2: 1, attribute_3: 1, attribute_4: 1 };
+  state = { openModal: false, rated: false, attribute_1: 1, attribute_2: 1, attribute_3: 1, attribute_4: 1 };
 
   attributes = [
     {
@@ -122,17 +122,23 @@ class Feedback extends Component {
     let { attribute_1, attribute_2, attribute_3, attribute_4 } = this.state;
     let { courseId, courseType } = this.props;
 
+    this.setState({ rated: true });
     this.props.postRating(courseId, courseType, { attribute_1, attribute_2, attribute_3, attribute_4 });
   }
 
   handleCloseModal = () => {
-    this.setState({ openModal: false, attribute_1: 1, attribute_2: 1, attribute_3: 1, attribute_4: 1  });
+    this.setState({ openModal: false, attribute_1: 1, attribute_2: 1, attribute_3: 1, attribute_4: 1, rated: false  });
   }
 
   handleOpenModal = () => {
     this.setState({ openModal: true });
   }
   renderFeedbackSliders() {
+    if(this.state.rated) {
+      return (
+        <div>thank you for rating</div>
+      )
+    }
     return this.attributes.map((attribute, index) => {
       return (
         <StyledRange>
@@ -151,26 +157,43 @@ class Feedback extends Component {
     })
   }
 
+  renderModalBody() {
+    if(this.state.rated) {
+      return (
+        <Segment basic textAlign='center'>
+          <h1>
+            thank you for rating
+          </h1>
+        </Segment>
+      )
+    }
+
+    return [
+      <Modal.Header>
+        {this.props.courseTitle}
+      </Modal.Header>,
+      <Modal.Content>
+        {this.renderFeedbackSliders()}
+      </Modal.Content>,
+      <Modal.Actions>
+        <Button color='blue' onClick={this.handleCloseModal}>
+          Close
+        </Button>
+        <Button color='blue' onClick={this.handleSubmit}>Submit</Button>
+     </Modal.Actions>
+    ]
+  }
+
   render() {
     return [
         <Button floated='right' onClick={this.handleOpenModal}>Rate</Button>,
-          <Modal
-            open={this.state.openModal}
-            onClose={this.handleCloseModal}
-            >
-            <Modal.Header>
-              {this.props.courseTitle}
-            </Modal.Header>
-            <Modal.Content>
-              {this.renderFeedbackSliders()}
-            </Modal.Content>
-            <Modal.Actions>
-              <Button color='blue' onClick={this.handleCloseModal}>
-                Close
-              </Button>
-              <Button color='blue' onClick={this.handleSubmit}>Submit</Button>
-           </Modal.Actions>
-          </Modal>
+        <Modal
+          basic={this.state.rated}
+          open={this.state.openModal}
+          onClose={this.handleCloseModal}
+          >
+          {this.renderModalBody()}
+        </Modal>
     ]
   }
 }

@@ -5,19 +5,18 @@ export default class Ratings extends Component {
   renderRatings() {
     let flag = true;
     let { ratings } = this.props;
-      Object.keys(ratings).map((key => {
-        if(ratings[key] === 0)
-          flag = false;
-      }));
-      if(flag) {
-        return Object.keys(ratings).map((key => {
-          let percent = ratings[key]*20;
-          return (
-            <div>
-              {key}: {ratings[key]} <Progress percent={percent} size='small' />
-            </div>
-          )
-        }))
+    Object.keys(ratings).map((key => {
+      if(ratings[key] === 0)
+        flag = false;
+    }));
+    if(flag) {
+      return Object.keys(ratings).map((key => {
+        return (
+          <div>
+            {key}: <Progress value={ratings[key]} total='5' size='small' progress='ratio' color='green'/>
+          </div>
+        )
+      }))
     }
     return (
       <div>Be the first one to rate this!</div>

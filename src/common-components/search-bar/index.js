@@ -64,8 +64,7 @@ class SearchBar extends Component {
     }
     if(this.props.searchResults.results.length) {
       return this.props.searchResults.results.map(course => {
-        let { course_type } = this.props.searchResults;
-        return <CourseItem course={course} courseType={course_type} fromCourses={false} />
+        return <CourseItem course={course.data} courseType={course.course_type} fromCourses={false} />
       })
     }
     return (

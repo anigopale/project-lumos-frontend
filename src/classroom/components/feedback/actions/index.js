@@ -4,9 +4,9 @@ import { KNOWLEDGE_BASE, RANDOM, SOFT_SKILLS } from '../../../../common-services
 import { apiCall } from '../../../../common-services/api-call';
 
 const cookies = new Cookies();
-const ratingLimit = 1;
+const ratingLimit = 3;
 
-export function postRating(id, type, rating) {
+export function postRating(id, type, rating, path) {
   return function(dispatch) {
     let url = '';
     let data = {};
@@ -18,19 +18,22 @@ export function postRating(id, type, rating) {
     if(type === SOFT_SKILLS)
       url = softskills_data_rating;
 
+    let num = 0;
+
     // setting up data object for post request
     data = { user: null, resource: id, ...rating };
-
-    let timesRated = cookies.get('timesRated');
-
+    let timesRated = cookies.get(`timesRated_${path}`);
     // checking if 'timesRated' cookie is less than ratingLimit
-    if(timesRated < ratingLimit || !timesRated) {
+    if(!timesRated || (timesRated && (timesRated < ratingLimit))) {
       apiCall(url, 'post', data)
       .then(results => {
         // set/update cookie only if status is '201'
         if(results.response.status === 201) {
-          let num = timesRated ? timesRated++ : '1';
-          cookies.set('timesRated', num, { path: '/' });
+          if(!timesRated)
+            timesRated = 0;
+          num = eval(timesRated) + 1;
+          // set unique cookie for every course/path
+          cookies.set(`timesRated_${path}`, `${num}`, { path: '/' });
         }
       })
     }

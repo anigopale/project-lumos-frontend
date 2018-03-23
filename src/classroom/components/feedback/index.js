@@ -120,10 +120,11 @@ class Feedback extends Component {
 
   handleSubmit = () => {
     let { attribute_1, attribute_2, attribute_3, attribute_4 } = this.state;
-    let { courseId, courseType } = this.props;
+    let { course_type, course_id } = this.props.urlParams;
+    let { path } = this.props;
 
     this.setState({ rated: true });
-    this.props.postRating(courseId, courseType, { attribute_1, attribute_2, attribute_3, attribute_4 });
+    this.props.postRating(course_id, course_type, { attribute_1, attribute_2, attribute_3, attribute_4 }, path);
   }
 
   handleCloseModal = () => {

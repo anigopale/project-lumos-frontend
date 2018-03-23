@@ -179,7 +179,7 @@ class Classroom extends Component {
 
   renderRatingComponents() {
     return [
-      <Feedback courseTitle={this.props.course.title} courseId={this.props.course.id} courseType={this.props.match.params.course_type} />,
+      <Feedback courseTitle={this.props.course.title} urlParams={this.props.match.params} path={this.props.location.pathname} />,
       <Transition visible={this.state.ratings} animation='fade down' duration={500}>
         <Segment className='ratings'>
           <Ratings ratings={this.props.course.ratings} />

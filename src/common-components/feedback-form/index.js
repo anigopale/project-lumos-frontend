@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Button, Popup, Form, Segment } from 'semantic-ui-react';
+import { Modal, Button, Popup, Form, Segment, Transition } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { postFeedback } from './actions';
 
@@ -15,7 +15,7 @@ const StyledFeedbackForm = styled.div`
 
 class FeedbackForm extends Component {
 
-  state = { openModdal: false, text: '', posted: false };
+  state = { openModal: false, text: '', posted: false };
 
   handleCloseModal = () => {
     this.setState({ openModal: false, posted: false, text: '' });
@@ -83,14 +83,15 @@ class FeedbackForm extends Component {
           position='left'
           basic
           />
-
-        <Modal
-          basic={this.state.posted}
-          open={this.state.openModal}
-          onClose={this.handleCloseModal}
-          >
-          {this.renderModalBody()}
-        </Modal>
+        <Transition visible={this.state.openModal} animation='fade down' duration={500}>
+          <Modal
+            basic={this.state.posted}
+            open={this.state.openModal}
+            onClose={this.handleCloseModal}
+            >
+            {this.renderModalBody()}
+          </Modal>
+        </Transition>
       </StyledFeedbackForm>
     )
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Input, Modal, Responsive, Icon, Popup, Button, Dimmer, Loader, Segment, Container, Label, Transition } from 'semantic-ui-react';
+import { Form, Input, Modal, Responsive, Icon, Popup, Button, Dimmer, Loader, Segment, Container, Label, Transition, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchCourses, fetchMoreCourses, deleteCourses } from './actions';
 import CourseItem from '../course-item';
@@ -46,11 +46,13 @@ class SearchBar extends Component {
         )
       }
       return (
-        <Button
-          onClick={this.handleClick}
-          >
-          show more
-        </Button>
+        <div style={{ textAlign: 'center' }}>
+          <Button
+            onClick={this.handleClick}
+            >
+            show more
+          </Button>
+        </div>
       )
     }
   }
@@ -58,12 +60,12 @@ class SearchBar extends Component {
   renderTags(tags) {
     return tags.map(tag => {
       return (
-        <Label
+        <Button
           as={Link}
           to={tag.url}
           >
           {tag.name}
-        </Label>
+        </Button>
       )
     })
   }
@@ -72,7 +74,7 @@ class SearchBar extends Component {
     if(tags.length) {
       return (
         <div>
-          {title}<br />
+          <h3>{title}</h3>
           {this.renderTags(tags)}
           <br />
         </div>
@@ -145,11 +147,11 @@ class SearchBar extends Component {
             <Modal.Content scrolling>
               <Container text>
                 {this.renderSearchResults()}
+                <Divider />
                 {this.renderAllTags()}
-              </Container>
-              <Segment basic textAlign='center'>
+                <Divider hidden />
                 {this.renderShowMoreButton()}
-              </Segment>
+              </Container>
             </Modal.Content>
             <Modal.Actions>
              <Button color='blue' onClick={this.handleCloseModal}>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Button, Segment } from 'semantic-ui-react';
+import { Modal, Button, Segment, Transition } from 'semantic-ui-react';
 import { postRating } from './actions';
 import styled from 'styled-components';
 
@@ -188,13 +188,15 @@ class Feedback extends Component {
   render() {
     return [
         <Button floated='right' onClick={this.handleOpenModal}>Rate</Button>,
-        <Modal
-          basic={this.state.rated}
-          open={this.state.openModal}
-          onClose={this.handleCloseModal}
-          >
-          {this.renderModalBody()}
-        </Modal>
+        <Transition visible={this.state.openModal} animation='fade down' duration={500}>
+          <Modal
+            basic={this.state.rated}
+            open={this.state.openModal}
+            onClose={this.handleCloseModal}
+            >
+            {this.renderModalBody()}
+          </Modal>
+        </Transition>
     ]
   }
 }

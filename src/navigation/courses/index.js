@@ -172,6 +172,7 @@ class Courses extends Component {
     }
 
     return this.props.courses.results.map((course, index) => {
+      index = index % 10;
       return (
         <CourseItem course={course} courseType={course_type} fromCourses={true} courseIndex={index} />
       )

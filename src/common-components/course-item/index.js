@@ -68,7 +68,7 @@ export default class CourseItem extends Component {
     }
   ]
 
-  componentDidMount() {
+  componentWillMount() {
     setInterval(this.showComponent, 0);
   }
   showComponent = () => {

@@ -53,7 +53,7 @@ class Languages extends Component {
 
 
   renderLanguages() {
-    return this.props.languages.results.map((language) => {
+    return this.props.languages.results.map((language, index) => {
       let { id, language_name, slug, site_url, description, icon } = language;
       let languageData = {
         id,
@@ -65,7 +65,7 @@ class Languages extends Component {
       let coursesPageUrl = `/technical/languages/${id}`;
       return (
         <Grid.Column>
-          <NavItem data={languageData} coursesPageUrl={coursesPageUrl} />
+          <NavItem data={languageData} coursesPageUrl={coursesPageUrl} navItemIndex={index} />
         </Grid.Column>
       )
     })

@@ -11,7 +11,8 @@ import {
   Dimmer,
   Divider,
   Container,
-  List
+  List,
+  Transition
 } from 'semantic-ui-react';
 import { wikipediaSearch, emptyReducer } from './actions';
 
@@ -115,6 +116,7 @@ class Wikipedia extends Component {
             action={<Button color='teal' icon='search' />}
             />
         </Form>
+        <Transition visible={this.state.openModal} animation='fade down' duration={500}>
           <Modal
             open={this.state.openModal}
             onClose={this.handleCloseModal}
@@ -131,6 +133,7 @@ class Wikipedia extends Component {
              </Button>
            </Modal.Actions>
           </Modal>
+        </Transition>
       </div>
     )
   }

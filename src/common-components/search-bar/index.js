@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Input, Modal, Responsive, Icon, Popup, Button, Dimmer, Loader, Segment, Container, Label } from 'semantic-ui-react';
+import { Form, Input, Modal, Responsive, Icon, Popup, Button, Dimmer, Loader, Segment, Container, Label, Transition } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchCourses, fetchMoreCourses, deleteCourses } from './actions';
 import CourseItem from '../course-item';
@@ -134,29 +134,30 @@ class SearchBar extends Component {
               />
           </Segment>
         </Responsive>
-
-        <Modal
-          open={this.state.openModal}
-          onClose={this.handleCloseModal}
-          >
-          <Modal.Header>
-            Results for "{this.state.term}":
-          </Modal.Header>
-          <Modal.Content scrolling>
-            <Container text>
-              {this.renderSearchResults()}
-              {this.renderAllTags()}
-            </Container>
-            <Segment basic textAlign='center'>
-              {this.renderShowMoreButton()}
-            </Segment>
-          </Modal.Content>
-          <Modal.Actions>
-           <Button color='blue' onClick={this.handleCloseModal}>
-             Close
-           </Button>
-         </Modal.Actions>
-        </Modal>
+        <Transition visible={this.state.openModal} animation='fade down' duration={500}>
+          <Modal
+            open={this.state.openModal}
+            onClose={this.handleCloseModal}
+            >
+            <Modal.Header>
+              Results for "{this.state.term}":
+            </Modal.Header>
+            <Modal.Content scrolling>
+              <Container text>
+                {this.renderSearchResults()}
+                {this.renderAllTags()}
+              </Container>
+              <Segment basic textAlign='center'>
+                {this.renderShowMoreButton()}
+              </Segment>
+            </Modal.Content>
+            <Modal.Actions>
+             <Button color='blue' onClick={this.handleCloseModal}>
+               Close
+             </Button>
+           </Modal.Actions>
+          </Modal>
+        </Transition>
       </div>
     )
   }

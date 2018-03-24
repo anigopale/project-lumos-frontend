@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, Image, Transition } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const StyledCard = styled.div`
   .nav-card {
+    background-color: #eeeeee;
     transition: .2s ease;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     height: 200px;
@@ -14,6 +15,7 @@ const StyledCard = styled.div`
     overflow: hidden;
     font-size: 2em;
     line-height: 1;
+    color: #494949;
 
     .nav-name {
     }
@@ -23,6 +25,7 @@ const StyledCard = styled.div`
       background-repeat: no-repeat;
       background-size: cover;
       height: 100%;
+      border-bottom: solid #00AA8D;
       {
         span {
           position: relative;
@@ -33,6 +36,7 @@ const StyledCard = styled.div`
     }
 
     &:hover {
+      background-color: #f2f2f2;
       box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.2);
       transition: .2s ease;
       transform: translate(0, -1%);
@@ -41,17 +45,25 @@ const StyledCard = styled.div`
 
   @media only screen and (max-width: 480px) {
     .nav-card {
-      font-size: 1em;
-      height: 100px;
+      font-size: 1.3em;
+      height: 150px;
     }
   }
 `;
 
 export default class NavItem extends Component {
+  state = { visible: false };
 
+  componentDidMount() {
+    setInterval(this.showComponent, 0);
+  }
+  showComponent = () => {
+    this.setState({ visible: true });
+  }
 
   render() {
     return (
+      <Transition visible={this.state.visible} animation='fade up' duration={500}>
       <StyledCard>
         <Link to={this.props.coursesPageUrl}>
           <Card
@@ -67,7 +79,7 @@ export default class NavItem extends Component {
           </Card>
           </Link>
       </StyledCard>
-
+      </Transition>
     )
   }
 }

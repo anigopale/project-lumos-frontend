@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Item, Header, Label, Segment, Icon, Popup } from 'semantic-ui-react';
+import { Item, Header, Label, Segment, Icon, Popup, Transition } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import CourseLabels from './components/course-labels';
 import { BG, IT, AD } from '../../common-services/skill-levels';
@@ -20,12 +20,25 @@ const StyledCourseItem = styled.div`
     margin-bottom: 5px;
   }
 
+  .skill-level-ribbon {
+    background-color: ${props => {
+        if(props.skillLevel === BG)
+          return '#05c46b'
+        if(props.skillLevel === IT)
+          return '#ffc048'
+        if(props.skillLevel === AD)
+          return '#d63031'
+      }
+    };
+    color: white;
+  }
+
   padding-bottom: 10px;
 `;
 
 export default class CourseItem extends Component {
 
-  state = { description: false };
+  state = { description: false, visible: false };
 
   course_data_types = [
     {
@@ -55,24 +68,31 @@ export default class CourseItem extends Component {
     }
   ]
 
+  componentDidMount() {
+    setInterval(this.showComponent, 0);
+  }
+  showComponent = () => {
+    this.setState({ visible: true });
+  }
+
   renderSkillLevel(skill_level) {
     if(skill_level === BG) {
       return (
-        <Label color='green' ribbon>
+        <Label className='skill-level-ribbon' ribbon>
           Beginner
         </Label>
       );
     }
     if(skill_level === IT) {
       return (
-        <Label color='orange' ribbon>
+        <Label className='skill-level-ribbon' ribbon>
           Intermediate
         </Label>
       )
     }
     if(skill_level === AD) {
       return (
-        <Label color='red' ribbon>
+        <Label className='skill-level-ribbon' ribbon>
           Advanced
         </Label>
       )
@@ -144,7 +164,9 @@ export default class CourseItem extends Component {
   }
   render() {
     return (
-      <StyledCourseItem>
+      <Transition visible={this.state.visible} animation='fade up' duration={500}>
+
+      <StyledCourseItem skillLevel={this.props.course.skill_level}>
         <Segment clearing className='course-item'>
           <div className='course-skill-level'>
             {this.renderIcon()}
@@ -165,6 +187,7 @@ export default class CourseItem extends Component {
           <CourseLabels languages={this.props.course.languages} domains={this.props.course.domains} softskills={this.props.course.soft_skill} />
         </Segment>
       </StyledCourseItem>
+    </Transition>
     )
   }
 }

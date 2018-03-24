@@ -51,6 +51,10 @@ const StyledFilter = styled.div`
   width: 20%;
   z-index: 2 !important;
 
+  .menu {
+    background-color: #fafafa !important;
+  }
+
   @media only screen and (max-width: 768px) {
     display: none;
   }
@@ -65,6 +69,7 @@ const MobileSidebar = styled.div`
   z-index: 2 !important;
   .menu {
     padding: 0 20px 0 20px;
+    background-color: #fafafa !important;
   }
   i {
     position: fixed;
@@ -166,9 +171,9 @@ class Courses extends Component {
       course_type = SOFT_SKILLS;
     }
 
-    return this.props.courses.results.map((course) => {
+    return this.props.courses.results.map((course, index) => {
       return (
-        <CourseItem course={course} courseType={course_type} fromCourses={true} />
+        <CourseItem course={course} courseType={course_type} fromCourses={true} courseIndex={index} />
       )
     })
   }
@@ -189,15 +194,13 @@ class Courses extends Component {
     if(this.props.courses.next) {
       if(this.props.courses.loading) {
         return (
-            <Dimmer inverted active>
-              <Loader size='medium' />
-            </Dimmer>
+          <div>
+            <Loader active />
+          </div>
         )
       }
       return (
-        <Visibility onUpdate={(e, { calculations }) => {this.handleVisibilityUpdate(calculations)}}>
-          <Divider hidden />
-        </Visibility>
+        <Visibility onUpdate={(e, { calculations }) => {this.handleVisibilityUpdate(calculations)}} />
       )
     }
   }

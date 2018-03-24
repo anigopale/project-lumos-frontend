@@ -5,13 +5,18 @@ import SearchBar from '../search-bar';
 import styled from 'styled-components';
 
 const StyledHamburger = styled.div`
+  .styled-menu {
+    background-color: #00AA8D !important;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2) !important;
+  }
+
   .hamburger {
     display: none !important;
   }
-@media only screen and (max-width: 768px) {
-  .hamburger {
-    display: block !important;
-  }
+  @media only screen and (max-width: 768px) {
+    .hamburger {
+      display: block !important;
+    }
 }
 `;
 
@@ -40,7 +45,7 @@ export default class NavBar extends Component {
     return (
       <StyledHamburger>
         <Segment>
-          <Menu fixed='top' secondary inverted color='teal'>
+          <Menu fixed='top' secondary inverted className='styled-menu'>
             {this.renderHamburgerButton()}
             <Menu.Item
               as='a'

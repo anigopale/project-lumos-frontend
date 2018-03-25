@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, Segment, Transition } from 'semantic-ui-react';
+import { ToastContainer, toast } from 'react-toastify';
 import { postRating } from './actions';
 import styled from 'styled-components';
 
@@ -118,13 +119,16 @@ class Feedback extends Component {
     },
   ];
 
+  notify = () => toast("Thank you for rating");
+
   handleSubmit = () => {
     let { attribute_1, attribute_2, attribute_3, attribute_4 } = this.state;
     let { course_type, course_id } = this.props.urlParams;
     let { path } = this.props;
 
-    this.setState({ rated: true });
     this.props.postRating(course_id, course_type, { attribute_1, attribute_2, attribute_3, attribute_4 }, path);
+    this.handleCloseModal();
+    this.notify();
   }
 
   handleCloseModal = () => {
@@ -196,7 +200,8 @@ class Feedback extends Component {
             >
             {this.renderModalBody()}
           </Modal>
-        </Transition>
+        </Transition>,
+        <ToastContainer hideProgressBar />
     ]
   }
 }

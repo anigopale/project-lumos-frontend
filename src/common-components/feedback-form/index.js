@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, Popup, Form, Segment, Transition } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
 import { postFeedback } from './actions';
 
 const StyledFeedbackForm = styled.div`
@@ -17,6 +18,9 @@ class FeedbackForm extends Component {
 
   state = { openModal: false, text: '', posted: false };
 
+  notify = () => toast("Thank you for your feedback");
+
+
   handleCloseModal = () => {
     this.setState({ openModal: false, posted: false, text: '' });
   }
@@ -28,8 +32,9 @@ class FeedbackForm extends Component {
   handleSubmit = () => {
     let { text } = this.state;
     if(text) {
-      this.setState({ posted: true });
       this.props.postFeedback(text);
+      this.handleCloseModal();
+      this.notify();
     }
   }
 
@@ -68,6 +73,7 @@ class FeedbackForm extends Component {
   render() {
     return (
       <StyledFeedbackForm>
+        <ToastContainer hideProgressBar />
         <Popup
           trigger={
             <Button

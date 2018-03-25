@@ -4,6 +4,13 @@ import { Form, Input, Modal, Responsive, Icon, Popup, Button, Dimmer, Loader, Se
 import { Link } from 'react-router-dom';
 import { fetchCourses, fetchMoreCourses, deleteCourses } from './actions';
 import CourseItem from '../course-item';
+import styled from 'styled-components';
+
+const StyledTagButtons = styled.div`
+  .tag-label {
+    margin: 2px;
+  }
+`;
 
 class SearchBar extends Component {
   state = { term: "", openModal: false };
@@ -60,12 +67,14 @@ class SearchBar extends Component {
   renderTags(tags) {
     return tags.map(tag => {
       return (
-        <Button
+        <Label
+          size='large'
+          className='tag-label'
           as={Link}
           to={tag.url}
           >
           {tag.name}
-        </Button>
+        </Label>
       )
     })
   }
@@ -73,11 +82,12 @@ class SearchBar extends Component {
   renderTagResults(title, tags) {
     if(tags.length) {
       return (
-        <div>
+        <StyledTagButtons>
           <h3>{title}</h3>
           {this.renderTags(tags)}
           <br />
-        </div>
+          <br />
+        </StyledTagButtons>
       )
     }
   }

@@ -26,7 +26,7 @@ export function fetchCourses(term) {
   term = term.toLowerCase();
 
   return function(dispatch) {
-    let url = `${global_search}?query=${term}&limit=2`;
+    let url = `${global_search}?query=${term}&limit=${SEARCH_RESULTS_PER_PAGE}`;
 
     apiCall(url, 'get')
     .then(result => {

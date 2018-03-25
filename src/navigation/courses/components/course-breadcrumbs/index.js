@@ -131,7 +131,7 @@ export default class CourseBreadcrumbs extends Component {
     return (
       <div>
         <Breadcrumb>
-          <Breadcrumb.Section as={Link} to='/'>Home</Breadcrumb.Section>
+          <Breadcrumb.Section as='a' href='http://www.projectlumos.pw'>Home</Breadcrumb.Section>
           <Breadcrumb.Divider icon='right angle' />
           {this.renderBreadcrumbs()}
           <Breadcrumb.Section active>{this.state.categoryName}</Breadcrumb.Section>

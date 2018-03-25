@@ -172,15 +172,16 @@ export default class CourseItem extends Component {
             {this.renderIcon()}
             <span>{this.renderSkillLevel(this.props.course.skill_level)}</span>
           </div>
-          <Header
-            as={Link}
+          <Link
             to={{
               pathname: `/classroom/${this.props.courseType}/${this.props.course.id}`,
               state: { fromCourses: this.props.fromCourses }
             }}
             >
-            {this.props.course.title}
-          </Header>
+            <h3>
+              {this.props.course.title}
+            </h3>
+          </Link>
           <p className='description'>
             {this.renderDescription()}
           </p>

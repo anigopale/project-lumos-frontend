@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const StyledHamburger = styled.div`
   .styled-menu {
-    background-color: #00AA8D !important;
+    background: linear-gradient(135deg, #00AA8D 0%, #009194 100%) !important;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2) !important;
   }
 
@@ -49,10 +49,10 @@ export default class NavBar extends Component {
             {this.renderHamburgerButton()}
             <Menu.Item
               as='a'
-              href='https://projectlumos.github.io/project-lumos/'
+              href='http://www.projectlumos.pw'
               >
-              <Header as='h2' inverted>
-                Project Lumos
+              <Header as='h3' inverted>
+                PROJECT LUMOS
               </Header>
             </Menu.Item>
             <Menu.Item

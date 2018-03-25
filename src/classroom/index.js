@@ -108,6 +108,11 @@ const StyledWikiSidebar = styled.div`
   width: 25%;
   z-index: 2 !important;
   visibility: visible;
+
+  .label {
+    margin: 2px;
+  }
+
   @media only screen and (max-width: 768px) {
     visibility: hidden;
   }
@@ -126,6 +131,7 @@ const MobileSidebar = styled.div`
   width: 100%;
 
 i {
+  color: #00AA8D;
   position: fixed;
   top: 10px;
   right: 0px;
@@ -138,11 +144,19 @@ const StyledClassroom = styled.div`
     background-color: #00AA8D !important;
     color: white !important;
   }
-  button {
-    background-color: #00AA8D !important;
-    color: white !important;
-  }
+
 `;
+// button {
+//
+//   &:hover {
+//     color: #F5F5F5 !important;
+//     background-color: #00AA8D !important;
+//   }
+//   &:active {
+//     color: #F5F5F5 !important;
+//     background-color: #00AA8D !important;
+//   }
+// }
 
 class Classroom extends Component {
   state = { ratings: false };
@@ -251,7 +265,7 @@ class Classroom extends Component {
           <p>{this.props.course.description}</p>
           <Segment clearing basic>
             <a href={this.props.course.link_url} target='_blank' rel='noopener'>
-              <Button floated='right'>go to site <Icon name='right arrow' /></Button>
+              <Button floated='right'>Go to Site <Icon name='right arrow' /></Button>
             </a>
           </Segment>
           <Divider />
@@ -274,7 +288,7 @@ class Classroom extends Component {
       <StyledClassroom>
         <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
           <MobileSidebar>
-            <Icon name='remove circle' size='big' color='teal' onClick={this.toggleSideBar} />
+            <Icon name='remove circle' size='big' onClick={this.toggleSideBar} />
               <Related course={this.props.course} />
               <Segment.Group>
                 <Segment  style={{ backgroundColor: 'blue' }} className='card-header'>Prerequisites</Segment>
@@ -322,7 +336,7 @@ class Classroom extends Component {
                 </Segment.Group>
                 <Segment.Group>
                   <Segment className='card-header'>
-                    Wiktionary
+                    Dictionary
                   </Segment>
                   <Segment>
                     <Wiktionary />

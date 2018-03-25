@@ -54,13 +54,13 @@ class FeedbackForm extends Component {
             onChange={(event) => this.setState({ text: event.target.value })}
             value={this.state.text}
             />
-          <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
         </Form>
       </Modal.Content>,
       <Modal.Actions>
-        <Button color='blue' onClick={this.handleCloseModal}>
+        <Button onClick={this.handleCloseModal}>
           Close
         </Button>
+        <Button color='green' onClick={this.handleSubmit}>Submit</Button>
      </Modal.Actions>
     ]
   }

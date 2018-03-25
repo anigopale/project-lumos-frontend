@@ -72,6 +72,7 @@ const MobileSidebar = styled.div`
     background-color: #fafafa !important;
   }
   i {
+    color: #00AA8D;
     position: fixed;
     top: 10px;
     right: 0px;
@@ -268,7 +269,7 @@ class Courses extends Component {
       <div>
         <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
           <MobileSidebar>
-            <Icon name='remove circle' size='big' color='teal' onClick={this.toggleSideBar} />
+            <Icon name='remove circle' size='big' onClick={this.toggleSideBar} />
             <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
           </MobileSidebar>
         </Sidebar>

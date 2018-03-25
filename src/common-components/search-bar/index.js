@@ -164,7 +164,7 @@ class SearchBar extends Component {
               </Container>
             </Modal.Content>
             <Modal.Actions>
-             <Button color='blue' onClick={this.handleCloseModal}>
+             <Button onClick={this.handleCloseModal}>
                Close
              </Button>
            </Modal.Actions>

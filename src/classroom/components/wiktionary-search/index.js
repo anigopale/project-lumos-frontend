@@ -124,8 +124,8 @@ class Wiktionary extends Component {
             onChange={(event) => {this.setState({ term: event.target.value })}}
             icon='wikipedia'
             iconPosition='left'
-            placeholder='Search Wiktionary'
-            action={<Button color='teal' icon='search' />}
+            placeholder='Search Dictionary'
+            action={<Button className='search-button' icon='search' />}
             />
         </Form>
         <Transition visible={this.state.openModal} animation='fade down' duration={500}>
@@ -134,7 +134,7 @@ class Wiktionary extends Component {
             onClose={this.handleCloseModal}
             >
             <Modal.Header>
-              <Header sub><Icon name='wikipedia' />Wiktionary</Header>
+              <Header sub><Icon name='wikipedia' />Dictionary</Header>
             </Modal.Header>
 
             <Modal.Content scrolling>
@@ -142,7 +142,7 @@ class Wiktionary extends Component {
               {this.renderContent()}
             </Modal.Content>
             <Modal.Actions>
-             <Button color='blue' onClick={this.handleCloseModal}>
+             <Button onClick={this.handleCloseModal}>
                Close
              </Button>
            </Modal.Actions>

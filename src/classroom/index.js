@@ -130,13 +130,17 @@ const MobileSidebar = styled.div`
   overflow-y: auto;
   width: 100%;
 
-i {
-  color: #00AA8D;
-  position: fixed;
-  top: 10px;
-  right: 0px;
-  z-index: 999 !important;
-}
+  i {
+    color: #00AA8D;
+    position: fixed;
+    top: 10px;
+    right: 0px;
+    z-index: 999 !important;
+  }
+  .label {
+    margin: 2px;
+  }
+
 `;
 
 const StyledClassroom = styled.div`
@@ -144,19 +148,19 @@ const StyledClassroom = styled.div`
     background-color: #00AA8D !important;
     color: white !important;
   }
+  button {
+
+    &:hover {
+      color: #F5F5F5 !important;
+      background-color: #00AA8D !important;
+    }
+    &:active {
+      color: #F5F5F5 !important;
+      background-color: #00AA8D !important;
+    }
+  }
 
 `;
-// button {
-//
-//   &:hover {
-//     color: #F5F5F5 !important;
-//     background-color: #00AA8D !important;
-//   }
-//   &:active {
-//     color: #F5F5F5 !important;
-//     background-color: #00AA8D !important;
-//   }
-// }
 
 class Classroom extends Component {
   state = { ratings: false };

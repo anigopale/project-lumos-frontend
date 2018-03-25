@@ -136,6 +136,7 @@ class SearchBar extends Component {
         <Responsive maxWidth='480'>
           <Segment basic>
             <Popup
+              style={{ zIndex: 1000 }}
               trigger={<Icon name='search' />}
               on='click'
               content={

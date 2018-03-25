@@ -24,10 +24,13 @@ class SearchBar extends Component {
   }
 
   handleSearch = () => {
-    if(this.state.term) {
+    let { term } = this.state;
+    term = term.trim();
+    term = term.replace(/[^a-zA-Z0-9 ]/g, "");
+    if(term) {
       this.setState({ openModal: true });
       this.props.deleteCourses();
-      this.props.fetchCourses(this.state.term);
+      this.props.fetchCourses(term);
     }
   }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Input, Modal, Responsive, Icon, Popup, Button, Dimmer, Loader, Segment, Container } from 'semantic-ui-react';
+import { Form, Input, Modal, Responsive, Icon, Popup, Button, Dimmer, Loader, Segment, Container, Label } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import { fetchCourses, fetchMoreCourses, deleteCourses } from './actions';
 import CourseItem from '../course-item';
 
@@ -54,6 +55,42 @@ class SearchBar extends Component {
     }
   }
 
+  renderTags(tags) {
+    return tags.map(tag => {
+      return (
+        <Label
+          as={Link}
+          to={tag.url}
+          >
+          {tag.name}
+        </Label>
+      )
+    })
+  }
+
+  renderTagResults(title, tags) {
+    if(tags.length) {
+      return (
+        <div>
+          {title}<br />
+          {this.renderTags(tags)}
+          <br />
+        </div>
+      )
+    }
+  }
+
+  renderAllTags() {
+    let { domain_tags, language_tags, softskill_tags } = this.props.searchResults;
+    return (
+      <div>
+        {this.renderTagResults('suggested domains:', domain_tags)}
+        {this.renderTagResults('suggested languages:', language_tags)}
+        {this.renderTagResults('suggested soft skills:', softskill_tags)}
+      </div>
+    )
+  }
+
   renderSearchResults() {
     if(this.props.searchResults.course_type === 'none') {
       return (
@@ -64,8 +101,7 @@ class SearchBar extends Component {
     }
     if(this.props.searchResults.results.length) {
       return this.props.searchResults.results.map(course => {
-        let { course_type } = this.props.searchResults;
-        return <CourseItem course={course} courseType={course_type} fromCourses={false} />
+        return <CourseItem course={course.data} courseType={course.course_type} fromCourses={false} />
       })
     }
     return (
@@ -109,6 +145,7 @@ class SearchBar extends Component {
           <Modal.Content scrolling>
             <Container text>
               {this.renderSearchResults()}
+              {this.renderAllTags()}
             </Container>
             <Segment basic textAlign='center'>
               {this.renderShowMoreButton()}

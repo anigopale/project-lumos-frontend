@@ -117,6 +117,7 @@ class Wiktionary extends Component {
       <div>
         <Form onSubmit={this.handleSubmit}>
           <Input
+            fluid
             value={this.state.term}
             type='text'
             onChange={(event) => {this.setState({ term: event.target.value })}}
@@ -131,20 +132,20 @@ class Wiktionary extends Component {
           onClose={this.handleCloseModal}
           >
           <Modal.Header>
-            <Container text>
-              <Header icon>
-                <Icon name='wikipedia' />
-                <Header sub>Wiktionary</Header>
-              </Header>
-            </Container>
+
+              <Header sub><Icon name='wikipedia' />Wiktionary</Header>
+
           </Modal.Header>
 
-          <Modal.Content>
-            <Container text>
-              <Header as='h1'>{this.state.term}:</Header>
-              {this.renderContent()}
-            </Container>
+          <Modal.Content scrolling>
+            <Header as='h1'>{this.state.term}:</Header>
+            {this.renderContent()}
           </Modal.Content>
+          <Modal.Actions>
+           <Button color='blue' onClick={this.handleCloseModal}>
+             Close
+           </Button>
+         </Modal.Actions>
         </Modal>
       </div>
     )

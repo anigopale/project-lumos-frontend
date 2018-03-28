@@ -25,28 +25,19 @@ export default class CourseBreadcrumbs extends Component {
     }
   ]
 
-  knowledege_base_breadcrumbs = [
+  domain_breadcrumbs = [
     ...this.technical_breadcrumb,
     {
-      name: 'Knowledge Base',
-      path: '/technical/knowledge-base',
-      active: false
-    }
-  ];
-
-  domain_breadcrumbs = [
-    ...this.knowledege_base_breadcrumbs,
-    {
       name: 'Domains',
-      path: '/technical/knowledge-base/domains',
+      path: '/technical/domains',
       active: false
     }
   ]
   language_breadcrumbs = [
-    ...this.knowledege_base_breadcrumbs,
+    ...this.technical_breadcrumb,
     {
       name: 'Languages',
-      path: '/technical/knowledge-base/languages',
+      path: '/technical/languages',
       active: false
     }
   ]

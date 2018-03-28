@@ -22,6 +22,7 @@ const domains = 'domains';
 export function fetchCourses(term) {
   term = term.trim();
   term = term.replace(/[^a-zA-Z0-9]/g, "-");
+  term = term.toLowerCase();
 
   return function(dispatch) {
     let requests = [];
@@ -72,7 +73,7 @@ function fetchData (dispatch, api_url, category, category_id) {
   if(api_url === soft_skills_data) {
     course_type = SOFT_SKILLS;
   }
-    apiCall(`${api_url}?${category}=${category_id}&page_size=${SEARCH_RESULTS_PER_PAGE}`, 'get')
+    apiCall(`${api_url}?${category}__id=${category_id}&page_size=${SEARCH_RESULTS_PER_PAGE}`, 'get')
     .then(result => {
       if(result.response) {
         result.response.json()

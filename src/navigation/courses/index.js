@@ -12,7 +12,10 @@ import {
   Dimmer,
   Dropdown,
   Breadcrumb,
-  Visibility
+  Visibility,
+  Grid,
+  Sidebar,
+  Icon
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchCourses, deleteCourses, fetchMoreCourses } from './actions';
@@ -20,6 +23,78 @@ import Filters from './components/filters';
 import CourseItem from '../../common-components/course-item';
 import CourseBreadcrumbs from './components/course-breadcrumbs';
 import { DOMAINS, LANGUAGES, SOFT_SKILLS, KNOWLEDGE_BASE, RANDOM } from '../../common-services/course_types';
+import styled, {keyframes} from 'styled-components';
+
+const showSideBar = keyframes`
+0% {
+  transform: translateX(-100%);
+}
+100% {
+  transform: translateX(0);
+}
+`;
+const hideSideBar = keyframes`
+0% {
+  transform: translateX(0%);
+}
+100% {
+  transform: translateX(-100%);
+}
+`;
+
+const StyledFilter = styled.div`
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 60px;
+  bottom: 0px;
+  overflow-y: auto;
+  width: 20%;
+  z-index: 2 !important;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const MobileSidebar = styled.div`
+  position: fixed;
+  top: 45px;
+  bottom: 0px;
+  overflow-y: auto;
+  width: 100%;
+  z-index: 2 !important;
+  .menu {
+    padding: 0 20px 0 20px;
+  }
+  i {
+    position: fixed;
+    top: 10px;
+    right: 0px;
+  }
+`;
+
+const StyledCourses = styled.div`
+  padding-left: 40px;
+  padding-right: 30px;
+
+  .courses-loader {
+    position: relative !important;
+    text-align: center !important;
+    top 30vh !important;
+  }
+
+  .no-results {
+    position: relative;
+    text-align: center;
+    top 30vh;
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+`;
+
 
 class Courses extends Component {
 
@@ -57,6 +132,15 @@ class Courses extends Component {
       this.props.deleteCourses();
       this.props.fetchCourses(courseType, category_id, 1);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.deleteCourses();
+  }
+
+  toggleSideBar = () => {
+    this.props.getSideBar(false);
+    document.body.style = 'overflow-y: auto';
   }
 
   filterCourses = (filters) => {
@@ -105,24 +189,41 @@ class Courses extends Component {
     if(this.props.courses.next) {
       if(this.props.courses.loading) {
         return (
-          <Segment basic>
             <Dimmer inverted active>
               <Loader size='medium' />
             </Dimmer>
-          </Segment>
         )
       }
       return (
         <Visibility onUpdate={(e, { calculations }) => {this.handleVisibilityUpdate(calculations)}}>
-          <Button
-            basic
-            color='teal'
-            onClick={this.handleLoadMoreClick}
-            >
-            load more
-          </Button>
+          <Divider hidden />
         </Visibility>
       )
+    }
+  }
+
+  renderNotFoundContent() {
+    let { courseType } = this.props;
+    let type = '';
+    let url = '';
+    if(courseType === DOMAINS) {
+      url = '/technical/domains';
+      type = 'domain';
+    }
+    if(courseType === SOFT_SKILLS) {
+      url = '/soft-skills';
+      type = 'soft skill'
+    }
+    if(courseType === LANGUAGES) {
+      url = '/technical/languages';
+      type = 'language'
+    }
+    if(type) {
+      return (
+        <p>
+          Try another <Link to={url}>{type}</Link>
+      </p>
+    )
     }
   }
 
@@ -130,27 +231,27 @@ class Courses extends Component {
   renderBody() {
     if(this.props.courses.error) {
       // can be pushed to any error page if response status isn't 200
-      this.props.history.push('/404');
+      this.props.history.push('/400');
       return;
     }
     if(!this.props.courses.results) {
       return (
-        <Segment basic>
-          <Dimmer inverted active>
-            <Loader size='medium' />
-          </Dimmer>
+        <Segment basic className='courses-loader'>
+          <Loader active style={{ zIndex: -1 }} />
         </Segment>
       )
     }
     if(!this.props.courses.results.length) {
       return (
-        <div>no results found</div>
+        <div className='no-results'>
+          <h1>No results found</h1>
+          {this.renderNotFoundContent()}
+        </div>
       )
     }
     return (
       <div>
         {this.renderCourses()}
-        <Divider />
         <Segment basic textAlign='center'>
           {this.renderPaginationButtons()}
         </Segment>
@@ -161,16 +262,27 @@ class Courses extends Component {
   render() {
     return (
       <div>
+        <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
+          <MobileSidebar>
+            <Icon name='remove circle' size='big' color='teal' onClick={this.toggleSideBar} />
+            <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
+          </MobileSidebar>
+        </Sidebar>
         <Divider hidden />
-        <Container>
-          <CourseBreadcrumbs courseType={this.props.courseType} categoryId={this.props.match.params.category_id} />
-        </Container>
-        <Divider hidden />
-        <Container text>
-          <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
-          <Divider />
-          {this.renderBody()}
-        </Container>
+        <Grid stackable>
+          <Grid.Column width={3} only='computer tablet'>
+            <StyledFilter sidebar={this.props.sidebar}>
+              <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
+            </StyledFilter>
+          </Grid.Column>
+          <Grid.Column width={13}>
+            <StyledCourses>
+              <CourseBreadcrumbs courseType={this.props.courseType} categoryId={this.props.match.params.category_id} />
+              <Divider hidden />
+              {this.renderBody()}
+            </StyledCourses>
+          </Grid.Column>
+        </Grid>
       </div>
     )
   }

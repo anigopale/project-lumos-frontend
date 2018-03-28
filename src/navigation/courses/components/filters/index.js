@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
-import { Form, Checkbox, Grid, Segment, Divider } from 'semantic-ui-react';
+import { Form, Checkbox, Grid, Segment, Divider, Menu } from 'semantic-ui-react';
+import styled from 'styled-components';
+
 
 class Filters extends Component {
   state = { skill_level: '', data_type: '', paid: '', project: '' };
 
   project_filters = [
     {
-      label: 'all',
+      label: 'All',
       value: ''
     },
     {
-      label: 'projects only',
+      label: 'Projects only',
       value: 'true'
     }
   ]
 
   skill_levels = [
     {
-      label: 'all',
+      label: 'All',
       value: ''
     },
     {
@@ -36,22 +38,22 @@ class Filters extends Component {
 
   paid_filters = [
     {
-      label: 'all',
+      label: 'All',
       value: ''
     },
     {
-      label: 'paid',
+      label: 'Paid',
       value: 'true'
     },
     {
-      label: 'unpaid',
+      label: 'Free',
       value: 'false'
     }
   ]
 
   data_types = [
     {
-      label: 'all',
+      label: 'All',
       value: ''
     },
     {
@@ -183,40 +185,54 @@ class Filters extends Component {
 
   render() {
     return (
-      <Segment>
-        <h3>Filters</h3>
-        <Grid columns={4} divided>
-          <Grid.Column>
-            Skill level:
-            <Divider />
-            <Form>
-              {this.renderSkillLevelFilters()}
-            </Form>
-          </Grid.Column>
-          <Grid.Column>
-            Paid:
-            <Divider />
+          <Menu vertical fluid>
+            <Menu.Item>
+              <Menu.Header>
+                Skill level:
+              </Menu.Header>
+              <Menu.Item>
+                <Form>
+                  {this.renderSkillLevelFilters()}
+                </Form>
+              </Menu.Item>
+            </Menu.Item>
+            <Menu.Item>
+              <Menu.Header>
+                Price:
+              </Menu.Header>
+              <Menu.Item>
+                <Form>
+                  {this.renderPaidFilters()}
+                </Form>
+              </Menu.Item>
+            </Menu.Item>
 
-            <Form>
-              {this.renderPaidFilters()}
-            </Form>
-          </Grid.Column>
-          <Grid.Column>
-            Type:
-            <Divider />
-            <Form>
-              {this.renderDataTypeFilters()}
-            </Form>
-          </Grid.Column>
-          <Grid.Column>
-            Projects:
-            <Divider />
-            <Form>
-              {this.renderProjectFilters()}
-            </Form>
-          </Grid.Column>
-        </Grid>
-      </Segment>
+            <Menu.Item>
+              <Menu.Header>
+                Content type:
+              </Menu.Header>
+              <Menu.Item>
+                <Form>
+                  {this.renderDataTypeFilters()}
+                </Form>
+              </Menu.Item>
+            </Menu.Item>
+
+            <Menu.Item>
+              <Menu.Header>
+                Resource type:
+              </Menu.Header>
+              <Menu.Item>
+                <Form>
+                  {this.renderProjectFilters()}
+                </Form>
+              </Menu.Item>
+            </Menu.Item>
+
+          </Menu>
+
+
+
     )
   }
 }

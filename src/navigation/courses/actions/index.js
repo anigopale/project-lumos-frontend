@@ -29,11 +29,11 @@ export function fetchCourses(course_type, category_id, page_token, filters) {
 
     // choosing appropriate category
     if(course_type === DOMAINS)
-      category_params = `&domains=${category_id}`
+      category_params = `&domains__id=${category_id}`
     if(course_type === LANGUAGES)
-      category_params = `&languages=${category_id}`
+      category_params = `&languages__id=${category_id}`
     if(course_type === SOFT_SKILLS)
-      category_params = `&soft_skill=${category_id}`
+      category_params = `&soft_skill__id=${category_id}`
 
     // api url for fetching courses
     url = `${url}?page_size=${RESULTS_PER_PAGE}&page=${page_token}${category_params}`;

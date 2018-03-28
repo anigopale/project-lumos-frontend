@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Segment, Grid, Divider, Header, Loader, Dimmer, Menu, Card, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import NavItem from '../../common-components/nav-item';
 import { fetchSoftSkills, deleteSoftSkills } from './actions';
 
 class SoftSkills extends Component {
@@ -66,18 +67,18 @@ class SoftSkills extends Component {
 
   renderSoftSkills() {
     return this.props.softskills.results.map((skill) => {
+      let { id, soft_skill_category, slug, description, icon } = skill;
+      let skillData = {
+        id,
+        slug,
+        name: soft_skill_category,
+        description,
+        icon
+      }
+      let coursesPageUrl = `/soft-skills/${id}`;
       return (
         <Grid.Column>
-          <Card
-            as={Link}
-            to={`/soft-skills/${skill.id}/`}
-            fluid
-            >
-            <Image src={skill.icon} alt='' />
-            <Card.Content extra>
-              {skill.soft_skill_category}
-            </Card.Content>
-          </Card>
+          <NavItem data={skillData} coursesPageUrl={coursesPageUrl} />
         </Grid.Column>
       )
     })
@@ -85,21 +86,19 @@ class SoftSkills extends Component {
 
   renderBody() {
     if(this.props.softskills.error) {
-      this.props.history.push('/404');
+      this.props.history.push('/400');
       return;
     }
     if(this.props.softskills.count) {
       return (
-        <Grid columns={3} stretched doubling centered padded relaxed='very'>
+        <Grid columns={3} stretched doubling centered>
           {this.renderSoftSkills()}
         </Grid>
       )
     }
     return (
       <Segment basic>
-        <Dimmer active inverted>
-          <Loader size='medium' />
-        </Dimmer>
+        <Loader size='medium' active />
       </Segment>
     )
 
@@ -111,7 +110,6 @@ class SoftSkills extends Component {
       <div>
         <Container>
           <Segment textAlign='center' basic>
-            <Divider hidden />
             <Header as='h1' textAlign='center'>
               <Header sub>Browse courses by</Header>
               Soft Skills

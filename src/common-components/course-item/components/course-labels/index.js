@@ -2,107 +2,63 @@ import React, { Component } from 'react';
 import { Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { domain_api, language_api, soft_skill_api } from '../../../../common-services/api-endpoints';
+import styled from 'styled-components';
+
+const StyledLabels = styled.div`
+  text-align: right;
+
+  .course-label {
+    margin: 2px;
+  }
+`;
 
 // DomainLanguageLabels component fetches domains/languages from id list passed down as props
 // and renders Labels for Courses component
 export default class CourseLabels extends Component {
 
-  state = { domains: [], languages: [], softskills: [] };
-
-  componentDidMount() {
-    this.fetchData();
-  }
-
-  fetchData = () => {
-    // updating state on fetching data
-    if(this.props.domains) {
-      this.props.domains.map(id => {
-        fetch(`${domain_api}${id}`)
-        .then(response => {
-          response.json()
-          .then(data => {
-            let domain = data;
-            this.setState({ domains: [...this.state.domains, domain] })
-          })
-        })
-      })
-    }
-
-    if(this.props.languages) {
-      this.props.languages.map(id => {
-        fetch(`${language_api}${id}`)
-        .then(response => {
-          response.json()
-          .then(data => {
-            let language = data;
-            this.setState({ languages: [...this.state.languages, language] })
-          })
-        })
-      })
-    }
-
-    if(this.props.softskills) {
-      this.props.softskills.map(id => {
-        fetch(`${soft_skill_api}${id}`)
-        .then(response => {
-          response.json()
-          .then(data => {
-            let softskill = data;
-            this.setState({ softskills: [...this.state.softskills, softskill] })
-          })
-        })
-      })
-    }
-
-  }
-
   renderDomainLabels() {
     if(this.props.domains) {
       if(this.props.domains.length) {
-        if(this.state.domains.length === this.props.domains.length
-          && this.state.languages.length === this.props.languages.length)
-          return this.state.domains.map(domain => {
-            return (
-              <Label
-                as={Link}
-                to={`/technical/knowledge-base/domains/${domain.id}/`}
-                >
-                {domain.domain_name}
-              </Label>
-            )
-          })
-        }
+        return this.props.domains.map(domain => {
+          return (
+            <Label
+              className='course-label'
+              as={Link}
+              to={`/technical/domains/${domain.id}/`}
+              >
+              {domain.domain_name}
+            </Label>
+          )
+        })
       }
+    }
   }
   renderLanguageLabels() {
     if(this.props.languages) {
       if(this.props.languages.length) {
 
-        if(this.state.domains.length === this.props.domains.length
-          && this.state.languages.length === this.props.languages.length)
-          return this.state.languages.map(language => {
-            return (
-              <Label
-                as={Link}
-                to={`/technical/knowledge-base/languages/${language.id}/`}
-                >
-                {language.language_name}
-              </Label>
-            )
-          })
-          return <div>Loading...</div>
-        }
+        return this.props.languages.map(language => {
+          return (
+            <Label
+              className='course-label'
+              as={Link}
+              to={`/technical/languages/${language.id}/`}
+              >
+              {language.language_name}
+            </Label>
+          )
+        })
       }
+    }
   }
 
   renderSoftSkillLabels() {
     if(this.props.softskills) {
       if(this.props.softskills.length) {
-
-        if(this.state.softskills.length === this.props.softskills.length)
-        return this.state.softskills.map(softskill => {
+        return this.props.softskills.map(softskill => {
           return (
             <Label
+              className='course-label'
               as={Link}
               to={`/soft-skills/${softskill.id}/`}
               >
@@ -110,18 +66,17 @@ export default class CourseLabels extends Component {
             </Label>
           )
         })
-        return <div>Loading...</div>
       }
-      }
+    }
   }
 
   render() {
     return (
-      <div>
+      <StyledLabels>
         {this.renderDomainLabels()}
         {this.renderLanguageLabels()}
         {this.renderSoftSkillLabels()}
-      </div>
+      </StyledLabels>
     )
   }
 }

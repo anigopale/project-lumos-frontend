@@ -106,6 +106,7 @@ class Wikipedia extends Component {
       <div>
         <Form onSubmit={this.handleSearch}>
           <Input
+            fluid
             onChange={(event) => {this.setState({ term: event.target.value })}}
             value={this.state.term}
             icon='wikipedia'
@@ -119,18 +120,16 @@ class Wikipedia extends Component {
             onClose={this.handleCloseModal}
             >
             <Modal.Header>
-              <Container text>
-                <Header as='h2' icon>
-                  <Icon name='wikipedia' />
-                  <Header sub>Wikipedia</Header>
-                </Header>
-            </Container>
+              <Header sub><Icon name='wikipedia' />Wikipedia</Header>
             </Modal.Header>
-            <Modal.Content>
-              <Container text>
-                {this.renderContent()}
-              </Container>
+            <Modal.Content scrolling>
+              {this.renderContent()}
             </Modal.Content>
+            <Modal.Actions>
+             <Button color='blue' onClick={this.handleCloseModal}>
+               Close
+             </Button>
+           </Modal.Actions>
           </Modal>
       </div>
     )

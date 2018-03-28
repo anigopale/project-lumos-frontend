@@ -3,6 +3,7 @@ import { Breadcrumb, Container, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import NavBar from '../../common-components/navbar';
 import SoftSkills from '../../navigation/soft-skills';
+import FeedbackForm from '../../common-components/feedback-form';
 
 export default class SoftSkillsPage extends Component {
   render() {
@@ -18,6 +19,7 @@ export default class SoftSkillsPage extends Component {
           </Breadcrumb>
         </Container>
         <SoftSkills {...this.props} />
+        <FeedbackForm />
       </div>
     )
   }

@@ -3,6 +3,7 @@ import { Breadcrumb, Container, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import NavBar from '../../common-components/navbar';
 import Languages from '../../navigation/languages';
+import FeedbackForm from '../../common-components/feedback-form';
 
 export default class LanguagePage extends Component {
   render() {
@@ -16,12 +17,11 @@ export default class LanguagePage extends Component {
             <Breadcrumb.Divider icon='right angle' />
             <Breadcrumb.Section as={Link} to='/technical'>Technical Skills</Breadcrumb.Section>
             <Breadcrumb.Divider icon='right angle' />
-            <Breadcrumb.Section as={Link} to='/technical/knowledge-base'>Knowledge Base</Breadcrumb.Section>
-            <Breadcrumb.Divider icon='right angle' />
             <Breadcrumb.Section active>Languages</Breadcrumb.Section>
           </Breadcrumb>
         </Container>
         <Languages {...this.props} />
+        <FeedbackForm />
       </div>
     )
   }

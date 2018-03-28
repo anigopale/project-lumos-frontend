@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Segment, Grid, Divider, Header, Dimmer, Loader, Menu, Card, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import NavItem from '../../common-components/nav-item';
 import { fetchDomains, deleteDomains } from './actions';
 
 class Domains extends Component {
@@ -70,18 +71,18 @@ class Domains extends Component {
 
   renderDomains() {
     return this.props.domains.results.map((domain) => {
+      let { id, domain_name, slug, description, icon } = domain;
+      let domainData = {
+        id,
+        slug,
+        name: domain_name,
+        description,
+        icon
+      }
+      let coursesPageUrl = `/technical/domains/${id}`;
       return (
         <Grid.Column>
-          <Card
-            as={Link}
-            to={`/technical/knowledge-base/domains/${domain.id}/`}
-            fluid
-            >
-            <Image src={domain.icon} alt='' />
-            <Card.Content extra>
-              {domain.domain_name}
-            </Card.Content>
-          </Card>
+          <NavItem data={domainData} coursesPageUrl={coursesPageUrl} />
         </Grid.Column>
       )
     })
@@ -89,21 +90,19 @@ class Domains extends Component {
 
   renderBody() {
     if(this.props.domains.error) {
-      this.props.history.push('/404');
+      this.props.history.push('/400');
       return;
     }
     if(this.props.domains.count) {
       return (
-        <Grid columns={3} stretched doubling centered padded relaxed='very'>
+        <Grid columns={3} stretched doubling centered>
           {this.renderDomains()}
         </Grid>
       )
     }
     return (
       <Segment basic>
-        <Dimmer active inverted>
-          <Loader size='medium' />
-        </Dimmer>
+        <Loader size='medium' active />
       </Segment>
     )
   }
@@ -113,7 +112,6 @@ class Domains extends Component {
       <div>
         <Container>
           <Segment textAlign='center' basic>
-            <Divider hidden />
             <Header as='h1' textAlign='center'>
               <Header sub>Browse courses by</Header>
               Domains

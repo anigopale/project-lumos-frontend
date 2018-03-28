@@ -7,6 +7,14 @@ import CourseItem from '../course-item';
 class SearchBar extends Component {
   state = { term: "", openModal: false };
 
+  componentWillReceiveProps(nextProps) {
+    // if url params changes, close the modal
+    let { urlParams } = this.props;
+    if(urlParams !== nextProps.urlParams) {
+      this.handleCloseModal();
+    }
+  }
+
   handleSearch = () => {
     if(this.state.term) {
       this.setState({ openModal: true });
@@ -78,15 +86,17 @@ class SearchBar extends Component {
           </Form>
         </Responsive>
         <Responsive maxWidth='480'>
-          <Popup
-            trigger={<Icon name='search' />}
-            on='click'
-            content={
-              <Form onSubmit={this.handleSearch}>
-                <Input icon='search' onChange={(event) => {this.setState({ term: event.target.value })}} />
-              </Form>
-            }
-            />
+          <Segment basic>
+            <Popup
+              trigger={<Icon name='search' />}
+              on='click'
+              content={
+                <Form onSubmit={this.handleSearch}>
+                  <Input icon='search' onChange={(event) => {this.setState({ term: event.target.value })}} />
+                </Form>
+              }
+              />
+          </Segment>
         </Responsive>
 
         <Modal
@@ -96,7 +106,7 @@ class SearchBar extends Component {
           <Modal.Header>
             Results for "{this.state.term}":
           </Modal.Header>
-          <Modal.Content>
+          <Modal.Content scrolling>
             <Container text>
               {this.renderSearchResults()}
             </Container>
@@ -104,6 +114,11 @@ class SearchBar extends Component {
               {this.renderShowMoreButton()}
             </Segment>
           </Modal.Content>
+          <Modal.Actions>
+           <Button color='blue' onClick={this.handleCloseModal}>
+             Close
+           </Button>
+         </Modal.Actions>
         </Modal>
       </div>
     )

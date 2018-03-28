@@ -177,6 +177,17 @@ class Classroom extends Component {
     document.body.style = 'overflow-y: auto';
   }
 
+  renderRatingComponents() {
+    return [
+      <Feedback courseTitle={this.props.course.title} urlParams={this.props.match.params} path={this.props.location.pathname} />,
+      <Transition visible={this.state.ratings} animation='fade down' duration={500}>
+        <Segment className='ratings'>
+          <Ratings ratings={this.props.course.ratings} />
+        </Segment>
+      </Transition>
+    ]
+  }
+
   renderBackButton() {
     // check if location.state exists, as passed by Courses component
     // render back button only if user reaches Classroom through Courses page
@@ -218,12 +229,7 @@ class Classroom extends Component {
             <Resource url={this.props.course.link_url} type={type} />
             <Divider />
             <Button onClick={() => this.setState({ ratings: !this.state.ratings })} color={this.state.ratings ? 'teal' : ''}>Ratings</Button>
-            <Feedback courseTitle={this.props.course.title} />
-            <Transition visible={this.state.ratings} animation='fade down' duration={500}>
-              <Segment className='ratings'>
-                <Ratings />
-              </Segment>
-            </Transition>
+            {this.renderRatingComponents()}
           </div>
         )
        }
@@ -238,12 +244,7 @@ class Classroom extends Component {
           </Segment>
           <Divider />
           <Button onClick={() => this.setState({ ratings: !this.state.ratings })} color={this.state.ratings ? 'teal' : ''}>Ratings</Button>
-          <Feedback courseTitle={this.props.course.title} />
-          <Transition visible={this.state.ratings} animation='fade down' duration={500}>
-            <Segment className='ratings'>
-              <Ratings />
-            </Segment>
-          </Transition>
+          {this.renderRatingComponents()}
         </div>
       )
     }

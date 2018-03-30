@@ -13,7 +13,7 @@ export default class DomainPage extends Component {
         <Container>
           <Divider hidden />
           <Breadcrumb>
-            <Breadcrumb.Section as='a' href='http://www.projectlumos.pw'>Home</Breadcrumb.Section>
+            <Breadcrumb.Section as='a' href='https://www.projectlumos.pw'>Home</Breadcrumb.Section>
             <Breadcrumb.Divider icon='right angle' />
             <Breadcrumb.Section as={Link} to='/technical'>Technical Skills</Breadcrumb.Section>
             <Breadcrumb.Divider icon='right angle' />

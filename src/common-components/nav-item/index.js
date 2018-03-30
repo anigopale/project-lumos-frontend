@@ -64,21 +64,21 @@ export default class NavItem extends Component {
   render() {
     return (
       <Transition visible={this.state.visible} animation='fade up' duration={500}>
-      <StyledCard>
-        <Link to={this.props.coursesPageUrl}>
-          <Card
-            className='nav-card'
-            fluid
-            >
-            <div className='nav-card-head'>
-              <span>
-                {this.props.data.name}
-              </span>
-            </div>
+        <StyledCard>
+          <Link to={this.props.coursesPageUrl}>
+            <Card
+              className='nav-card'
+              fluid
+              >
+              <div className='nav-card-head'>
+                <span>
+                  {this.props.data.name}
+                </span>
+              </div>
 
-          </Card>
-          </Link>
-      </StyledCard>
+            </Card>
+            </Link>
+        </StyledCard>
       </Transition>
     )
   }

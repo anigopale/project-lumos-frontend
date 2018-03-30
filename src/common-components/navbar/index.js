@@ -49,7 +49,7 @@ export default class NavBar extends Component {
             {this.renderHamburgerButton()}
             <Menu.Item
               as='a'
-              href='http://www.projectlumos.pw'
+              href='https://www.projectlumos.pw'
               >
               <Header as='h3' inverted>
                 PROJECT LUMOS

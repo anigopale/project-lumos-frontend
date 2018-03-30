@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
 import { Segment, Progress, Label } from 'semantic-ui-react';
+import styled from 'styled-components';
+
+const StyledRatings = styled.div`
+  .ui.progress .bar {
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(216, 62, 62);
+  }
+`;
+
 
 export default class Ratings extends Component {
   renderRatings() {
@@ -13,7 +30,7 @@ export default class Ratings extends Component {
       return Object.keys(ratings).map((key => {
         return (
           <div>
-            {key}: <Progress value={ratings[key]} total='5' size='small' progress='ratio' color='green'/>
+            {key}: <Progress className='ratings' value={ratings[key]} total='5' size='small' progress='ratio' />
           </div>
         )
       }))
@@ -25,9 +42,9 @@ export default class Ratings extends Component {
 
   render() {
     return (
-      <div>
+      <StyledRatings>
         {this.renderRatings()}
-      </div>
+      </StyledRatings>
     )
   }
 }

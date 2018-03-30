@@ -5,7 +5,7 @@ import { Card, Container, Header, Segment, Grid, Button, Divider } from 'semanti
 
 export default class Home extends Component {
   componentWillMount() {
-    window.location = 'http://www.projectlumos.pw';
+    window.location = 'https://www.projectlumos.pw';
   }
 
   render() {

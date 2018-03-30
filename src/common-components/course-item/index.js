@@ -165,29 +165,28 @@ export default class CourseItem extends Component {
   render() {
     return (
       <Transition visible={this.state.visible} animation='fade up' duration={500}>
-
-      <StyledCourseItem skillLevel={this.props.course.skill_level}>
-        <Segment clearing className='course-item'>
-          <div className='course-skill-level'>
-            {this.renderIcon()}
-            <span>{this.renderSkillLevel(this.props.course.skill_level)}</span>
-          </div>
-          <Link
-            to={{
-              pathname: `/classroom/${this.props.courseType}/${this.props.course.id}`,
-              state: { fromCourses: this.props.fromCourses }
-            }}
-            >
-            <h3>
-              {this.props.course.title}
-            </h3>
-          </Link>
-          <p className='description'>
-            {this.renderDescription()}
-          </p>
-          <CourseLabels languages={this.props.course.languages} domains={this.props.course.domains} softskills={this.props.course.soft_skill} />
-        </Segment>
-      </StyledCourseItem>
+        <StyledCourseItem skillLevel={this.props.course.skill_level}>
+          <Segment clearing className='course-item'>
+            <div className='course-skill-level'>
+              {this.renderIcon()}
+              <span>{this.renderSkillLevel(this.props.course.skill_level)}</span>
+            </div>
+            <Link
+              to={{
+                pathname: `/classroom/${this.props.courseType}/${this.props.course.id}`,
+                state: { fromCourses: this.props.fromCourses }
+              }}
+              >
+              <h3>
+                {this.props.course.title}
+              </h3>
+            </Link>
+            <p className='description'>
+              {this.renderDescription()}
+            </p>
+            <CourseLabels languages={this.props.course.languages} domains={this.props.course.domains} softskills={this.props.course.soft_skill} />
+          </Segment>
+        </StyledCourseItem>
     </Transition>
     )
   }

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const StyledNotFound = styled.div`
   color: #00AA8D;
-  
+
   .header {
     color: #00AA8D !important;
   }
@@ -45,7 +45,7 @@ export default class NotFoundPage extends Component {
                   </Header>
                   PAGE NOT FOUND
                 </p>
-                <Button as='a' href='http://www.projectlumos.pw'>Back to Home</Button>
+                <Button as='a' href='https://www.projectlumos.pw'>Back to Home</Button>
               </div>
             </Grid.Column>
           </Grid>

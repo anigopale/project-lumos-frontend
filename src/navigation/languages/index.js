@@ -97,7 +97,6 @@ class Languages extends Component {
         <Container>
           <Segment basic textAlign='center'>
             <Header as='h1' textAlign='center'>
-              <Header sub>Browse courses by</Header>
               Languages
             </Header>
             <Divider />

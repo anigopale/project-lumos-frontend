@@ -4,7 +4,7 @@ export const FETCH_WIKTIONARY = 'fetch-wiktionary';
 export const EMPTY_WIKTIONARY = 'empty-wiktionary';
 export const ERROR_WIKTIONARY = 'error-wiktionary';
 
-const url = 'https://pl-backend-development.herokuapp.com/dict/';
+const url = 'https://pl-backend-staging.herokuapp.com/dict/';
 
 export function wiktionarySearch(term) {
   return function(dispatch) {

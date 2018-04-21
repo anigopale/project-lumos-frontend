@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Image, Transition } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { CARD_BACKGROUND, CARD_BACKGROUND_HOVER, SITE_PRIMARY } from '../../common-services/color-palette';
 
 const StyledCard = styled.div`
   .nav-card {
-    background-color: #eeeeee;
+    background-color: ${CARD_BACKGROUND};
     transition: .2s ease;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     height: 200px;
@@ -25,7 +26,7 @@ const StyledCard = styled.div`
       background-repeat: no-repeat;
       background-size: cover;
       height: 100%;
-      border-bottom: solid #00AA8D;
+      border-bottom: solid ${SITE_PRIMARY};
       {
         span {
           position: relative;
@@ -36,7 +37,7 @@ const StyledCard = styled.div`
     }
 
     &:hover {
-      background-color: #f2f2f2;
+      background-color: ${CARD_BACKGROUND_HOVER};
       box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.2);
       transition: .2s ease;
       transform: translate(0, -1%);

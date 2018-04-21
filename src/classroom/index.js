@@ -10,6 +10,7 @@ import Feedback from './components/feedback'
 import Related from './components/related';
 import { KNOWLEDGE_BASE, RANDOM, SOFT_SKILLS } from '../common-services/course_types';
 import styled, { keyframes } from 'styled-components';
+import { SIDEBAR_BACKGROUND, SITE_PRIMARY } from '../common-services/color-palette';
 
 const StyledContent = styled.div`
   padding: 10px;
@@ -58,7 +59,7 @@ const LeftSideBarBackground = styled.div`
   top: 0px;
   bottom: 0px;
   height: 100vh;
-  background-color: #fafafa;
+  background-color: ${SIDEBAR_BACKGROUND};
   width: 25%;
   overflow-y: auto;
   visibility: visible;
@@ -74,7 +75,7 @@ const RightSideBarBackground = styled.div`
   bottom: 0px;
   right: 0px;
   height: 100vh;
-  background-color: #fafafa;
+  background-color: ${SIDEBAR_BACKGROUND};
   width: 25%;
   overflow-y: auto;
   visibility: visible;
@@ -131,7 +132,7 @@ const MobileSidebar = styled.div`
   width: 100%;
 
   i {
-    color: #00AA8D;
+    color: ${SITE_PRIMARY};
     position: fixed;
     top: 10px;
     right: 0px;
@@ -145,18 +146,18 @@ const MobileSidebar = styled.div`
 
 const StyledClassroom = styled.div`
   .card-header {
-    background-color: #00AA8D !important;
+    background-color: ${SITE_PRIMARY} !important;
     color: white !important;
   }
   button {
 
     &:hover {
       color: #F5F5F5 !important;
-      background-color: #00AA8D !important;
+      background-color: ${SITE_PRIMARY} !important;
     }
     &:active {
       color: #F5F5F5 !important;
-      background-color: #00AA8D !important;
+      background-color: ${SITE_PRIMARY} !important;
     }
   }
 

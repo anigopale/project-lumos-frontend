@@ -3,10 +3,11 @@ import { Menu, Header, Segment, Container, Icon, Divider } from 'semantic-ui-rea
 import { Link } from 'react-router-dom';
 import SearchBar from '../search-bar';
 import styled from 'styled-components';
+import { SITE_PRIMARY, NAVBAR_COLOR_2 } from '../../common-services/color-palette';
 
 const StyledHamburger = styled.div`
   .styled-menu {
-    background: linear-gradient(135deg, #00AA8D 0%, #009194 100%) !important;
+    background: linear-gradient(135deg, ${SITE_PRIMARY} 0%, ${NAVBAR_COLOR_2} 100%) !important;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2) !important;
   }
 

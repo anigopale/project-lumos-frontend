@@ -18,12 +18,13 @@ import {
   Icon
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import styled, { keyframes } from 'styled-components';
 import { fetchCourses, deleteCourses, fetchMoreCourses } from './actions';
 import Filters from './components/filters';
 import CourseItem from '../../common-components/course-item';
 import CourseBreadcrumbs from './components/course-breadcrumbs';
 import { DOMAINS, LANGUAGES, SOFT_SKILLS, KNOWLEDGE_BASE, RANDOM } from '../../common-services/course_types';
-import styled, {keyframes} from 'styled-components';
+import { SIDEBAR_BACKGROUND, SITE_PRIMARY } from '../../common-services/color-palette'
 
 const showSideBar = keyframes`
 0% {
@@ -52,7 +53,7 @@ const StyledFilter = styled.div`
   z-index: 2 !important;
 
   .menu {
-    background-color: #fafafa !important;
+    background-color: ${SIDEBAR_BACKGROUND} !important;
   }
 
   @media only screen and (max-width: 768px) {
@@ -69,10 +70,10 @@ const MobileSidebar = styled.div`
   z-index: 2 !important;
   .menu {
     padding: 0 20px 0 20px;
-    background-color: #fafafa !important;
+    background-color: ${SIDEBAR_BACKGROUND} !important;
   }
   i {
-    color: #00AA8D;
+    color: ${SITE_PRIMARY};
     position: fixed;
     top: 10px;
     right: 0px;

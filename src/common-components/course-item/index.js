@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import CourseLabels from './components/course-labels';
 import { BG, IT, AD } from '../../common-services/skill-levels';
 import styled from 'styled-components';
+import { BEGINNER_COLOR, INTERMEDIATE_COLOR, ADVANCED_COLOR } from '../../common-services/color-palette'
 
 const StyledCourseItem = styled.div`
   .course-item {
@@ -23,11 +24,11 @@ const StyledCourseItem = styled.div`
   .skill-level-ribbon {
     background-color: ${props => {
         if(props.skillLevel === BG)
-          return '#05c46b'
+          return `${BEGINNER_COLOR}`
         if(props.skillLevel === IT)
-          return '#ffc048'
+          return `${INTERMEDIATE_COLOR}`
         if(props.skillLevel === AD)
-          return '#d63031'
+          return `${ADVANCED_COLOR}`
       }
     };
     color: white;

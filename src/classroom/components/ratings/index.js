@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Segment, Progress, Label } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { RATINGS_PROGRESS_BAR } from '../../../common-services/color-palette';
 
 const StyledRatings = styled.div`
   .ui.progress .bar {
@@ -13,7 +14,7 @@ const StyledRatings = styled.div`
     background-attachment: initial;
     background-origin: initial;
     background-clip: initial;
-    background-color: rgb(216, 62, 62);
+    background-color: ${RATINGS_PROGRESS_BAR};
   }
 `;
 

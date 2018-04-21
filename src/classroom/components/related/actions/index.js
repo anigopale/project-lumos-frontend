@@ -2,7 +2,7 @@ import { apiCall } from '../../../../common-services/api-call';
 
 export const FETCH_RELATED = 'fetch-related';
 
-const url = 'https://pl-backend-development.herokuapp.com/wiki/';
+const url = 'https://pl-backend-staging.herokuapp.com/wiki/';
 
 
 export function fetchRelatedData(data, type) {

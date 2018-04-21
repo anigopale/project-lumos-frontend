@@ -31,7 +31,7 @@ export default class Technical extends Component {
         <Container>
           <Divider hidden />
           <Breadcrumb>
-            <Breadcrumb.Section as={Link} to='/'>Home</Breadcrumb.Section>
+            <Breadcrumb.Section as='a' href='https://www.projectlumos.pw'>Home</Breadcrumb.Section>
             <Breadcrumb.Divider icon='right angle' />
             <Breadcrumb.Section active>Technical Skills</Breadcrumb.Section>
           </Breadcrumb>

@@ -113,7 +113,6 @@ class Domains extends Component {
         <Container>
           <Segment textAlign='center' basic>
             <Header as='h1' textAlign='center'>
-              <Header sub>Browse courses by</Header>
               Domains
             </Header>
             <Divider />

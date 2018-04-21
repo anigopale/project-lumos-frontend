@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Input, Modal, Responsive, Icon, Popup, Button, Dimmer, Loader, Segment, Container, Label } from 'semantic-ui-react';
+import { Form, Input, Modal, Responsive, Icon, Popup, Button, Dimmer, Loader, Segment, Container, Label, Transition, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { fetchCourses, fetchMoreCourses, deleteCourses } from './actions';
 import CourseItem from '../course-item';
+import styled from 'styled-components';
+
+const StyledTagButtons = styled.div`
+  .tag-label {
+    margin: 2px;
+  }
+`;
 
 class SearchBar extends Component {
   state = { term: "", openModal: false };
@@ -17,10 +24,13 @@ class SearchBar extends Component {
   }
 
   handleSearch = () => {
-    if(this.state.term) {
+    let { term } = this.state;
+    term = term.trim();
+    term = term.replace(/[^a-zA-Z0-9 ]/g, "");
+    if(term) {
       this.setState({ openModal: true });
       this.props.deleteCourses();
-      this.props.fetchCourses(this.state.term);
+      this.props.fetchCourses(term);
     }
   }
 
@@ -46,11 +56,13 @@ class SearchBar extends Component {
         )
       }
       return (
-        <Button
-          onClick={this.handleClick}
-          >
-          show more
-        </Button>
+        <div style={{ textAlign: 'center' }}>
+          <Button
+            onClick={this.handleClick}
+            >
+            show more
+          </Button>
+        </div>
       )
     }
   }
@@ -59,6 +71,8 @@ class SearchBar extends Component {
     return tags.map(tag => {
       return (
         <Label
+          size='large'
+          className='tag-label'
           as={Link}
           to={tag.url}
           >
@@ -71,11 +85,12 @@ class SearchBar extends Component {
   renderTagResults(title, tags) {
     if(tags.length) {
       return (
-        <div>
-          {title}<br />
+        <StyledTagButtons>
+          <h3>{title}</h3>
           {this.renderTags(tags)}
           <br />
-        </div>
+          <br />
+        </StyledTagButtons>
       )
     }
   }
@@ -124,6 +139,7 @@ class SearchBar extends Component {
         <Responsive maxWidth='480'>
           <Segment basic>
             <Popup
+              style={{ zIndex: 1000 }}
               trigger={<Icon name='search' />}
               on='click'
               content={
@@ -134,29 +150,30 @@ class SearchBar extends Component {
               />
           </Segment>
         </Responsive>
-
-        <Modal
-          open={this.state.openModal}
-          onClose={this.handleCloseModal}
-          >
-          <Modal.Header>
-            Results for "{this.state.term}":
-          </Modal.Header>
-          <Modal.Content scrolling>
-            <Container text>
-              {this.renderSearchResults()}
-              {this.renderAllTags()}
-            </Container>
-            <Segment basic textAlign='center'>
-              {this.renderShowMoreButton()}
-            </Segment>
-          </Modal.Content>
-          <Modal.Actions>
-           <Button color='blue' onClick={this.handleCloseModal}>
-             Close
-           </Button>
-         </Modal.Actions>
-        </Modal>
+        <Transition visible={this.state.openModal} animation='fade down' duration={500}>
+          <Modal
+            open={this.state.openModal}
+            onClose={this.handleCloseModal}
+            >
+            <Modal.Header>
+              Results for "{this.state.term}":
+            </Modal.Header>
+            <Modal.Content scrolling>
+              <Container text>
+                {this.renderSearchResults()}
+                <Divider />
+                {this.renderAllTags()}
+                <Divider hidden />
+                {this.renderShowMoreButton()}
+              </Container>
+            </Modal.Content>
+            <Modal.Actions>
+             <Button onClick={this.handleCloseModal}>
+               Close
+             </Button>
+           </Modal.Actions>
+          </Modal>
+        </Transition>
       </div>
     )
   }

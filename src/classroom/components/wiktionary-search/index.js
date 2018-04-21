@@ -13,7 +13,8 @@ import {
   Container,
   List,
   Divider,
-  Grid
+  Grid,
+  Transition
 } from 'semantic-ui-react';
 import { wiktionarySearch, emptyReducer } from './actions';
 
@@ -123,30 +124,30 @@ class Wiktionary extends Component {
             onChange={(event) => {this.setState({ term: event.target.value })}}
             icon='wikipedia'
             iconPosition='left'
-            placeholder='Search Wiktionary'
-            action={<Button color='teal' icon='search' />}
+            placeholder='Search Dictionary'
+            action={<Button className='search-button' icon='search' />}
             />
         </Form>
-        <Modal
-          open={this.state.openModal}
-          onClose={this.handleCloseModal}
-          >
-          <Modal.Header>
+        <Transition visible={this.state.openModal} animation='fade down' duration={500}>
+          <Modal
+            open={this.state.openModal}
+            onClose={this.handleCloseModal}
+            >
+            <Modal.Header>
+              <Header sub><Icon name='wikipedia' />Dictionary</Header>
+            </Modal.Header>
 
-              <Header sub><Icon name='wikipedia' />Wiktionary</Header>
-
-          </Modal.Header>
-
-          <Modal.Content scrolling>
-            <Header as='h1'>{this.state.term}:</Header>
-            {this.renderContent()}
-          </Modal.Content>
-          <Modal.Actions>
-           <Button color='blue' onClick={this.handleCloseModal}>
-             Close
-           </Button>
-         </Modal.Actions>
-        </Modal>
+            <Modal.Content scrolling>
+              <Header as='h1'>{this.state.term}:</Header>
+              {this.renderContent()}
+            </Modal.Content>
+            <Modal.Actions>
+             <Button onClick={this.handleCloseModal}>
+               Close
+             </Button>
+           </Modal.Actions>
+          </Modal>
+        </Transition>
       </div>
     )
   }

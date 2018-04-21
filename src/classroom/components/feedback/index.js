@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Button, Segment } from 'semantic-ui-react';
+import { Modal, Button, Segment, Transition } from 'semantic-ui-react';
+import { ToastContainer, toast } from 'react-toastify';
 import { postRating } from './actions';
 import styled from 'styled-components';
 
@@ -20,23 +21,23 @@ height: 5px;
 cursor: pointer;
 animate: 0.2s;
 box-shadow: 0px 0px 0px #000000;
-background: #2497E3;
+background: grey;
 border-radius: 1px;
 border: 0px solid #000000;
 }
 input[type=range]::-webkit-slider-thumb {
 box-shadow: 0px 0px 0px #000000;
-border: 1px solid #2497E3;
+border: 1px solid #00AA8D;
 height: 18px;
 width: 18px;
 border-radius: 25px;
-background: #A1D0FF;
+background: white;
 cursor: pointer;
 -webkit-appearance: none;
 margin-top: -7px;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
-background: #2497E3;
+background: #00AA8D;
 }
 input[type=range]::-moz-range-track {
 width: 100%;
@@ -118,13 +119,16 @@ class Feedback extends Component {
     },
   ];
 
+  notify = () => toast("Thank you for rating");
+
   handleSubmit = () => {
     let { attribute_1, attribute_2, attribute_3, attribute_4 } = this.state;
     let { course_type, course_id } = this.props.urlParams;
     let { path } = this.props;
 
-    this.setState({ rated: true });
     this.props.postRating(course_id, course_type, { attribute_1, attribute_2, attribute_3, attribute_4 }, path);
+    this.handleCloseModal();
+    this.notify();
   }
 
   handleCloseModal = () => {
@@ -177,10 +181,10 @@ class Feedback extends Component {
         {this.renderFeedbackSliders()}
       </Modal.Content>,
       <Modal.Actions>
-        <Button color='blue' onClick={this.handleCloseModal}>
+        <Button onClick={this.handleCloseModal}>
           Close
         </Button>
-        <Button color='blue' onClick={this.handleSubmit}>Submit</Button>
+        <Button color='green' onClick={this.handleSubmit}>Submit</Button>
      </Modal.Actions>
     ]
   }
@@ -188,13 +192,16 @@ class Feedback extends Component {
   render() {
     return [
         <Button floated='right' onClick={this.handleOpenModal}>Rate</Button>,
-        <Modal
-          basic={this.state.rated}
-          open={this.state.openModal}
-          onClose={this.handleCloseModal}
-          >
-          {this.renderModalBody()}
-        </Modal>
+        <Transition visible={this.state.openModal} animation='fade down' duration={500}>
+          <Modal
+            basic={this.state.rated}
+            open={this.state.openModal}
+            onClose={this.handleCloseModal}
+            >
+            {this.renderModalBody()}
+          </Modal>
+        </Transition>,
+        <ToastContainer hideProgressBar />
     ]
   }
 }

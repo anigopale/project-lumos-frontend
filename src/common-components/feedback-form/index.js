@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Button, Popup, Form, Segment } from 'semantic-ui-react';
+import { Modal, Button, Popup, Form, Segment, Transition } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
 import { postFeedback } from './actions';
 
 const StyledFeedbackForm = styled.div`
@@ -15,7 +16,10 @@ const StyledFeedbackForm = styled.div`
 
 class FeedbackForm extends Component {
 
-  state = { openModdal: false, text: '', posted: false };
+  state = { openModal: false, text: '', posted: false };
+
+  notify = () => toast("Thank you for your feedback");
+
 
   handleCloseModal = () => {
     this.setState({ openModal: false, posted: false, text: '' });
@@ -28,8 +32,9 @@ class FeedbackForm extends Component {
   handleSubmit = () => {
     let { text } = this.state;
     if(text) {
-      this.setState({ posted: true });
       this.props.postFeedback(text);
+      this.handleCloseModal();
+      this.notify();
     }
   }
 
@@ -54,13 +59,13 @@ class FeedbackForm extends Component {
             onChange={(event) => this.setState({ text: event.target.value })}
             value={this.state.text}
             />
-          <Form.Button onClick={this.handleSubmit}>Submit</Form.Button>
         </Form>
       </Modal.Content>,
       <Modal.Actions>
-        <Button color='blue' onClick={this.handleCloseModal}>
+        <Button onClick={this.handleCloseModal}>
           Close
         </Button>
+        <Button color='green' onClick={this.handleSubmit}>Submit</Button>
      </Modal.Actions>
     ]
   }
@@ -68,6 +73,7 @@ class FeedbackForm extends Component {
   render() {
     return (
       <StyledFeedbackForm>
+        <ToastContainer hideProgressBar />
         <Popup
           trigger={
             <Button
@@ -83,14 +89,15 @@ class FeedbackForm extends Component {
           position='left'
           basic
           />
-
-        <Modal
-          basic={this.state.posted}
-          open={this.state.openModal}
-          onClose={this.handleCloseModal}
-          >
-          {this.renderModalBody()}
-        </Modal>
+        <Transition visible={this.state.openModal} animation='fade down' duration={500}>
+          <Modal
+            basic={this.state.posted}
+            open={this.state.openModal}
+            onClose={this.handleCloseModal}
+            >
+            {this.renderModalBody()}
+          </Modal>
+        </Transition>
       </StyledFeedbackForm>
     )
   }

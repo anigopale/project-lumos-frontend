@@ -10,10 +10,13 @@ import Feedback from './components/feedback'
 import Related from './components/related';
 import { KNOWLEDGE_BASE, RANDOM, SOFT_SKILLS } from '../common-services/course_types';
 import styled, { keyframes } from 'styled-components';
+import { SIDEBAR_BACKGROUND, SITE_PRIMARY } from '../common-services/color-palette';
 
 const StyledContent = styled.div`
   padding: 10px;
-
+  button {
+    background-color: green;
+  }
   .ratings {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   }
@@ -56,7 +59,7 @@ const LeftSideBarBackground = styled.div`
   top: 0px;
   bottom: 0px;
   height: 100vh;
-  background-color: #eeeeee;
+  background-color: ${SIDEBAR_BACKGROUND};
   width: 25%;
   overflow-y: auto;
   visibility: visible;
@@ -72,7 +75,7 @@ const RightSideBarBackground = styled.div`
   bottom: 0px;
   right: 0px;
   height: 100vh;
-  background-color: #eeeeee;
+  background-color: ${SIDEBAR_BACKGROUND};
   width: 25%;
   overflow-y: auto;
   visibility: visible;
@@ -106,6 +109,11 @@ const StyledWikiSidebar = styled.div`
   width: 25%;
   z-index: 2 !important;
   visibility: visible;
+
+  .label {
+    margin: 2px;
+  }
+
   @media only screen and (max-width: 768px) {
     visibility: hidden;
   }
@@ -123,14 +131,37 @@ const MobileSidebar = styled.div`
   overflow-y: auto;
   width: 100%;
 
-i {
-  position: fixed;
-  top: 10px;
-  right: 0px;
-  z-index: 999 !important;
-}
+  i {
+    color: ${SITE_PRIMARY};
+    position: fixed;
+    top: 10px;
+    right: 0px;
+    z-index: 999 !important;
+  }
+  .label {
+    margin: 2px;
+  }
+
 `;
 
+const StyledClassroom = styled.div`
+  .card-header {
+    background-color: ${SITE_PRIMARY} !important;
+    color: white !important;
+  }
+  button {
+
+    &:hover {
+      color: #F5F5F5 !important;
+      background-color: ${SITE_PRIMARY} !important;
+    }
+    &:active {
+      color: #F5F5F5 !important;
+      background-color: ${SITE_PRIMARY} !important;
+    }
+  }
+
+`;
 
 class Classroom extends Component {
   state = { ratings: false };
@@ -239,7 +270,7 @@ class Classroom extends Component {
           <p>{this.props.course.description}</p>
           <Segment clearing basic>
             <a href={this.props.course.link_url} target='_blank' rel='noopener'>
-              <Button floated='right'>go to site <Icon name='right arrow' /></Button>
+              <Button floated='right'>Go to Site <Icon name='right arrow' /></Button>
             </a>
           </Segment>
           <Divider />
@@ -259,13 +290,13 @@ class Classroom extends Component {
 
   render() {
     return (
-      <div>
+      <StyledClassroom>
         <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
           <MobileSidebar>
-            <Icon name='remove circle' size='big' color='teal' onClick={this.toggleSideBar} />
+            <Icon name='remove circle' size='big' onClick={this.toggleSideBar} />
               <Related course={this.props.course} />
               <Segment.Group>
-                <Segment basic inverted color='teal'>Prerequisites</Segment>
+                <Segment  style={{ backgroundColor: 'blue' }} className='card-header'>Prerequisites</Segment>
                 <Segment>
                   <Label>resource name</Label>
                   <Label>resource name</Label>
@@ -301,7 +332,7 @@ class Classroom extends Component {
             <StyledWikiSidebar>
               <Segment basic>
                 <Segment.Group>
-                  <Segment basic inverted color='teal'>
+                  <Segment className='card-header'>
                     Wikipedia
                   </Segment>
                   <Segment>
@@ -309,15 +340,15 @@ class Classroom extends Component {
                   </Segment>
                 </Segment.Group>
                 <Segment.Group>
-                  <Segment basic inverted color='teal'>
-                    Wiktionary
+                  <Segment className='card-header'>
+                    Dictionary
                   </Segment>
                   <Segment>
                     <Wiktionary />
                   </Segment>
                 </Segment.Group>
                 <Segment.Group>
-                  <Segment basic inverted color='teal'>Prerequisites</Segment>
+                  <Segment className='card-header'>Prerequisites</Segment>
                   <Segment>
                     <Label>resource name</Label>
                     <Label>resource name</Label>
@@ -328,7 +359,7 @@ class Classroom extends Component {
             </StyledWikiSidebar>
           </Grid.Column>
         </Grid>
-      </div>
+      </StyledClassroom>
     )
   }
 }

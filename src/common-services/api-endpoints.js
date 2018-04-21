@@ -12,4 +12,4 @@ export const random_data_rating = 'https://pl-backend-staging.herokuapp.com/api/
 
 export const feedback_api = 'https://pl-backend-staging.herokuapp.com/api/feedback/';
 
-export const global_search = 'http://pl-backend-staging.herokuapp.com/api/global-search/';
+export const global_search = 'https://pl-backend-staging.herokuapp.com/api/global-search/';

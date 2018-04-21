@@ -30,7 +30,7 @@ class Related extends Component {
   render() {
     return (
       <Segment.Group>
-        <Segment color='teal' inverted>Related</Segment>
+        <Segment className='card-header'>Related</Segment>
         <Segment>
           {this.renderData()}
         </Segment>

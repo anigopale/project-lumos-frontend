@@ -1,32 +1,56 @@
 import React, { Component } from 'react';
 import { Segment, Grid, Header, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+const StyledNotFound = styled.div`
+  color: #00AA8D;
+
+  .header {
+    color: #00AA8D !important;
+  }
+  a {
+    color: #F5F5F5 !important;
+    background-color: #00AA8D !important;
+    border: 1px solid #00AA8D !important;
+
+
+    &:hover {
+      border: 1px solid #00AA8D !important;
+      color: #00AA8D !important;
+      background-color: #F5F5F5 !important;
+    }
+
+  }
+`;
 
 export default class NotFoundPage extends Component {
   render() {
     return (
-      <Segment basic textAlign='center' color='teal' inverted>
-        <Grid
-          columns={1}
-          textAlign='center'
-          verticalAlign='middle'
-          style={{ height: '100vh' }}
-          >
-          <Grid.Column>
-            <div>
-              <p>
-                <Header inverted>
-                  <Header style={{ fontSize: '10em' }} sub>
-                    404
+      <StyledNotFound>
+        <Segment basic textAlign='center'>
+          <Grid
+            columns={1}
+            textAlign='center'
+            verticalAlign='middle'
+            style={{ height: '100vh' }}
+            >
+            <Grid.Column>
+              <div>
+                <p>
+                  <Header inverted>
+                    <Header style={{ fontSize: '10em' }} sub>
+                      404
+                    </Header>
                   </Header>
-                </Header>
-                PAGE NOT FOUND
-              </p>
-              <Button basic inverted as={Link} to='/'>Back to Home</Button>
-            </div>
-          </Grid.Column>
-        </Grid>
-      </Segment>
+                  PAGE NOT FOUND
+                </p>
+                <Button as='a' href='https://www.projectlumos.pw'>Back to Home</Button>
+              </div>
+            </Grid.Column>
+          </Grid>
+        </Segment>
+      </StyledNotFound>
     )
   }
 }

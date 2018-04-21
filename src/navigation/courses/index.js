@@ -18,12 +18,13 @@ import {
   Icon
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import styled, { keyframes } from 'styled-components';
 import { fetchCourses, deleteCourses, fetchMoreCourses } from './actions';
 import Filters from './components/filters';
 import CourseItem from '../../common-components/course-item';
 import CourseBreadcrumbs from './components/course-breadcrumbs';
 import { DOMAINS, LANGUAGES, SOFT_SKILLS, KNOWLEDGE_BASE, RANDOM } from '../../common-services/course_types';
-import styled, {keyframes} from 'styled-components';
+import { SIDEBAR_BACKGROUND, SITE_PRIMARY } from '../../common-services/color-palette'
 
 const showSideBar = keyframes`
 0% {
@@ -51,6 +52,10 @@ const StyledFilter = styled.div`
   width: 20%;
   z-index: 2 !important;
 
+  .menu {
+    background-color: ${SIDEBAR_BACKGROUND} !important;
+  }
+
   @media only screen and (max-width: 768px) {
     display: none;
   }
@@ -65,8 +70,10 @@ const MobileSidebar = styled.div`
   z-index: 2 !important;
   .menu {
     padding: 0 20px 0 20px;
+    background-color: ${SIDEBAR_BACKGROUND} !important;
   }
   i {
+    color: ${SITE_PRIMARY};
     position: fixed;
     top: 10px;
     right: 0px;
@@ -166,9 +173,10 @@ class Courses extends Component {
       course_type = SOFT_SKILLS;
     }
 
-    return this.props.courses.results.map((course) => {
+    return this.props.courses.results.map((course, index) => {
+      index = index % 10;
       return (
-        <CourseItem course={course} courseType={course_type} fromCourses={true} />
+        <CourseItem course={course} courseType={course_type} fromCourses={true} courseIndex={index} />
       )
     })
   }
@@ -189,15 +197,13 @@ class Courses extends Component {
     if(this.props.courses.next) {
       if(this.props.courses.loading) {
         return (
-            <Dimmer inverted active>
-              <Loader size='medium' />
-            </Dimmer>
+          <div>
+            <Loader active />
+          </div>
         )
       }
       return (
-        <Visibility onUpdate={(e, { calculations }) => {this.handleVisibilityUpdate(calculations)}}>
-          <Divider hidden />
-        </Visibility>
+        <Visibility onUpdate={(e, { calculations }) => {this.handleVisibilityUpdate(calculations)}} />
       )
     }
   }
@@ -264,7 +270,7 @@ class Courses extends Component {
       <div>
         <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
           <MobileSidebar>
-            <Icon name='remove circle' size='big' color='teal' onClick={this.toggleSideBar} />
+            <Icon name='remove circle' size='big' onClick={this.toggleSideBar} />
             <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
           </MobileSidebar>
         </Sidebar>

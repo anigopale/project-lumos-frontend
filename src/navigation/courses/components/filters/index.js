@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Checkbox, Grid, Segment, Divider, Menu } from 'semantic-ui-react';
+import { Form, Checkbox, Grid, Segment, Divider, Menu, Popup } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { DOMAINS, LANGUAGES } from '../../../../common-services/course_types';
 
@@ -184,6 +184,7 @@ class Filters extends Component {
     })
   }
 
+  // render this filter only for 'domains' and 'languages' type courses
   renderSkillLevelMenuItem() {
     let { courseType } = this.props;
     if(courseType === DOMAINS || courseType === LANGUAGES)
@@ -201,6 +202,7 @@ class Filters extends Component {
     )
   }
 
+  // render this filter only for 'domains' and 'languages' type courses
   renderProjectMenuItem() {
     let { courseType } = this.props;
     if(courseType === DOMAINS || courseType === LANGUAGES)
@@ -210,9 +212,15 @@ class Filters extends Component {
           Resource type:
         </Menu.Header>
         <Menu.Item>
-          <Form>
-            {this.renderProjectFilters()}
-          </Form>
+          <Popup
+            trigger={
+              <Form>
+                {this.renderProjectFilters()}
+              </Form>
+            }
+            content={'learn by building projects'}
+            basic
+          />
         </Menu.Item>
       </Menu.Item>
     )

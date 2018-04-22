@@ -9,6 +9,11 @@ const url = 'https://pl-backend-staging.herokuapp.com/wiki/';
 export function wikipediaSearch(term) {
   return function(dispatch) {
     term = term.trim();
+
+    // removing all special characters except for <space>
+    term = term.replace(/[^a-zA-Z0-9 ]/g, "");
+
+    // replacing spaces with "_"
     term = term.replace(/[^a-zA-Z0-9]/g, "_");
 
     apiCall(`${url}${term}/`, 'get')

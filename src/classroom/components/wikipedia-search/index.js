@@ -102,7 +102,6 @@ class Wikipedia extends Component {
   }
 
   render() {
-    console.log(this.props.wikipediaData);
     return (
       <div>
         <Form onSubmit={this.handleSearch}>

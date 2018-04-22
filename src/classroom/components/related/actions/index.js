@@ -10,7 +10,9 @@ export function fetchRelatedData(data, type) {
 
     let term = '';
 
-    term = data.language_name;
+    if(data) {
+      term = data.language_name;
+    }
 
     term = term.trim();
     term = term.replace(/[^a-zA-Z0-9]/g, "_");

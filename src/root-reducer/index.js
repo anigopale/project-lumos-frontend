@@ -7,7 +7,6 @@ import course from '../classroom/reducers/course-reducer';
 import wiktionaryData from '../classroom/components/wiktionary-search/reducers/wiktionary-reducer';
 import wikipediaData from '../classroom/components/wikipedia-search/reducers/wikipedia-reducer';
 import searchResults from '../common-components/search-bar/reducers/search-results-reducer';
-import relatedData from '../classroom/components/related/reducers/related-data-reducer';
 
 const rootReducer = combineReducers({
   domains,
@@ -17,8 +16,7 @@ const rootReducer = combineReducers({
   course,
   wiktionaryData,
   wikipediaData,
-  searchResults,
-  relatedData
+  searchResults
 });
 
 export default rootReducer;

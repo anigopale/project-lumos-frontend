@@ -7,7 +7,7 @@ import Wikipedia from './components/wikipedia-search';
 import Wiktionary from './components/wiktionary-search';
 import Ratings from './components/ratings';
 import Feedback from './components/feedback'
-import Related from './components/related';
+import RecommendedCourses from './components/recommended-courses';
 import { KNOWLEDGE_BASE, RANDOM, SOFT_SKILLS } from '../common-services/course_types';
 import styled, { keyframes } from 'styled-components';
 import { SIDEBAR_BACKGROUND, SITE_PRIMARY } from '../common-services/color-palette';
@@ -294,15 +294,16 @@ class Classroom extends Component {
         <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
           <MobileSidebar>
             <Icon name='remove circle' size='big' onClick={this.toggleSideBar} />
-              <Related course={this.props.course} />
-              <Segment.Group>
-                <Segment  style={{ backgroundColor: 'blue' }} className='card-header'>Prerequisites</Segment>
-                <Segment>
-                  <Label>resource name</Label>
-                  <Label>resource name</Label>
-                  <Label>resource name</Label>
-                </Segment>
-              </Segment.Group>
+              <RecommendedCourses
+                courses={this.props.course.related}
+                courseType={this.props.match.params.course_type}
+                recommendedType='Related'
+                />
+              <RecommendedCourses
+                courses={this.props.course.prerequisites}
+                courseType={this.props.match.params.course_type}
+                recommendedType='Prerequisites'
+                />
             </MobileSidebar>
         </Sidebar>
 
@@ -313,7 +314,11 @@ class Classroom extends Component {
             <LeftSideBarBackground />
             <StyledRelatedSidebar>
               <Segment basic>
-                <Related course={this.props.course} />
+                <RecommendedCourses
+                  courses={this.props.course.related}
+                  courseType={this.props.match.params.course_type}
+                  recommendedType='Related'
+                  />
               </Segment>
             </StyledRelatedSidebar>
           </Grid.Column>
@@ -347,14 +352,11 @@ class Classroom extends Component {
                     <Wiktionary />
                   </Segment>
                 </Segment.Group>
-                <Segment.Group>
-                  <Segment className='card-header'>Prerequisites</Segment>
-                  <Segment>
-                    <Label>resource name</Label>
-                    <Label>resource name</Label>
-                    <Label>resource name</Label>
-                  </Segment>
-                </Segment.Group>
+                <RecommendedCourses
+                  courses={this.props.course.prerequisites}
+                  courseType={this.props.match.params.course_type}
+                  recommendedType='Prerequisites'
+                  />
               </Segment>
             </StyledWikiSidebar>
           </Grid.Column>
@@ -365,6 +367,7 @@ class Classroom extends Component {
 }
 
 function mapStateToProps({ course }) {
+  console.log(course);
   return { course };
 }
 

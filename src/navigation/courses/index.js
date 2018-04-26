@@ -53,6 +53,7 @@ const StyledFilter = styled.div`
   z-index: 2 !important;
 
   .menu {
+    min-height: 100%;
     background-color: ${SIDEBAR_BACKGROUND} !important;
   }
 
@@ -69,6 +70,7 @@ const MobileSidebar = styled.div`
   width: 100%;
   z-index: 2 !important;
   .menu {
+    min-height: 100%;
     padding: 0 20px 0 20px;
     background-color: ${SIDEBAR_BACKGROUND} !important;
   }

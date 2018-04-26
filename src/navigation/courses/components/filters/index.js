@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Form, Checkbox, Grid, Segment, Divider, Menu } from 'semantic-ui-react';
+import { Form, Checkbox, Grid, Segment, Divider, Menu, Popup } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { DOMAINS, LANGUAGES } from '../../../../common-services/course_types';
 
 
 class Filters extends Component {
@@ -183,19 +184,54 @@ class Filters extends Component {
     })
   }
 
+  // render this filter only for 'domains' and 'languages' type courses
+  renderSkillLevelMenuItem() {
+    let { courseType } = this.props;
+    if(courseType === DOMAINS || courseType === LANGUAGES)
+    return (
+      <Menu.Item>
+        <Menu.Header>
+          Skill level:
+        </Menu.Header>
+        <Menu.Item>
+          <Form>
+            {this.renderSkillLevelFilters()}
+          </Form>
+        </Menu.Item>
+      </Menu.Item>
+    )
+  }
+
+  // render this filter only for 'domains' and 'languages' type courses
+  renderProjectMenuItem() {
+    let { courseType } = this.props;
+    if(courseType === DOMAINS || courseType === LANGUAGES)
+    return (
+      <Menu.Item>
+        <Menu.Header>
+          Resource type:
+        </Menu.Header>
+        <Menu.Item>
+          <Popup
+            trigger={
+              <Form>
+                {this.renderProjectFilters()}
+              </Form>
+            }
+            content={'learn by building projects'}
+            basic
+          />
+        </Menu.Item>
+      </Menu.Item>
+    )
+  }
+
   render() {
     return (
           <Menu vertical fluid>
-            <Menu.Item>
-              <Menu.Header>
-                Skill level:
-              </Menu.Header>
-              <Menu.Item>
-                <Form>
-                  {this.renderSkillLevelFilters()}
-                </Form>
-              </Menu.Item>
-            </Menu.Item>
+
+            {this.renderSkillLevelMenuItem()}
+
             <Menu.Item>
               <Menu.Header>
                 Price:
@@ -218,16 +254,7 @@ class Filters extends Component {
               </Menu.Item>
             </Menu.Item>
 
-            <Menu.Item>
-              <Menu.Header>
-                Resource type:
-              </Menu.Header>
-              <Menu.Item>
-                <Form>
-                  {this.renderProjectFilters()}
-                </Form>
-              </Menu.Item>
-            </Menu.Item>
+            {this.renderProjectMenuItem()}
 
           </Menu>
 

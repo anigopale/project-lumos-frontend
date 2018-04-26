@@ -53,6 +53,7 @@ const StyledFilter = styled.div`
   z-index: 2 !important;
 
   .menu {
+    min-height: 100%;
     background-color: ${SIDEBAR_BACKGROUND} !important;
   }
 
@@ -69,6 +70,7 @@ const MobileSidebar = styled.div`
   width: 100%;
   z-index: 2 !important;
   .menu {
+    min-height: 100%;
     padding: 0 20px 0 20px;
     background-color: ${SIDEBAR_BACKGROUND} !important;
   }
@@ -271,14 +273,14 @@ class Courses extends Component {
         <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
           <MobileSidebar>
             <Icon name='remove circle' size='big' onClick={this.toggleSideBar} />
-            <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
+            <Filters courseType={this.props.courseType} getFilters={this.filterCourses} urlParams={this.props.match.params} />
           </MobileSidebar>
         </Sidebar>
         <Divider hidden />
         <Grid stackable>
           <Grid.Column width={3} only='computer tablet'>
             <StyledFilter sidebar={this.props.sidebar}>
-              <Filters getFilters={this.filterCourses} urlParams={this.props.match.params} />
+              <Filters courseType={this.props.courseType} getFilters={this.filterCourses} urlParams={this.props.match.params} />
             </StyledFilter>
           </Grid.Column>
           <Grid.Column width={13}>

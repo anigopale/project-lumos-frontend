@@ -15,6 +15,7 @@ export default class RecommendedCourses extends Component {
       return (
         <Link to={`/classroom/${courseType}/${item.id}`} onClick={this.handleClick}>
           <Segment>
+            <Icon name='caret right' />
             {item.title}
           </Segment>
         </Link>

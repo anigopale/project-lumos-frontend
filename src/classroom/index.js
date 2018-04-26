@@ -131,7 +131,7 @@ const MobileSidebar = styled.div`
   overflow-y: auto;
   width: 100%;
 
-  i {
+  .remove-icon {
     color: ${SITE_PRIMARY};
     position: fixed;
     top: 10px;
@@ -293,7 +293,7 @@ class Classroom extends Component {
       <StyledClassroom>
         <Sidebar as='div' visible={this.props.sidebar} animation='overlay' style={{ width: '100%', backgroundColor: '#eeeeee' }}>
           <MobileSidebar>
-            <Icon name='remove circle' size='big' onClick={this.toggleSideBar} />
+            <Icon className='remove-icon' name='remove circle' size='big' onClick={this.toggleSideBar} />
               <RecommendedCourses
                 collapseSidebar={() => this.props.getSideBar(false)}
                 courses={this.props.course.related}
@@ -371,7 +371,6 @@ class Classroom extends Component {
 }
 
 function mapStateToProps({ course }) {
-  console.log(course);
   return { course };
 }
 

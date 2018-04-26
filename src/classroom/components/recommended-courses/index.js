@@ -5,10 +5,15 @@ import { Link } from 'react-router-dom';
 
 export default class RecommendedCourses extends Component {
 
-  renderCoursesList(courses, courseType) {
+  // passing false "getSideBar" value as props
+  handleClick = () => {
+    this.props.collapseSidebar(false);
+  }
+
+  renderCoursesList = (courses, courseType) => {
     return courses.map(item => {
       return (
-        <Link to={`/classroom/${courseType}/${item.id}`}>
+        <Link to={`/classroom/${courseType}/${item.id}`} onClick={this.handleClick}>
           <Segment>
             {item.title}
           </Segment>

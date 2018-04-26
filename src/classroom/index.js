@@ -295,11 +295,13 @@ class Classroom extends Component {
           <MobileSidebar>
             <Icon name='remove circle' size='big' onClick={this.toggleSideBar} />
               <RecommendedCourses
+                collapseSidebar={() => this.props.getSideBar(false)}
                 courses={this.props.course.related}
                 courseType={this.props.match.params.course_type}
                 recommendedType='Related'
                 />
               <RecommendedCourses
+                collapseSidebar={() => this.props.getSideBar(false)}
                 courses={this.props.course.prerequisites}
                 courseType={this.props.match.params.course_type}
                 recommendedType='Prerequisites'
@@ -315,6 +317,7 @@ class Classroom extends Component {
             <StyledRelatedSidebar>
               <Segment basic>
                 <RecommendedCourses
+                  collapseSidebar={() => this.props.getSideBar(false)}
                   courses={this.props.course.related}
                   courseType={this.props.match.params.course_type}
                   recommendedType='Related'
@@ -353,6 +356,7 @@ class Classroom extends Component {
                   </Segment>
                 </Segment.Group>
                 <RecommendedCourses
+                  collapseSidebar={() => this.props.getSideBar(false)}
                   courses={this.props.course.prerequisites}
                   courseType={this.props.match.params.course_type}
                   recommendedType='Prerequisites'

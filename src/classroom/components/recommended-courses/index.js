@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Icon } from 'semantic-ui-react';
+import { Segment, Icon, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 export default class RecommendedCourses extends Component {
@@ -33,6 +33,18 @@ export default class RecommendedCourses extends Component {
             <Segment className='card-header'>{recommendedType}</Segment>
             <Segment>
               {this.renderCoursesList(courses, courseType)}
+            </Segment>
+          </Segment.Group>
+        )
+      }
+      else if(recommendedType === 'Related'){
+        return (
+          <Segment.Group>
+            <Segment className='card-header'>{recommendedType}</Segment>
+            <Segment>
+              We don't seem to have any similar resources.
+              <Divider />
+              Hope you liked our site!
             </Segment>
           </Segment.Group>
         )

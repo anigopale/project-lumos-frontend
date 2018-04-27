@@ -102,19 +102,19 @@ class Feedback extends Component {
 
   attributes = [
     {
-      name: 'Attribute 1',
+      name: 'Clarity',
       state: 'attribute_1'
     },
     {
-      name: 'Attribute 2',
+      name: 'Informative',
       state: 'attribute_2'
     },
     {
-      name: 'Attribute 3',
+      name: 'Relevant',
       state: 'attribute_3'
     },
     {
-      name: 'Attribute 4',
+      name: 'Completeness',
       state: 'attribute_4'
     },
   ];

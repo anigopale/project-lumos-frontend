@@ -20,6 +20,14 @@ const StyledRatings = styled.div`
 
 
 export default class Ratings extends Component {
+
+  ratings = {
+    attribute_1: 'Clarity',
+    attribute_2: 'Informative',
+    attribute_3: 'Relevant',
+    attribute_4: 'Completeness'
+  }
+
   renderRatings() {
     let flag = true;
     let { ratings } = this.props;
@@ -31,7 +39,7 @@ export default class Ratings extends Component {
       return Object.keys(ratings).map((key => {
         return (
           <div>
-            {key}: <Progress className='ratings' value={ratings[key]} total='5' size='small' progress='ratio' />
+            {this.ratings[key]} <Progress className='ratings' value={ratings[key]} total='5' size='small' progress='ratio' />
           </div>
         )
       }))

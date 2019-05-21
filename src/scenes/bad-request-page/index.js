@@ -48,7 +48,7 @@ export default class BadRequestPage extends Component {
                     <Header sub>Your request resulted in an error</Header>
                   </Header>
                 </p>
-                <Button as='a' href='https://www.projectlumos.pw'>Back to Home</Button>
+                <Button as={Link} to='/'>Back to Home</Button>
               </div>
             </Grid.Column>
           </Grid>

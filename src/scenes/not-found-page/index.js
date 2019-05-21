@@ -45,7 +45,7 @@ export default class NotFoundPage extends Component {
                   </Header>
                   PAGE NOT FOUND
                 </p>
-                <Button as='a' href='https://www.projectlumos.pw'>Back to Home</Button>
+                <Button as={Link} to='/'>Back to Home</Button>
               </div>
             </Grid.Column>
           </Grid>

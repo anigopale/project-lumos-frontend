@@ -4,7 +4,7 @@ export const FETCH_WIKIPEDIA = 'fetch-wikipedia';
 export const EMPTY_WIKIPEDIA = 'empty-wikipedia';
 export const ERROR_WIKIPEDIA = 'error-wikipedia';
 
-const url = 'https://pl-backend-staging.herokuapp.com/wiki/';
+const url = 'https://pl-backend-development.herokuapp.com/wiki/';
 
 export function wikipediaSearch(term) {
   return function(dispatch) {
